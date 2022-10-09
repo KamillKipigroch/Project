@@ -1,5 +1,7 @@
-package CosplayCostumes.user;
+package CosplayCostumes.user.model;
 
+import CosplayCostumes.app.model.Opinion;
+import CosplayCostumes.app.model.Order;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 @Getter
 @Setter
@@ -29,16 +30,31 @@ public class User implements UserDetails {
             generator = "user_s"
     )
     private Long id;
+
+    @OneToMany
+    @JoinColumn(name = "opinion_id")
+    private Set<Opinion> opinion;
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private Set<Order> orders;
     private String firstName;
+
     private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     private String email;
+
     private String password;
 
     private String image;
 
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private String token;
+
     private Boolean locked;
+
     private Boolean enabled;
 
     public User(String firstName, String lastName, String email, String password, UserRole userRole) {
@@ -47,6 +63,8 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.userRole = userRole;
+        this.opinion = new HashSet<>();
+        this.orders = new HashSet<>();
         this.locked = false;
         this.enabled = false;
     }

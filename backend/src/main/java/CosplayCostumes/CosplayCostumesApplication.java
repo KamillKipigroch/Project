@@ -16,7 +16,6 @@ public class CosplayCostumesApplication {
 		SpringApplication.run(CosplayCostumesApplication.class, args);
 	}
 
-
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();

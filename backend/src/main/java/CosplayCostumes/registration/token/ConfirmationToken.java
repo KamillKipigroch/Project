@@ -1,6 +1,6 @@
 package CosplayCostumes.registration.token;
 
-import CosplayCostumes.user.User;
+import CosplayCostumes.user.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

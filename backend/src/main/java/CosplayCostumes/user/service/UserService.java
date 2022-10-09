@@ -1,7 +1,9 @@
-package CosplayCostumes.user;
+package CosplayCostumes.user.service;
 
 import CosplayCostumes.registration.token.ConfirmationToken;
 import CosplayCostumes.registration.token.ConfirmationTokenService;
+import CosplayCostumes.user.model.User;
+import CosplayCostumes.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,12 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
     private final static String USER_NOT_FOUND = "Failed to find user with username ";
     private final static String EMAIL_IS_TAKEN = "Email is already taken ";
+    private final static String CANT_LOGIN = "Email or password its incorrect";
     private final UserRepository userRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -37,7 +41,7 @@ public class UserService implements UserDetailsService {
         boolean userExist =
                 userRepository.findUserByEmail(newUser.getEmail()).isPresent();
 
-        if(userExist) {
+        if (userExist) {
             throw new IllegalStateException(EMAIL_IS_TAKEN);
         }
 
@@ -61,6 +65,35 @@ public class UserService implements UserDetailsService {
         );
         return token;
     }
+
+    public User loginUser(User user) {
+        if (user == null) {
+            throw new IllegalStateException(USER_NOT_FOUND);
+        }
+        User loginUser = userRepository.findUserByEmail(user.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND + user.getEmail()));
+
+        if (Objects.equals(bCryptPasswordEncoder.encode(loginUser.getPassword()), bCryptPasswordEncoder.encode(user.getPassword()))) {
+            loginUser.setToken(UUID.randomUUID().toString());
+            return userRepository.save(loginUser);
+        } else
+            throw new IllegalStateException(CANT_LOGIN);
+    }
+
+    public void logoutUser(User user) {
+        if (user == null) {
+            throw new IllegalStateException(USER_NOT_FOUND);
+        }
+        User loginUser = userRepository.findUserByEmail(user.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND + user.getEmail()));
+
+        if (Objects.equals(bCryptPasswordEncoder.encode(loginUser.getPassword()), bCryptPasswordEncoder.encode(user.getPassword()))) {
+            loginUser.setToken(null);
+            userRepository.save(loginUser);
+        } else
+            throw new IllegalStateException(CANT_LOGIN);
+    }
+
     public int enableUser(String email) {
         return userRepository.enableUser(email);
     }

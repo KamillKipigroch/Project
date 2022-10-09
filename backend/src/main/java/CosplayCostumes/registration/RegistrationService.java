@@ -4,9 +4,9 @@ package CosplayCostumes.registration;
 import CosplayCostumes.registration.token.ConfirmationToken;
 import CosplayCostumes.registration.token.ConfirmationTokenService;
 import CosplayCostumes.sender.EmailSender;
-import CosplayCostumes.user.User;
-import CosplayCostumes.user.UserRole;
-import CosplayCostumes.user.UserService;
+import CosplayCostumes.user.model.User;
+import CosplayCostumes.user.model.UserRole;
+import CosplayCostumes.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,7 +95,7 @@ public class RegistrationService {
                 "        <p></p>\n" +
                 "        <blockquote\n" +
                 "          style=\"background-color: #f2f1ef;padding:12pt;font-size:19px\">\n" +
-                "          <a href=\""+ link +"\">Activate your account in TravelAgency !</a>\n" +
+                "          <a href=\""+ link +"\">Activate your account in CosplayCostumes !</a>\n" +
                 "        </blockquote>\n" +
                 "        Link will expire in 15 minutes. <p>See you soon</p>\n" +
                 "      </td>\n" +

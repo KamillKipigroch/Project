@@ -1,6 +1,6 @@
 package CosplayCostumes.security.config;
 
-import CosplayCostumes.user.UserService;
+import CosplayCostumes.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

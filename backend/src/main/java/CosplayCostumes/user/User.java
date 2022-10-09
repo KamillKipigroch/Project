@@ -50,6 +50,7 @@ public class User implements UserDetails {
         this.locked = false;
         this.enabled = false;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());

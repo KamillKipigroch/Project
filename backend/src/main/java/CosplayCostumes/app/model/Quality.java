@@ -6,36 +6,35 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "product_image_t")
+@Table(name = "quality_t")
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductImage implements Serializable {
+public class Quality implements Serializable {
     @Id
-    @SequenceGenerator(name = "s_product_image",
-            sequenceName = "s_product_image",
+    @SequenceGenerator(name = "s_quality",
+            sequenceName = "s_quality",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "s_product_image"
+            generator = "s_quality"
     )
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(mappedBy = "quality")
+    private Set<Product> products = new HashSet<>();
 
     private String code;
 
     private Boolean visible;
 
-    public ProductImage(String code, Product product) {
+    public Quality(String code) {
         this.code = code;
-        this.product = product;
-        this.visible = true;
     }
 }

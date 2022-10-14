@@ -69,6 +69,17 @@ public class User implements UserDetails {
         this.enabled = false;
     }
 
+
+    public User(String email, String password, UserRole userRole) {
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+        this.opinion = new HashSet<>();
+        this.orders = new HashSet<>();
+        this.locked = false;
+        this.enabled = true;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());

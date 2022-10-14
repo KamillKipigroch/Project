@@ -6,34 +6,38 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "quality_condition_t")
+@Table(name = "condition_t")
 @NoArgsConstructor
 @Getter
 @Setter
-public class QualityCondition implements Serializable {
+public class Condition implements Serializable {
     @Id
-    @SequenceGenerator(name = "s_quality_condition",
-            sequenceName = "s_quality_condition",
+    @SequenceGenerator(name = "s_condition",
+            sequenceName = "s_condition",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "s_quality_condition"
+            generator = "s_condition"
     )
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    @OneToMany(mappedBy = "condition")
+    private Set<Product> products = new HashSet<>();
     private int price;
 
-    private QualityConditionDescription qualityConditionDescription;
+    private String code;
 
     private Boolean visible;
 
-    public QualityCondition(int price, QualityConditionDescription qualityConditionDescription) {
+    public Condition(int price, String code) {
         this.price = price;
-        this.qualityConditionDescription = qualityConditionDescription;
+        this.code = code;
         this.visible = true;
     }
 }

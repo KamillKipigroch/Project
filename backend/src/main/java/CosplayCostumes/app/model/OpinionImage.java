@@ -29,7 +29,6 @@ public class OpinionImage implements Serializable {
     @JoinColumn(name = "opinion_id")
     private Opinion opinion;
 
-    @Column(nullable = false, unique = true)
     private String code;
 
     private Boolean visible;

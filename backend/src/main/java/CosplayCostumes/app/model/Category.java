@@ -25,11 +25,10 @@ public class Category implements Serializable {
     )
     @Column(nullable = false, updatable = false)
     private Long id;
-    @Column(nullable = false, unique = true)
+
     private String code;
 
-    @OneToMany
-    @JoinColumn(name = "subcategory_id")
+    @OneToMany(mappedBy="category")
     private Set<Subcategory> subcategories;
 
     @OneToMany

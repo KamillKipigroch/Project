@@ -26,13 +26,17 @@ public class Subcategory implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "category_id")
-    private Set<Category> categories;
+    private Category category;
 
-    @Column(nullable = false, unique = true)
     private String code;
-
+    @Column(length=1000)
     private String description;
 
+    public Subcategory(String code, String description, Category category) {
+        this.code = code;
+        this.description = description;
+        this.category = category;
+    }
 }

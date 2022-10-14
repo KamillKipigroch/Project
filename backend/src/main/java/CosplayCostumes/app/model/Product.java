@@ -28,54 +28,43 @@ public class Product implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String businessKey;
 
-    @OneToMany
-    @JoinColumn(name = "product_image_id")
-    private Set<ProductImage> images;
+    @ManyToOne
+    @JoinColumn(name = "product_type_id")
+    private ProductType productType;
+
+    @OneToMany(mappedBy = "product")
+    private Set<ProductImage> images = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "quality_condition_id")
-    private QualityCondition qualityCondition;
+    @JoinColumn(name = "condition_id")
+    private Condition condition;
 
-    @OneToMany
-    @JoinColumn(name = "opinion_id")
-    private Set<Opinion> opinions;
+    @ManyToOne
+    @JoinColumn(name = "qualityu_id")
+    private Quality quality;
+    @OneToMany(mappedBy = "product")
+    private Set<Opinion> opinions = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
-    private Set<Order> orders;
+    @OneToMany(mappedBy = "product")
+    private Set<Order> orders = new HashSet<>();
 
-    @Column(nullable = false, unique = true)
     private String code;
 
+    @Column(length=1000)
     private String description;
 
     private Double price;
 
-    private String character;
+    private String hero;
 
     private LocalDateTime createDate;
 
     private Boolean visible;
 
-    public Product(String businessKey, Set<ProductImage> images, Category category, QualityCondition qualityCondition, String code, String description, Double price, String character, LocalDateTime createDate) {
-        this.businessKey = businessKey;
-        this.images = images;
-        this.category = category;
-        this.qualityCondition = qualityCondition;
-        this.code = code;
-        this.description = description;
-        this.price = price;
-        this.character = character;
-        this.createDate = createDate;
-        this.opinions = new HashSet<>();
-        this.orders = new HashSet<>();
-        this.visible = true;
-    }
 }

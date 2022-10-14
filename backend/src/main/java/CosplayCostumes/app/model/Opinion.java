@@ -36,8 +36,7 @@ public class Opinion implements Serializable {
     @JoinColumn(name = "product_id")
     Product product;
 
-    @OneToMany
-    @JoinColumn(name = "opinion_image_id")
+    @OneToMany(mappedBy="opinion")
     private Set<OpinionImage> images;
 
     private Double value;

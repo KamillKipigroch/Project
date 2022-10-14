@@ -23,7 +23,7 @@ public class LoadDatabase {
 
         return args -> {
 
-            if (categoryRepository.findAll().size() < 1) {
+            if (categoryRepository.findAll().isEmpty()) {
                 log.info("Preloading " + categoryRepository.save(new Category("Anime", new HashSet<>())));
                 log.info("Preloading " + categoryRepository.save(new Category("Movie", new HashSet<>())));
                 log.info("Preloading " + categoryRepository.save(new Category("Series", new HashSet<>())));
@@ -31,7 +31,7 @@ public class LoadDatabase {
                 log.info("Preloading " + categoryRepository.save(new Category("Other", new HashSet<>())));
             }
 
-            if (subCategoryRepository.findAll().size() < 1) {
+            if (subCategoryRepository.findAll().isEmpty()) {
                 //Anime
 
                 log.info("Preloading " + subCategoryRepository.save(new Subcategory("Haikyuu!!", "There are not many sports anime that can knock it out of the park in almost every way but Haikyuu!! " +
@@ -229,7 +229,7 @@ public class LoadDatabase {
                         categoryRepository.findByCode("Other").orElse(null))));
             }
 
-            if (productTypeRepository.findAll().size() < 1) {
+            if (productTypeRepository.findAll().isEmpty()) {
                 log.info("Preloading " + productTypeRepository.save(new ProductType("Costumes")));
                 log.info("Preloading " + productTypeRepository.save(new ProductType("Accessories")));
                 log.info("Preloading " + productTypeRepository.save(new ProductType("Party Supplies")));
@@ -238,19 +238,19 @@ public class LoadDatabase {
                 log.info("Preloading " + productTypeRepository.save(new ProductType("Accessory Kits")));
             }
 
-            if (qualityRepository.findAll().size() < 1) {
+            if (qualityRepository.findAll().isEmpty()) {
                 log.info("Preloading " + qualityRepository.save(new Quality("Silver Standard")));
                 log.info("Preloading " + qualityRepository.save(new Quality("Gold Vip")));
                 log.info("Preloading " + qualityRepository.save(new Quality("Platinum Premium")));
             }
 
-            if (conditionRepository.findAll().size() < 1) {
+            if (conditionRepository.findAll().isEmpty()) {
                 log.info("Preloading " + conditionRepository.save(new Condition(100, "Super hero")));
                 log.info("Preloading " + conditionRepository.save(new Condition(80, "Hero from big city")));
                 log.info("Preloading " + conditionRepository.save(new Condition(50, "Neighborhood hero")));
             }
 
-            if (userRepository.findAll().size() < 1) {
+            if (userRepository.findAll().isEmpty()) {
                 log.info("Preloading " + userRepository.save(new User("admin@admin.pl", "admin", UserRole.Admin)));
                 log.info("Preloading " + userRepository.save(new User("user@user.pl", "user", UserRole.User)));
 

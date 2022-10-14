@@ -46,7 +46,7 @@ public class Product implements Serializable {
     private Condition condition;
 
     @ManyToOne
-    @JoinColumn(name = "qualityu_id")
+    @JoinColumn(name = "quality_id")
     private Quality quality;
     @OneToMany(mappedBy = "product")
     private Set<Opinion> opinions = new HashSet<>();

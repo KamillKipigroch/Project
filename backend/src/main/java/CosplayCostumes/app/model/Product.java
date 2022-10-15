@@ -67,4 +67,20 @@ public class Product implements Serializable {
 
     private Boolean visible;
 
+    public Product(String businessKey, ProductType productType, Set<ProductImage> images, Category category, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
+        this.businessKey = businessKey;
+        this.productType = productType;
+        this.images = images;
+        this.category = category;
+        this.condition = condition;
+        this.quality = quality;
+        this.opinions = opinions;
+        this.orders = orders;
+        this.code = code;
+        this.description = description;
+        this.price = price;
+        this.hero = hero;
+        this.createDate = createDate;
+        this.visible = true;
+    }
 }

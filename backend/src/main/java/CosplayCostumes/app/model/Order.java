@@ -27,15 +27,22 @@ public class Order implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "order_status_id")
+    private OrderStatus orderStatus;
+
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    Product product;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
+
+    private Boolean visible;
 
     public Order(Product product, User user) {
         this.product = product;
         this.user = user;
+        this.visible = true;
     }
 }

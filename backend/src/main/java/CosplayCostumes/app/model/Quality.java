@@ -36,5 +36,12 @@ public class Quality implements Serializable {
 
     public Quality(String code) {
         this.code = code;
+        this.visible = true;
+    }
+
+    public Quality(Set<Product> products, String code) {
+        this.products = products;
+        this.code = code;
+        this.visible = true;
     }
 }

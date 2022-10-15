@@ -1,5 +1,6 @@
 package CosplayCostumes.app.model;
 
+import CosplayCostumes.user.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,37 +10,38 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "sub_category_t")
+@Table(name = "order_status_t")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Subcategory implements Serializable {
+public class OrderStatus implements Serializable {
     @Id
-    @SequenceGenerator(name = "s_sub_category",
-            sequenceName = "s_sub_category",
+    @SequenceGenerator(name = "s_order_status",
+            sequenceName = "s_order_status",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "s_sub_category"
+            generator = "s_order_status"
     )
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(mappedBy = "orderStatus")
+    private Set<Order> order;
 
     private String code;
-    @Column(length=1000)
-    private String description;
 
     private Boolean visible;
 
-    public Subcategory(String code, String description, Category category) {
+    public OrderStatus(Set<Order> order, String code) {
+        this.order = order;
         this.code = code;
-        this.description = description;
-        this.category = category;
+        this.visible = true;
+    }
+
+    public OrderStatus(String code) {
+        this.code = code;
         this.visible = true;
     }
 }

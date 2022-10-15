@@ -19,7 +19,7 @@ public class LoadDatabase {
 
     @Bean
     CommandLineRunner initDatabase(SubCategoryRepository subCategoryRepository, CategoryRepository categoryRepository, ProductTypeRepository productTypeRepository,
-                                   QualityRepository qualityRepository, ConditionRepository conditionRepository, UserRepository userRepository) throws Exception {
+                                   QualityRepository qualityRepository, ConditionRepository conditionRepository, UserRepository userRepository, OrderStatusRepository orderStatusRepository) throws Exception {
 
         return args -> {
 
@@ -130,7 +130,7 @@ public class LoadDatabase {
                         categoryRepository.findByCode("Movie").orElse(null))));
 
 
-                //Serial
+                //Series
 
                 log.info("Preloading " + subCategoryRepository.save(new Subcategory("Game of Thrones",
                         "In the Game of Thrones, you either win or you die. In the mythical continent of Westeros, nine families of higher nobility (Targaryen, Lannisters, Starks, Tyrell, Martell, Greyjoys, Baratheons and Boltons) scramble bitterly to gain power over the seven kingdoms and the Iron throne.",
@@ -245,17 +245,21 @@ public class LoadDatabase {
             }
 
             if (conditionRepository.findAll().isEmpty()) {
-                log.info("Preloading " + conditionRepository.save(new Condition(100, "Super hero")));
+                log.info("Preloading " + conditionRepository.save(new Condition(100, "Super Hero")));
                 log.info("Preloading " + conditionRepository.save(new Condition(80, "Hero from big city")));
-                log.info("Preloading " + conditionRepository.save(new Condition(50, "Neighborhood hero")));
+                log.info("Preloading " + conditionRepository.save(new Condition(50, "Neighborhood Hero")));
             }
 
             if (userRepository.findAll().isEmpty()) {
                 log.info("Preloading " + userRepository.save(new User("admin@admin.pl", "admin", UserRole.Admin)));
                 log.info("Preloading " + userRepository.save(new User("user@user.pl", "user", UserRole.User)));
-
             }
 
+            if (orderStatusRepository.findAll().isEmpty()) {
+                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("In realization")));
+                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("Completed")));
+                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("Cancelled")));
+            }
         };
     }
 }

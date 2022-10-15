@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface SubCategoryRepository extends JpaRepository<Subcategory, Long> {
     Optional<Subcategory> findById(Long id);
+
+    Optional<Subcategory> findByCode(String code);
 }

@@ -1,6 +1,7 @@
 package CosplayCostumes.app.service;
 
 import CosplayCostumes.app.model.Quality;
+import CosplayCostumes.app.model.dto.QualityDTO;
 import CosplayCostumes.app.repostitory.QualityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,20 @@ public class QualityService {
         return qualityRepository.findAll();
     }
 
-    public Quality findQualityByCode(String code) throws Exception {
+    public Quality findQualityByCode(String code) {
         return qualityRepository.findByCode(code).orElseThrow(() -> new FindException(QUALITY_NO_FOUND + code));
     }
 
-    public Quality addQuality(Quality quality) {
-        if (qualityRepository.findByCode(quality.getCode()).isPresent())
+    public Quality addQuality(QualityDTO quality) {
+        if (qualityRepository.findByCode(quality.getCode()).isPresent()) {
             throw new FindException(QUALITY_EXIST);
-        return qualityRepository.save(quality);
+        }
+
+        Quality newQuality = new Quality();
+        newQuality.setCode(quality.getCode());
+        newQuality.setVisible(true);
+
+        return qualityRepository.save(newQuality);
     }
 
     public Quality updateQuality(Quality quality) {

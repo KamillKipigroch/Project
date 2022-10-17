@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sub-category")
-public class SubCategoryController {
+public class OpinionImageController {
     private final SubCategoryService subCategoryService;
 
     @GetMapping("/get-all")

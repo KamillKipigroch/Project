@@ -1,6 +1,7 @@
 package CosplayCostumes.app.controller;
 
 import CosplayCostumes.app.model.Category;
+import CosplayCostumes.app.model.dto.CategoryDTO;
 import CosplayCostumes.app.service.CategoryService;
 import CosplayCostumes.user.model.User;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO category) {
         Category newCategory = categoryService.addCategory(category);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }

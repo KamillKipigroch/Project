@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 public class OpinionDTO {
@@ -12,5 +13,6 @@ public class OpinionDTO {
     @Max(5)
     private Double value;
     private String description;
+    private Set<OpinionImageDTO> opinionImages;
     private LocalDateTime createDate;
 }

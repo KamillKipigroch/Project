@@ -1,6 +1,5 @@
 package CosplayCostumes.app.controller;
 
-import CosplayCostumes.app.model.Category;
 import CosplayCostumes.app.model.Subcategory;
 import CosplayCostumes.app.service.SubCategoryService;
 import lombok.AllArgsConstructor;

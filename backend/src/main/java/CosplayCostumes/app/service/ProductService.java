@@ -13,7 +13,6 @@ import java.util.List;
 public class ProductService {
     private final static String PRODUCT_NO_FOUND = "Failed to find product with business key ";
     private final ProductRepository productRepository;
-
     public List<Product> findAllCategory() {
         return productRepository.findAll();
     }

@@ -14,9 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OpinionService {
     private final static String OPINION_NO_FOUND = "Failed to find opinion with user \s and product \s";
-
     private final static String OPINION_EXIST = "Condition with this name is already exist ! ";
-
     private final OpinionRepository opinionRepository;
 
     public List<Opinion> findAllOpinion() {

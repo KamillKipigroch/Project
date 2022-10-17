@@ -12,9 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class QualityService {
     private final static String QUALITY_NO_FOUND = "Failed to find quality with name";
-
     private final static String QUALITY_EXIST = "Quality with this name is already exist ! ";
-
     private final QualityRepository qualityRepository;
 
     public List<Quality> findAllQuality() {
@@ -22,7 +20,7 @@ public class QualityService {
     }
 
     public Quality findQualityByCode(String code) throws Exception {
-        return qualityRepository.findByCode(code).orElseThrow(() -> new Exception(QUALITY_NO_FOUND + code));
+        return qualityRepository.findByCode(code).orElseThrow(() -> new FindException(QUALITY_NO_FOUND + code));
     }
 
     public Quality addQuality(Quality quality) {

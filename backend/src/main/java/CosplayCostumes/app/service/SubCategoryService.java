@@ -13,9 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SubCategoryService {
     private final static String SUB_CATEGORY_NO_FOUND = "Failed to find category with name ";
-
     private final static String SUB_CATEGORY_EXIST = "Sub Category with this name is already exist ! ";
-
     private final SubCategoryRepository subCategoryRepository;
 
     public List<Subcategory> findAllSubCategory() {
@@ -23,7 +21,7 @@ public class SubCategoryService {
     }
 
     public Subcategory findSubCategoryByCode(String code) throws Exception {
-        return subCategoryRepository.findByCode(code).orElseThrow(() -> new Exception(SUB_CATEGORY_NO_FOUND + code));
+        return subCategoryRepository.findByCode(code).orElseThrow(() -> new FindException(SUB_CATEGORY_NO_FOUND + code));
     }
 
     public Subcategory addSubCategory(Subcategory subcategory) {

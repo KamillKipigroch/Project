@@ -1,10 +1,15 @@
 package CosplayCostumes.app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.BasicType;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -13,6 +18,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Subcategory implements Serializable {
     @Id
     @SequenceGenerator(name = "s_sub_category",

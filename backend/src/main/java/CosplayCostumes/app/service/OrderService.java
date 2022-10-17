@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderService {
     private final static String ORDER_NO_FOUND = "Failed to find order with name";
-
     private final OrderRepository orderRepository;
 
     public List<Order> findAllOrder() {

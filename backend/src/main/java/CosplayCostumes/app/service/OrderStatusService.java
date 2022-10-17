@@ -12,9 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderStatusService {
     private final static String ORDER_STATUS_NO_FOUND = "Failed to find order status with name";
-
     private final static String ORDER_STATUS_EXIST = "Order status with this name is already exist ! ";
-
     private final OrderStatusRepository orderStatusRepository;
 
     public List<OrderStatus> findAllOrderStatus() {

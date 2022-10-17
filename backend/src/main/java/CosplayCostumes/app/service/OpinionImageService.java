@@ -13,7 +13,6 @@ import java.util.List;
 public class OpinionImageService {
     private final static String OPINION_IMAGE_NO_FOUND = "Failed to find opinion image ";
     private final static String OPINION_IMAGE_EXIST = "Opinion image with this name with this name is exist ";
-
     private final OpinionImageRepository opinionImageRepository;
 
     public List<OpinionImage> findAllOpinionImage() {

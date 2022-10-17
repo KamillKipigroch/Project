@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ConditionService {
     private final static String CONDITION_NO_FOUND = "Failed to find condition with name ";
-
     private final static String CONDITION_EXIST = "Condition with this name is already exist ! ";
     private final ConditionRepository conditionRepository;
 
@@ -20,8 +19,8 @@ public class ConditionService {
         return conditionRepository.findAll();
     }
 
-    public Condition findConditionByCode(String code) throws Exception {
-        return conditionRepository.findByCode(code).orElseThrow(() -> new Exception(CONDITION_NO_FOUND + code));
+    public Condition findConditionByCode(String code) {
+        return conditionRepository.findByCode(code).orElseThrow(() -> new FindException(CONDITION_NO_FOUND + code));
     }
 
     public Condition addCondition(Condition condition) {

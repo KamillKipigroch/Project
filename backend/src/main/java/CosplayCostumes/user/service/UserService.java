@@ -2,6 +2,7 @@ package CosplayCostumes.user.service;
 
 import CosplayCostumes.registration.token.ConfirmationToken;
 import CosplayCostumes.registration.token.ConfirmationTokenService;
+import CosplayCostumes.user.model.LoginUser;
 import CosplayCostumes.user.model.User;
 import CosplayCostumes.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.FindException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -66,16 +68,16 @@ public class UserService implements UserDetailsService {
         return token;
     }
 
-    public User loginUser(User user) {
-        if (user == null) {
-            throw new IllegalStateException(USER_NOT_FOUND);
+    public User loginUser(LoginUser loginUser) {
+        if (loginUser == null || loginUser.getEmail().isEmpty()) {
+            throw new FindException(USER_NOT_FOUND);
         }
-        User loginUser = userRepository.findUserByEmail(user.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND + user.getEmail()));
+        User user = userRepository.findUserByEmail(loginUser.getEmail())
+                .orElseThrow(() -> new FindException(USER_NOT_FOUND + loginUser.getEmail()));
 
-        if (Objects.equals(bCryptPasswordEncoder.encode(loginUser.getPassword()), bCryptPasswordEncoder.encode(user.getPassword()))) {
-            loginUser.setToken(UUID.randomUUID().toString());
-            return userRepository.save(loginUser);
+        if (bCryptPasswordEncoder.matches(loginUser.getPassword(),user.getPassword())) {
+            user.setToken(UUID.randomUUID().toString());
+            return userRepository.save(user);
         } else
             throw new IllegalStateException(CANT_LOGIN);
     }

@@ -10,12 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+    private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Bean
     CommandLineRunner initDatabase(SubCategoryRepository subCategoryRepository, CategoryRepository categoryRepository, ProductTypeRepository productTypeRepository,
@@ -251,8 +253,8 @@ public class LoadDatabase {
             }
 
             if (userRepository.findAll().isEmpty()) {
-                log.info("Preloading " + userRepository.save(new User("admin@admin.pl", "admin", UserRole.Admin)));
-                log.info("Preloading " + userRepository.save(new User("user@user.pl", "user", UserRole.User)));
+                log.info("Preloading " + userRepository.save(new User("admin@admin.pl", bCryptPasswordEncoder.encode("admin"), UserRole.Admin)));
+                log.info("Preloading " + userRepository.save(new User("user@user.pl", bCryptPasswordEncoder.encode("user"), UserRole.User)));
             }
 
             if (orderStatusRepository.findAll().isEmpty()) {

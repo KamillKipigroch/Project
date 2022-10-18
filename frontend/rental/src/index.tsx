@@ -5,7 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { render } from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./routes/home";
 
 // const rootElement = document.getElementById("root");
 // render(<App />, rootElement);

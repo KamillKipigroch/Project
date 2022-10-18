@@ -7,27 +7,19 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home";
 import Movies from "./routes/movies";
 import Product from "./routes/product";
+import NavBar from "./components/navBar"
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { Typography } from '@mui/material';
 
 function App() {
 
   return (
     <div>
-      {/* <h1>Bookkeeper!</h1>
-      <Button variant="contained">Hello World</Button> */}
-      
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/home">Home</Link> |{" "}
-        <Link to="/movies">Movies</Link> |{" "}
-        <Link to="/games">Games</Link> |{" "}
-        <Link to="/anime">Anime</Link> |{" "}
-        <Link to="/other">Other</Link> |{" "}
 
-      </nav>
+        <NavBar />
 
       <Routes>
         <Route path="/home" element={<Home /> }/>

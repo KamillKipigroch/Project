@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class OrderDTO {
     private Long productID;
-    private User userID;
+    private Long userID;
 }

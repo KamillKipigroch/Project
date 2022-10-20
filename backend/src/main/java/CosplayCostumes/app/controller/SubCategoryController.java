@@ -33,4 +33,15 @@ public class SubCategoryController {
         Subcategory addSubCategory = subCategoryService.addSubCategory(subcategory);
         return new ResponseEntity<>(addSubCategory, HttpStatus.OK);
     }
+    @PutMapping("/update")
+    public ResponseEntity<Subcategory> updateSubcategory(@RequestBody Subcategory subcategory) {
+        Subcategory newQuality = subCategoryService.updateSubCategory(subcategory);
+        return new ResponseEntity<>(newQuality, HttpStatus.OK);
+    }
+
+    @PutMapping("/delete")
+    public ResponseEntity<Subcategory> deleteSubcategory(@RequestBody Subcategory subcategory) {
+        subCategoryService.deleteSubCategory(subcategory);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

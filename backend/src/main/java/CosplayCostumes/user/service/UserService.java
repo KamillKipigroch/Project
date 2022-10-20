@@ -20,6 +20,7 @@ import java.util.UUID;
 @Service
 public class UserService implements UserDetailsService {
     private final static String USER_NOT_FOUND = "Failed to find user with username ";
+    private final static String USER_ID_NOT_FOUND = "Failed to find user with id ";
     private final static String EMAIL_IS_TAKEN = "Email is already taken ";
     private final static String CANT_LOGIN = "Email or password its incorrect";
     private final UserRepository userRepository;
@@ -39,6 +40,10 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND + username));
     }
 
+    public User findUserById (Long id) {
+        return userRepository.findById(id).orElseThrow(() ->
+                new FindException(USER_ID_NOT_FOUND + id));
+    }
     public String signUpUser(User newUser) {
         boolean userExist =
                 userRepository.findUserByEmail(newUser.getEmail()).isPresent();

@@ -1,18 +1,15 @@
 package CosplayCostumes.app.controller;
 
 import CosplayCostumes.app.model.Category;
+import CosplayCostumes.app.model.Opinion;
 import CosplayCostumes.app.model.dto.CategoryDTO;
 import CosplayCostumes.app.service.CategoryService;
-import CosplayCostumes.user.model.User;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -36,5 +33,17 @@ public class CategoryController {
     public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO category) {
         Category newCategory = categoryService.addCategory(category);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
+        Category newCategory = categoryService.updateCategory(category);
+        return new ResponseEntity<>(newCategory, HttpStatus.OK);
+    }
+
+    @PutMapping("/delete")
+    public ResponseEntity<Opinion> deleteCategory(@RequestBody Category category) {
+        categoryService.deleteCategory(category);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

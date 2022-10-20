@@ -12,7 +12,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class QualityService {
-    private final static String QUALITY_NO_FOUND = "Failed to find quality with name";
+    private final static String QUALITY_NO_FOUND = "Failed to find quality with name ";
+    private final static String QUALITY_ID_NO_FOUND = "Failed to find quality with id ";
     private final static String QUALITY_EXIST = "Quality with this name is already exist ! ";
     private final QualityRepository qualityRepository;
 
@@ -22,6 +23,9 @@ public class QualityService {
 
     public Quality findQualityByCode(String code) {
         return qualityRepository.findByCode(code).orElseThrow(() -> new FindException(QUALITY_NO_FOUND + code));
+    }
+    public Quality findQualityById(Long id) {
+        return qualityRepository.findById(id).orElseThrow(() -> new FindException(QUALITY_ID_NO_FOUND + id));
     }
 
     public Quality addQuality(QualityDTO quality) {
@@ -37,10 +41,14 @@ public class QualityService {
     }
 
     public Quality updateQuality(Quality quality) {
+        qualityRepository.findById(quality.getId()).orElseThrow(() ->
+                new FindException(QUALITY_ID_NO_FOUND + quality.getId()));
         return qualityRepository.save(quality);
     }
 
     public void deleteQuality(Quality quality) {
+        qualityRepository.findById(quality.getId()).orElseThrow(() ->
+                new FindException(QUALITY_ID_NO_FOUND + quality.getId()));
         quality.setVisible(false);
         qualityRepository.save(quality);
     }

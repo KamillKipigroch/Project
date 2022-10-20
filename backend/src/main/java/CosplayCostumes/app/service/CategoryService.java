@@ -26,7 +26,7 @@ public class CategoryService {
                 .orElseThrow(() -> new FindException(CATEGORY_NO_FOUND + code));
     }
 
-    public Category findCategoryId(Long id) {
+    public Category findCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new FindException(CATEGORY_ID_NO_FOUND + id));
     }
@@ -42,10 +42,14 @@ public class CategoryService {
     }
 
     public Category updateCategory(Category category) {
+        categoryRepository.findById(category.getId()).orElseThrow(() ->
+                    new FindException(CATEGORY_ID_NO_FOUND + category.getId()));
         return categoryRepository.save(category);
     }
 
     public void deleteCategory(Category category) {
+        categoryRepository.findById(category.getId()).orElseThrow(() ->
+                new FindException(CATEGORY_ID_NO_FOUND + category.getId()));
         category.setVisible(false);
         categoryRepository.save(category);
     }

@@ -1,8 +1,9 @@
 package CosplayCostumes.app.controller;
 
-import CosplayCostumes.app.model.Subcategory;
-import CosplayCostumes.app.model.dto.SubcategoryDTO;
-import CosplayCostumes.app.service.SubCategoryService;
+import CosplayCostumes.app.model.OpinionImage;
+import CosplayCostumes.app.model.dto.OpinionImageDTO;
+import CosplayCostumes.app.service.OpinionImageService;
+import CosplayCostumes.app.service.OpinionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,25 +13,38 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sub-category")
+@RequestMapping("/opinion-image")
 public class OpinionImageController {
-    private final SubCategoryService subCategoryService;
+    private final OpinionImageService opinionImageService;
+    private final OpinionService opinionService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Subcategory>> getAll() {
-        List<Subcategory> allSubCategory = subCategoryService.findAllSubCategory();
-        return new ResponseEntity<>(allSubCategory, HttpStatus.OK);
+    public ResponseEntity<List<OpinionImage>> getAll() {
+        List<OpinionImage> opinionImages = opinionImageService.findAllOpinionImage();
+        return new ResponseEntity<>(opinionImages, HttpStatus.OK);
     }
 
     @GetMapping("/find/{code}")
-    public ResponseEntity<Subcategory> findByCode(@PathVariable("code") String code) throws Exception {
-        Subcategory categoryByCode = subCategoryService.findSubCategoryByCode(code);
-        return new ResponseEntity<>(categoryByCode, HttpStatus.OK);
+    public ResponseEntity<OpinionImage> findByCode(@PathVariable("code") String code) throws Exception {
+        OpinionImage opinionImage = opinionImageService.findOpinionImageByCode(code);
+        return new ResponseEntity<>(opinionImage, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Subcategory> addSubcategory(@RequestBody SubcategoryDTO subcategory) {
-        Subcategory addSubCategory = subCategoryService.addSubCategory(subcategory);
-        return new ResponseEntity<>(addSubCategory, HttpStatus.OK);
+    public ResponseEntity<OpinionImage> addOpinionImage(@RequestBody OpinionImageDTO opinionImageDTO) throws Exception {
+        OpinionImage opinionImage = opinionImageService.addOpinionImage(opinionImageDTO, opinionService.findOpinionById(opinionImageDTO.getOpinionId()));
+        return new ResponseEntity<>(opinionImage, HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<OpinionImage> updateOpinionImage(@RequestBody OpinionImage opinionImage) {
+        OpinionImage updateOpinionImage = opinionImageService.updateOpinionImage(opinionImage);
+        return new ResponseEntity<>(updateOpinionImage, HttpStatus.OK);
+    }
+
+    @PutMapping("/delete")
+    public ResponseEntity<OpinionImage> deleteOpinionImage(@RequestBody OpinionImage opinionImage) {
+        opinionImageService.deleteOpinionImage(opinionImage);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

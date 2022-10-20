@@ -7,4 +7,5 @@ import java.io.Serializable;
 @Data
 public class OpinionImageDTO implements Serializable {
     private String code;
+    private Long opinionId;
 }

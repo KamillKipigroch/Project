@@ -1,6 +1,5 @@
 package CosplayCostumes.app.controller;
 
-import CosplayCostumes.app.model.Category;
 import CosplayCostumes.app.model.Condition;
 import CosplayCostumes.app.model.dto.ConditionDTO;
 import CosplayCostumes.app.service.ConditionService;
@@ -18,20 +17,32 @@ public class ConditionController {
     private final ConditionService conditionService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Condition>> getAllCategory() {
+    public ResponseEntity<List<Condition>> getAllCondition() {
         List<Condition> conditions = conditionService.findAllConditions();
         return new ResponseEntity<>(conditions, HttpStatus.OK);
     }
 
     @GetMapping("/find/{code}")
-    public ResponseEntity<Condition> findCategory(@PathVariable("code") String code) {
+    public ResponseEntity<Condition> findCondition(@PathVariable("code") String code) {
         Condition category = conditionService.findConditionByCode(code);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Condition> addCategory(@RequestBody ConditionDTO condition) {
+    public ResponseEntity<Condition> addCondition(@RequestBody ConditionDTO condition) {
         Condition newCategory = conditionService.addCondition(condition);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Condition> updateCondition(@RequestBody Condition condition) {
+        Condition newCategory = conditionService.updateCondition(condition);
+        return new ResponseEntity<>(newCategory, HttpStatus.OK);
+    }
+
+    @PutMapping("/delete")
+    public ResponseEntity<Condition> deleteCondition(@RequestBody Condition condition) {
+        conditionService.deleteCondition(condition);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

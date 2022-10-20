@@ -40,10 +40,14 @@ public class ConditionService {
     }
 
     public Condition updateCondition(Condition condition) {
+        conditionRepository.findById(condition.getId()).orElseThrow( () ->
+                new FindException(CONDITION_ID_NO_FOUND + condition.getId()));
         return conditionRepository.save(condition);
     }
 
     public void deleteCondition(Condition condition) {
+        conditionRepository.findById(condition.getId()).orElseThrow( () ->
+                new FindException(CONDITION_ID_NO_FOUND + condition.getId()));
         condition.setVisible(false);
         conditionRepository.save(condition);
     }

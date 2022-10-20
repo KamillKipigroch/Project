@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SubCategoryService {
-    private final static String SUB_CATEGORY_NO_FOUND = "Failed to find category with name ";
+    private final static String SUB_CATEGORY_NO_FOUND = "Failed to find sub category with name ";
+    private final static String SUB_CATEGORY_ID_NO_FOUND = "Failed to find sub category with id ";
     private final static String SUB_CATEGORY_EXIST = "Sub Category with this name is already exist ! ";
     private final SubCategoryRepository subCategoryRepository;
     private final CategoryService categoryService;
@@ -32,18 +33,22 @@ public class SubCategoryService {
         }
 
         Subcategory newSubCategory = new Subcategory();
-        newSubCategory.setCategory(categoryService.findCategoryId(subcategory.getCategoryID()));
+        newSubCategory.setCategory(categoryService.findCategoryById(subcategory.getCategoryID()));
         newSubCategory.setCode(subcategory.getCode());
         newSubCategory.setVisible(true);
 
         return subCategoryRepository.save(newSubCategory);
     }
 
-    public Subcategory updateSubCategory(Subcategory quality) {
-        return subCategoryRepository.save(quality);
+    public Subcategory updateSubCategory(Subcategory subcategory) {
+        subCategoryRepository.findById(subcategory.getId()).orElseThrow(() ->
+                new FindException(SUB_CATEGORY_ID_NO_FOUND + subcategory.getId()));
+        return subCategoryRepository.save(subcategory);
     }
 
     public void deleteSubCategory(Subcategory subcategory) {
+        subCategoryRepository.findById(subcategory.getId()).orElseThrow(() ->
+                new FindException(SUB_CATEGORY_ID_NO_FOUND + subcategory.getId()));
         subcategory.setVisible(false);
         subCategoryRepository.save(subcategory);
     }

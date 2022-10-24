@@ -1,10 +1,10 @@
 package CosplayCostumes;
 
-import CosplayCostumes.app.model.*;
-import CosplayCostumes.app.repostitory.*;
-import CosplayCostumes.user.model.User;
-import CosplayCostumes.user.model.UserRole;
-import CosplayCostumes.user.repository.UserRepository;
+import CosplayCostumes.rest.model.*;
+import CosplayCostumes.rest.repostitory.*;
+import CosplayCostumes.security.user.model.User;
+import CosplayCostumes.security.user.model.UserRole;
+import CosplayCostumes.security.user.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "@fontsource/roboto": "^4.5.8"
+    "@fontsource/roboto": "^4.5.8",
+    "react-styled-box": "^1.3.0",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26"
   }
 }

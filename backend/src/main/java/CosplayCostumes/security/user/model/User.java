@@ -24,7 +24,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @SequenceGenerator(name = "user_s",
-    sequenceName = "user_s",
+            sequenceName = "user_s",
             allocationSize = 1
     )
     @GeneratedValue(
@@ -52,8 +52,6 @@ public class User implements UserDetails {
     private String password;
 
     private String image;
-
-    private String token;
 
     private Boolean locked;
 

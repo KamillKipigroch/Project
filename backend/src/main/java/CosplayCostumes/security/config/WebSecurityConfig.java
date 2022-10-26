@@ -5,15 +5,12 @@ import CosplayCostumes.security.TokenAuthenticationFilter;
 import CosplayCostumes.security.user.model.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -26,6 +23,32 @@ public class WebSecurityConfig {
     public static final String ADMIN = UserRole.Admin.toString();
     public static final String USER = UserRole.User.toString();
 
+    private static final String[] APPLICATION_WHITE_LIST = {
+            "/public/**", "/auth/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/error",
+            "/",
+            "/csrf",
+            "/get-all",
+            "/find/**"
+    };
+
+    private static final String[] ADMINISTRATOR_WHITE_LIST = {
+            "/add",
+            "/update",
+            "/delete"
+    };
+
+    private static final String[] USER_AND_ADMINISTRATOR_WHITE_LIST = {
+            "/add-object",
+            "/update-object",
+            "/delete-object",
+            "/get-all-objects",
+            "/find-object/**"
+    };
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -34,12 +57,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/orders").hasAnyAuthority(ADMIN, USER)
-                .antMatchers(HttpMethod.GET, "/api/users/me").hasAnyAuthority(ADMIN, USER)
-                .antMatchers("/api/orders", "/api/orders/**").hasAuthority(ADMIN)
-                .antMatchers("/api/users", "/api/users/**").hasAuthority(ADMIN)
-                .antMatchers("/public/**", "/auth/**").permitAll()
-                .antMatchers("/", "/error", "/csrf", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
+                .antMatchers(USER_AND_ADMINISTRATOR_WHITE_LIST).hasAnyAuthority(USER, ADMIN)
+                .antMatchers(ADMINISTRATOR_WHITE_LIST).hasAuthority(ADMIN)
+                .antMatchers(APPLICATION_WHITE_LIST).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));

@@ -40,14 +40,16 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND + email));
     }
 
-    public User findUserById (Long id) {
+    public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() ->
                 new FindException(USER_ID_NOT_FOUND + id));
     }
-    public User findUserByEmail (String email) {
+
+    public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElseThrow(() ->
                 new FindException(USER_NOT_FOUND + email));
     }
+
     public String signUpUser(User newUser) {
         boolean userExist =
                 userRepository.findUserByEmail(newUser.getEmail()).isPresent();
@@ -84,8 +86,8 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findUserByEmail(loginUser.getEmail())
                 .orElseThrow(() -> new FindException(USER_NOT_FOUND + loginUser.getEmail()));
 
-        if (bCryptPasswordEncoder.matches(loginUser.getPassword(),user.getPassword())) {
-            user.setToken(UUID.randomUUID().toString());
+        if (bCryptPasswordEncoder.matches(loginUser.getPassword(), user.getPassword())) {
+
             return userRepository.save(user);
         } else
             throw new IllegalStateException(CANT_LOGIN);
@@ -98,11 +100,9 @@ public class UserService implements UserDetailsService {
         User loginUser = userRepository.findUserByEmail(user.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException(USER_NOT_FOUND + user.getEmail()));
 
-        if (Objects.equals(bCryptPasswordEncoder.encode(loginUser.getPassword()), bCryptPasswordEncoder.encode(user.getPassword()))) {
-            loginUser.setToken(null);
-            userRepository.save(loginUser);
-        } else
+        if (!Objects.equals(bCryptPasswordEncoder.encode(loginUser.getPassword()), bCryptPasswordEncoder.encode(user.getPassword()))) {
             throw new IllegalStateException(CANT_LOGIN);
+        }
     }
 
     public int enableUser(String email) {

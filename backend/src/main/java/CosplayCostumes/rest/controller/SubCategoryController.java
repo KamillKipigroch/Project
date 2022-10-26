@@ -3,6 +3,8 @@ package CosplayCostumes.rest.controller;
 import CosplayCostumes.rest.model.Subcategory;
 import CosplayCostumes.rest.model.dto.SubcategoryDTO;
 import CosplayCostumes.rest.service.SubCategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
+
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sub-category")
+@RequestMapping("/api/sub-category")
 public class SubCategoryController {
     private final SubCategoryService subCategoryService;
 
@@ -29,17 +33,21 @@ public class SubCategoryController {
     }
 
     @PostMapping("/add")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Subcategory> addSubcategory(@RequestBody SubcategoryDTO subcategory) {
         Subcategory addSubCategory = subCategoryService.addSubCategory(subcategory);
         return new ResponseEntity<>(addSubCategory, HttpStatus.OK);
     }
+
     @PutMapping("/update")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Subcategory> updateSubcategory(@RequestBody Subcategory subcategory) {
         Subcategory newQuality = subCategoryService.updateSubCategory(subcategory);
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
     @PutMapping("/delete")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Subcategory> deleteSubcategory(@RequestBody Subcategory subcategory) {
         subCategoryService.deleteSubCategory(subcategory);
         return new ResponseEntity<>(HttpStatus.OK);

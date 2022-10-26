@@ -3,6 +3,8 @@ package CosplayCostumes.rest.controller;
 import CosplayCostumes.rest.model.Quality;
 import CosplayCostumes.rest.model.dto.QualityDTO;
 import CosplayCostumes.rest.service.QualityService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
+
 @RestController
 @AllArgsConstructor
-@RequestMapping("/quality")
+@RequestMapping("/api/quality")
 public class QualityController {
     private final QualityService qualityService;
 
@@ -29,17 +33,21 @@ public class QualityController {
     }
 
     @PostMapping("/add")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Quality> addQuality(@RequestBody QualityDTO quality) {
         Quality newQuality = qualityService.addQuality(quality);
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
+
     @PutMapping("/update")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Quality> updateQuality(@RequestBody Quality quality) {
         Quality newQuality = qualityService.updateQuality(quality);
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
     @PutMapping("/delete")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Quality> deleteSubcategory(@RequestBody Quality quality) {
         qualityService.deleteQuality(quality);
         return new ResponseEntity<>(HttpStatus.OK);

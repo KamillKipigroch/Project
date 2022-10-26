@@ -3,6 +3,8 @@ package CosplayCostumes.rest.controller;
 import CosplayCostumes.rest.model.*;
 import CosplayCostumes.rest.model.dto.ProductDTO;
 import CosplayCostumes.rest.service.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
+
 @RestController
 @AllArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("api/product")
 public class ProductController {
     private final ProductService productService;
     private final ProductImageService productImageService;
@@ -34,6 +38,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> addProduct(@RequestBody ProductDTO productDTO) {
         ProductType productType = productTypeService.findProductTypeById(productDTO.getProductTypeID());
         String businessKey = String.valueOf(100000000 + productService.findAllProduct().size()) + productType.getCode().substring(2);
@@ -47,12 +52,14 @@ public class ProductController {
     }
 
     @PutMapping("/update")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
         Product newQuality = productService.updateProduct(product);
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
     @PutMapping("/delete")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> deleteProduct(@RequestBody Product product) {
         productService.deleteProduct(product);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -1,0 +1,18 @@
+/* .gallery {
+    height: 600px;
+    display: grind;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 100px;
+
+    .gallery-item {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        will-change: trans;
+
+        clip-path: inset(100%, 0% 0% 0%);
+
+        transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+} */

@@ -1,11 +1,14 @@
 import React from 'react';
-//import logo from './logo.svg';
 import './App.css';
 import Button from '@mui/material/Button';
 import { Outlet, Link } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home";
+import Login from "./routes/login";
 import Movies from "./routes/movies";
+import Games from "./routes/games";
+import Anime from "./routes/anime";
+import Other from "./routes/other";
 import Product from "./routes/product";
 import NavBar from "./components/navBar"
 import '@fontsource/roboto/300.css';
@@ -23,15 +26,16 @@ function App() {
 
       <Routes>
         <Route path="/home" element={<Home /> }/>
+        <Route path="/login" element={<Login />} />
         <Route path="/movie" >
           <Route path=":productId" element={<Product />} />
         </Route>
         <Route path="/movies" element={<Movies /> }>
-          {/* <Route path=":productId" element={<Product />} /> */}
+          <Route path=":productId" element={<Product />} />
         </Route>
-        {/* <Route path="/games" element={<Games /> }/>
+        <Route path="/games" element={<Games /> }/>
         <Route path="/anime" element={<Anime /> }/>
-        <Route path="/other" element={<Other /> }/> */}
+        <Route path="/other" element={<Other /> }/>
         <Route path="*"
           element={
             <main style={{ padding: "1rem" }}>

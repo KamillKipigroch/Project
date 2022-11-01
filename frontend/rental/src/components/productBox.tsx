@@ -12,26 +12,32 @@ const PriceContainer = styled.div`
   alignItems: 'flex-end',
 `
 
-export default function BoxComponent() {
+type ImageDTO = {
+  path: string;
+  name: string;
+  price: number;
+}
+
+export default function BoxComponent({path, name, price}: ImageDTO) {
   return (
     <Box component="span" sx={{
-              // backgroundImage: path(${img}),
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              width: 260,
-              height: 360,
-              backgroundColor: '#c7c7c7',
-              '&:hover': {
-                backgroundColor: '#d97d7d',
-                opacity: [0.9, 0.8, 0.7],
-              },
-              margin: 2,
-            }}>
-      <img src={image} width='250' sizes='max-'></img>
-      <Typography>Maleficient</Typography>
-      <PriceContainer><Typography>99.99zł</Typography></PriceContainer>
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        width: 260,
+        height: 360,
+        backgroundColor: '#DBC8AC',
+        overflow: 'hidden',
+        '&:hover': {
+          backgroundColor: '#d97d7d',
+          opacity: [0.9, 0.8, 0.7],
+        },
+        margin: 2,
+      }}>
+      <img src={path} width='250' sizes='max-' style={{width: "250px", height: "310px", objectFit: "cover"}}></img>
+      <Typography>{name}</Typography>
+      <PriceContainer><Typography>{price}zł</Typography></PriceContainer>
     </Box>
   );
 }

@@ -1,17 +1,14 @@
 import { getProducts } from "../services/data";
 import { Link, Outlet } from "react-router-dom";
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import BoxComponent from '../components/productBox';
 import styled from "styled-components";
 import Maleficent from "../assets/maleficent.webp";
+import SpiderMan from "../assets/spiderMan.jpeg";
+import FilterComponent from '../components/filterComponent';
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-`
-
-const FilterContainer = styled.div`
-  width: 20%;
 `
 
 const ProductsContainer = styled.div`
@@ -21,86 +18,26 @@ const ProductsContainer = styled.div`
   // justify-content: space-around;
 `
 
-const ProductContainer = styled.div`
-  width: 300,
-  height: 300,
-  backgroundColor: 'blue'
-  display: 'flex'
-  align-items: center
-`
-
 const ProductSection = styled.div`
   width: 80%
 `
 
 export default function Movies() {
-  let movies = getProducts();
   return (
-    <>
+    <div>
       <Container>
-        <FilterContainer>
-          <div style={{height: '100%', borderStyle: 'outset'}}>
-            <Typography variant="h3" color='#d92626' display='flex' justifyContent='center'>
-              Filters
-            </Typography>
-          </div>
-
-          {/* <div style={{ display: "flex" }}>
-            <nav
-              style={{
-                borderRight: "solid 1px",
-                padding: "1rem",
-              }}
-            >
-              {movies.map((movie) => (
-                <Link
-                  style={{ display: "block", margin: "1rem 0" }}
-                  to={`/movie/${movie.id}`}
-                  key={movie.id}
-                >
-                  {movie.name}
-                </Link>
-              ))}
-            </nav>
-            <Outlet />
-          </div> */}
-        </FilterContainer>
+        <FilterComponent category="movies" quality={["Silver standard", "Gold VIP", "Platinum premium"]} condition={["Super hero", "Hero from big city", "Neighbourhood hero"]} priceMax={0} priceMin={500}/>
         <ProductSection>
-          <Typography variant="h3" color='#d92626' display='flex'>
+          <div style={{color:'#333333', display:'flex', fontSize: '30px', margin: '20px', fontWeight: 'bold'}}>
               Movies
-          </Typography>
+          </div>
           <ProductsContainer>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent> 
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent> 
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent> 
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent>
-            <BoxComponent></BoxComponent> 
+            <BoxComponent path={SpiderMan} name="Spider Man" price={56.19}></BoxComponent>
+            <BoxComponent path={Maleficent} name="Maleficent" price={99.99}></BoxComponent>
           </ProductsContainer>
         </ProductSection>
       </Container>
-    </>
+      <Outlet/>
+    </div>
   );
 }

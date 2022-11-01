@@ -42,11 +42,11 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
 
   return (
-    <AppBar position="static" style={{ background: '#e35f5f' }}>
+    <AppBar position="static" style={{ background: '#DD5353' }}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters>
           <img src={Logo} width='8%' height='100%'/>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */} 
           <Typography
             variant="h6"
             noWrap

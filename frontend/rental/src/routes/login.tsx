@@ -1,7 +1,6 @@
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
-import { bgcolor } from "@mui/system";
 
 export default function Home() {
   return (
@@ -17,13 +16,13 @@ export default function Home() {
         padding={3}
       >
         <Typography variant="h3" mb={2}>
-          Logowanie
+          Sign in
         </Typography>
         <Divider sx={{ width: "100%" }} />
         <TextField type="email" label="Email" margin="normal" autoFocus />
         <TextField
           type="password"
-          label="Hasło"
+          label="Password"
           margin="normal"
           style={{ marginBottom: "4px" }}
         />
@@ -32,9 +31,9 @@ export default function Home() {
             variant="text"
             component={Link}
             to="/register"
-            style={{ padding: 0, fontSize: 9, marginLeft: "115px" }}
+            style={{ padding: 0, fontSize: 9, marginLeft: "145px" }}
           >
-            Zarejestruj się <ArrowForwardIcon style={{ fontSize: 10 }} />
+            Sign up <ArrowForwardIcon style={{ fontSize: 10 }} />
           </Button>
         </Box>
         <Button
@@ -42,7 +41,7 @@ export default function Home() {
           type="submit"
           sx={{ marginTop: 2, bgcolor: "#DD5353" }}
         >
-          <Typography>Zaloguj się</Typography>
+          <Typography>Sign in</Typography>
         </Button>
       </Box>
     </form>

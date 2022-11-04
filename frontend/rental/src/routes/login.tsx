@@ -1,10 +1,24 @@
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { IUserLoginForm } from "../models/AuthModel";
+import Constants from "../constants/Constants";
 
 export default function Home() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IUserLoginForm>();
+
+  const onSubmit: SubmitHandler<IUserLoginForm> = (data: IUserLoginForm) => {
+    console.log(data);
+  };
+
   return (
-    <form noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Box
         display="flex"
         flexDirection="column"
@@ -19,12 +33,35 @@ export default function Home() {
           Sign in
         </Typography>
         <Divider sx={{ width: "100%" }} />
-        <TextField type="email" label="Email" margin="normal" autoFocus />
+        <TextField
+          type="email"
+          label="Email"
+          margin="normal"
+          autoFocus
+          {...register("email", {
+            required: "Field required",
+            pattern: {
+              value: Constants.validEmailRegEx,
+              message: "Invalid email address",
+            },
+          })}
+          error={!!errors?.email}
+          helperText={errors?.email ? errors.email.message : null}
+        />
         <TextField
           type="password"
           label="Password"
           margin="normal"
           style={{ marginBottom: "4px" }}
+          {...register("password", {
+            required: "Field required",
+            minLength: {
+              value: 6,
+              message: "Password is too short",
+            },
+          })}
+          error={!!errors?.password}
+          helperText={errors?.password ? errors.password.message : null}
         />
         <Box>
           <Button

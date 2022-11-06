@@ -16,6 +16,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Typography } from '@mui/material';
+import Register from './routes/register';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home /> }/>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/movie" >
           <Route path=":productId" element={<Product />} />
         </Route>

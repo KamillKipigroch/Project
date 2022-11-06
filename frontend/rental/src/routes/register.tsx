@@ -2,18 +2,20 @@ import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IUserLoginForm } from "../models/AuthModel";
+import { IUserRegistrationForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
 
-export default function Home() {
+const Register = () => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IUserLoginForm>();
+  } = useForm<IUserRegistrationForm>();
 
-  const onSubmit: SubmitHandler<IUserLoginForm> = (data: IUserLoginForm) => {
+  const onSubmit: SubmitHandler<IUserRegistrationForm> = (
+    data: IUserRegistrationForm
+  ) => {
     console.log(data);
   };
 
@@ -30,7 +32,7 @@ export default function Home() {
         padding={3}
       >
         <Typography variant="h3" mb={2}>
-          Sign in
+          Sign up
         </Typography>
         <Divider sx={{ width: "100%" }} />
         <TextField
@@ -63,14 +65,32 @@ export default function Home() {
           error={!!errors?.password}
           helperText={errors?.password ? errors.password.message : null}
         />
+        <TextField
+          type="password"
+          label="Confirm password"
+          margin="normal"
+          style={{ marginBottom: "4px" }}
+          {...register("confirmPassword", {
+            required: "Field required",
+            validate: (val: string) => {
+              if (watch("password") !== val) {
+                return "Passwords must be the same";
+              }
+            },
+          })}
+          error={!!errors?.confirmPassword}
+          helperText={
+            errors?.confirmPassword ? errors.confirmPassword.message : null
+          }
+        />
         <Box>
           <Button
             variant="text"
             component={Link}
-            to="/register"
+            to="/login"
             style={{ padding: 0, fontSize: 9, marginLeft: "145px" }}
           >
-            Sign up <ArrowForwardIcon style={{ fontSize: 10 }} />
+            Sign in <ArrowForwardIcon style={{ fontSize: 10 }} />
           </Button>
         </Box>
         <Button
@@ -78,9 +98,11 @@ export default function Home() {
           type="submit"
           sx={{ marginTop: 2, bgcolor: "#DD5353" }}
         >
-          <Typography>Sign in</Typography>
+          <Typography>Sign up</Typography>
         </Button>
       </Box>
     </form>
   );
-}
+};
+
+export default Register;

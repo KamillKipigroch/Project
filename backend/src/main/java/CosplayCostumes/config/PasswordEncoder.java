@@ -1,4 +1,4 @@
-package CosplayCostumes.security;
+package CosplayCostumes.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

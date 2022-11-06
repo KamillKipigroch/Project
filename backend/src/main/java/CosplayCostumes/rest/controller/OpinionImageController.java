@@ -4,6 +4,7 @@ import CosplayCostumes.rest.model.OpinionImage;
 import CosplayCostumes.rest.model.dto.OpinionImageDTO;
 import CosplayCostumes.rest.service.OpinionImageService;
 import CosplayCostumes.rest.service.OpinionService;
+import CosplayCostumes.security.CloudinaryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 public class OpinionImageController {
     private final OpinionImageService opinionImageService;
     private final OpinionService opinionService;
+    private final CloudinaryService cloudinaryService;
 
     @GetMapping("/get-all")
     public ResponseEntity<List<OpinionImage>> getAll() {

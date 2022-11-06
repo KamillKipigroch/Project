@@ -32,7 +32,8 @@ public class WebSecurityConfig {
             "/",
             "/csrf",
             "/get-all",
-            "/find/**"
+            "/find/**",
+            "/api/v1/registration"
     };
 
     private static final String[] ADMINISTRATOR_WHITE_LIST = {

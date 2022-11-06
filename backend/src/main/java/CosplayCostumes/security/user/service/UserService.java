@@ -5,7 +5,13 @@ import CosplayCostumes.registration.token.ConfirmationTokenService;
 import CosplayCostumes.security.user.model.LoginUser;
 import CosplayCostumes.security.user.model.User;
 import CosplayCostumes.security.user.repository.UserRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,8 +20,14 @@ import org.springframework.stereotype.Service;
 
 import java.lang.module.FindException;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static CosplayCostumes.security.TokenProvider.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -26,6 +38,12 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Value("${app.jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${app.jwt.expiration.minutes}")
+    private Long jwtExpirationMinutes;
 
     @Autowired
     public UserService(UserRepository repository, ConfirmationTokenService confirmationTokenService, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -63,18 +81,14 @@ public class UserService implements UserDetailsService {
 
         newUser.setPassword(encodedPassword);
 
-        userRepository.save(newUser);
+            userRepository.save(newUser);
 
-        String token = UUID.randomUUID().toString();
+        String token = generate(newUser);
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
                 newUser
-        );
-
-        confirmationTokenService.saveConfirmationToken(
-                confirmationToken
         );
         return token;
     }
@@ -109,4 +123,28 @@ public class UserService implements UserDetailsService {
         return userRepository.enableUser(email);
     }
 
+
+    public String generate(User user) {
+        List<String> roles = user.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        byte[] signingKey = jwtSecret.getBytes();
+
+        return Jwts.builder()
+                .setHeaderParam("typ", TOKEN_TYPE)
+                .signWith(Keys.hmacShaKeyFor(signingKey), SignatureAlgorithm.HS512)
+                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(jwtExpirationMinutes).toInstant()))
+                .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
+                .setId(UUID.randomUUID().toString())
+                .setIssuer(TOKEN_ISSUER)
+                .setAudience(TOKEN_AUDIENCE)
+                .setSubject(user.getUsername())
+                .claim("rol", roles)
+                .claim("name", user.getFirstName()+" "+user.getLastName())
+                .claim("preferred_username", user.getUsername())
+                .claim("email", user.getEmail())
+                .compact();
+    }
 }

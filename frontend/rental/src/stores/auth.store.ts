@@ -5,8 +5,12 @@ import {
   observable,
   runInAction,
 } from "mobx";
-import { IDecodedToken, IUserLoginForm } from "../models/AuthModel";
-import { login } from "../services/AuthService";
+import {
+  IDecodedToken,
+  IUserLoginForm,
+  IUserRegistrationForm,
+} from "../models/AuthModel";
+import { login, registration } from "../services/AuthService";
 import jwt_decode from "jwt-decode";
 
 class AuthStore {
@@ -36,6 +40,17 @@ class AuthStore {
   };
 
   @action
+  registration = async (registrationData: IUserRegistrationForm) => {
+    const response = await registration(registrationData);
+
+    runInAction(() => {
+      this.accessToken = response.accessToken;
+      this.decodeJwtToken();
+      this.saveDataToLocalStorage();
+    });
+  };
+
+  @action
   logout = () => {
     this.clearStore();
     window.localStorage.removeItem("jwt");
@@ -51,7 +66,7 @@ class AuthStore {
     }
 
     this.decodeJwtToken();
-  }
+  };
 
   @action
   decodeJwtToken = () => {

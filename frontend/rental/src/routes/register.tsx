@@ -1,21 +1,27 @@
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUserRegistrationForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
+import { useStores } from "../stores/root.store";
 
 const Register = () => {
+  const { authStore } = useStores();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IUserRegistrationForm>();
 
-  const onSubmit: SubmitHandler<IUserRegistrationForm> = (
+  const onSubmit: SubmitHandler<IUserRegistrationForm> = async (
     data: IUserRegistrationForm
   ) => {
-    console.log(data);
+    await authStore.registration(data).then(() => {
+      navigate("/home");
+      window.location.reload();
+    });
   };
 
   return (

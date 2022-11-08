@@ -1,4 +1,4 @@
-package CosplayCostumes.sender;
+package CosplayCostumes.security.sender;
 
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;

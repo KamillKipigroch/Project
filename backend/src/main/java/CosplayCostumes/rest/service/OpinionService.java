@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.module.FindException;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,12 +34,12 @@ public class OpinionService {
         return opinionRepository.findById(id).orElseThrow(() -> new Exception(OPINION_ID_NO_FOUND + id));
     }
 
-    public Opinion addOpinion(OpinionDTO opinion, Set<OpinionImage> opinionImages, User user, Product product) {
+    public Opinion addOpinion(OpinionDTO opinion, User user, Product product) {
         opinionRepository.findOpinionByUserAndProduct(user, product).orElseThrow( () ->
              new FindException(OPINION_EXIST));
 
         LocalDateTime createDate = LocalDateTime.now();
-        Opinion newOpinion = new Opinion(user, product, opinionImages, opinion.getValue() ,opinion.getDescription(),createDate);
+        Opinion newOpinion = new Opinion(user, product, new HashSet<>(), opinion.getValue() ,opinion.getDescription(),createDate);
 
         return opinionRepository.save(newOpinion);
     }

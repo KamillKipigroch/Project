@@ -2,6 +2,7 @@ package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.OpinionImage;
+import CosplayCostumes.rest.model.dto.OpinionDTO;
 import CosplayCostumes.rest.model.dto.OpinionImageDTO;
 import CosplayCostumes.rest.repostitory.OpinionImageRepository;
 import lombok.AllArgsConstructor;
@@ -25,9 +26,9 @@ public class OpinionImageService {
         return opinionImageRepository.findByCode(code).orElseThrow(() -> new Exception(OPINION_IMAGE_NO_FOUND + code));
     }
 
-    public OpinionImage addOpinionImage(OpinionImageDTO opinionImage, Opinion opinion) {
-        if (opinionImageRepository.findByCode(opinionImage.getCode()).isPresent())
-            throw new FindException(OPINION_IMAGE_EXIST + opinionImage.getCode());
+    public OpinionImage addOpinionImage(Opinion opinion, String code) {
+        if (opinionImageRepository.findByCode(code).isPresent())
+            throw new FindException(OPINION_IMAGE_EXIST + code);
 
         OpinionImage newOpinionImage = new OpinionImage();
         newOpinionImage.setOpinion(opinion);

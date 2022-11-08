@@ -8,12 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class RegistrationController {
 
-    private final RegistrationService registrationService;
 
-    @PostMapping
-    public String register(@RequestBody RegistrationRequest request) {
-        return registrationService.register(request);
-    }
 
    /* @GetMapping(path = "confirm")
     public String confirm(@RequestParam("token") String token) {

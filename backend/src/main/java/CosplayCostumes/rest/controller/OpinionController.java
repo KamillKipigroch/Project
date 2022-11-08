@@ -4,7 +4,6 @@ import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.OpinionImage;
 import CosplayCostumes.rest.model.Product;
 import CosplayCostumes.rest.model.dto.OpinionDTO;
-import CosplayCostumes.rest.service.OpinionImageService;
 import CosplayCostumes.rest.service.OpinionService;
 import CosplayCostumes.rest.service.ProductService;
 import CosplayCostumes.security.user.model.User;
@@ -17,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +27,7 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 @RequestMapping("/api/opinion")
 public class OpinionController {
     private final OpinionService opinionService;
-    private final OpinionImageService opinionImageService;
+    private final OpinionImageController opinionImageController;
     private final UserService userService;
     private final ProductService productService;
 
@@ -39,16 +39,17 @@ public class OpinionController {
 
     @PostMapping("/add-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Opinion> addOpinion(@RequestBody OpinionDTO opinionDTO) throws Exception {
+    public ResponseEntity<Opinion> addOpinion(@RequestBody OpinionDTO opinionDTO) {
         User user = userService.findUserById(opinionDTO.getUserID());
         Product product = productService.findProductById(opinionDTO.getProductID());
 
-        List<OpinionImage> images = new ArrayList<>();
-        Opinion opinion = opinionService.addOpinion(opinionDTO, (Set<OpinionImage>) images, user, product);
-        opinionDTO.getOpinionImages().forEach(image -> opinionImageService.addOpinionImage(image, opinion));
+        Opinion opinion = opinionService.addOpinion(opinionDTO, user, product);
 
-        Opinion newOpinion = opinionService.findOpinionById(opinion.getId());
-        return new ResponseEntity<>(newOpinion, HttpStatus.OK);
+        opinionDTO.getOpinionImages().forEach(image -> {
+            image.setOpinionId(opinion.getId());
+            opinionImageController.addOpinionImage(image);
+        });
+        return new ResponseEntity<>(opinion, HttpStatus.OK);
     }
 
     @PutMapping("/update-object")

@@ -1,5 +1,7 @@
 package CosplayCostumes.security.user.controller;
 
+import CosplayCostumes.registration.RegistrationRequest;
+import CosplayCostumes.registration.RegistrationService;
 import CosplayCostumes.security.TokenProvider;
 import CosplayCostumes.security.user.model.AuthResponse;
 import CosplayCostumes.security.user.model.LoginUser;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RequestMapping("/auth")
 public class LoginController {
+    private final RegistrationService registrationService;
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final TokenProvider tokenProvider;
@@ -36,6 +39,11 @@ public class LoginController {
     public HttpStatus logoutUser(@RequestBody User user) {
         userService.logoutUser(user);
         return HttpStatus.OK;
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestBody RegistrationRequest request) {
+        return registrationService.register(request);
     }
 
     public String authenticateAndGetToken(String username, String password) {

@@ -9,7 +9,6 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IUserRegistrationForm>();
 
@@ -36,6 +35,28 @@ const Register = () => {
         </Typography>
         <Divider sx={{ width: "100%" }} />
         <TextField
+          type="firstName"
+          label="First Name"
+          margin="normal"
+          autoFocus
+          {...register("firstName", {
+            required: "Field required",
+          })}
+          error={!!errors?.firstName}
+          helperText={errors?.firstName ? errors.firstName.message : null}
+        />
+        <TextField
+          type="lastName"
+          label="Last Name"
+          margin="normal"
+          autoFocus
+          {...register("lastName", {
+            required: "Field required",
+          })}
+          error={!!errors?.lastName}
+          helperText={errors?.lastName ? errors.lastName.message : null}
+        />
+        <TextField
           type="email"
           label="Email"
           margin="normal"
@@ -57,31 +78,9 @@ const Register = () => {
           style={{ marginBottom: "4px" }}
           {...register("password", {
             required: "Field required",
-            minLength: {
-              value: 6,
-              message: "Password is too short",
-            },
           })}
           error={!!errors?.password}
           helperText={errors?.password ? errors.password.message : null}
-        />
-        <TextField
-          type="password"
-          label="Confirm password"
-          margin="normal"
-          style={{ marginBottom: "4px" }}
-          {...register("confirmPassword", {
-            required: "Field required",
-            validate: (val: string) => {
-              if (watch("password") !== val) {
-                return "Passwords must be the same";
-              }
-            },
-          })}
-          error={!!errors?.confirmPassword}
-          helperText={
-            errors?.confirmPassword ? errors.confirmPassword.message : null
-          }
         />
         <Box>
           <Button

@@ -253,8 +253,8 @@ public class LoadDatabase {
             }
 
             if (userRepository.findAll().isEmpty()) {
-                log.info("Preloading " + userRepository.save(new User("admin@admin.pl", bCryptPasswordEncoder.encode("admin"), UserRole.Admin)));
-                log.info("Preloading " + userRepository.save(new User("user@user.pl", bCryptPasswordEncoder.encode("user"), UserRole.User)));
+                log.info("Preloading " + userRepository.save(new User("admin@admin.pl", bCryptPasswordEncoder.encode("admin@admin.pl"), UserRole.Admin)));
+                log.info("Preloading " + userRepository.save(new User("user@user.pl", bCryptPasswordEncoder.encode("user@user.pl"), UserRole.User)));
             }
 
             if (orderStatusRepository.findAll().isEmpty()) {

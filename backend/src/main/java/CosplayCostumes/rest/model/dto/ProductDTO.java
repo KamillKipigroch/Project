@@ -3,7 +3,7 @@ package CosplayCostumes.rest.model.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 public class ProductDTO implements Serializable {
@@ -15,5 +15,5 @@ public class ProductDTO implements Serializable {
     private String description;
     private Double price;
     private String hero;
-    private LocalDateTime createDate;
+    private Set<ProductImageDTO> productImages;
 }

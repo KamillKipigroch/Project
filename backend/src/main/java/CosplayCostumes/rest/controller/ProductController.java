@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
@@ -19,7 +21,7 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 @RequestMapping("api/product")
 public class ProductController {
     private final ProductService productService;
-    private final ProductImageService productImageService;
+    private final ProductImageController productImageController;
     private final ProductTypeService productTypeService;
     private final ConditionService conditionService;
     private final QualityService qualityService;
@@ -41,13 +43,18 @@ public class ProductController {
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> addProduct(@RequestBody ProductDTO productDTO) {
         ProductType productType = productTypeService.findProductTypeById(productDTO.getProductTypeID());
+
+
         String businessKey = String.valueOf(100000000 + productService.findAllProduct().size()) + productType.getCode().substring(2);
         Category category = categoryService.findCategoryById(productDTO.getCategoryID());
         Quality quality = qualityService.findQualityById(productDTO.getQualityID());
         Condition condition = conditionService.findConditionByID(productDTO.getConditionID());
 
         Product newProduct = productService.addProduct(productDTO, businessKey, productType, category, quality, condition);
-
+        productDTO.getProductImages().forEach(image -> {
+            image.setProductID(newProduct.getId());
+            productImageController.addProductImage(image);
+        });
         return new ResponseEntity<>(newProduct, HttpStatus.OK);
     }
 

@@ -3,16 +3,12 @@ package CosplayCostumes.registration;
 
 import CosplayCostumes.registration.token.ConfirmationToken;
 import CosplayCostumes.registration.token.ConfirmationTokenService;
-import CosplayCostumes.security.TokenProvider;
-import CosplayCostumes.sender.EmailSender;
+import CosplayCostumes.security.sender.EmailSender;
 import CosplayCostumes.security.user.model.User;
 import CosplayCostumes.security.user.model.UserRole;
 import CosplayCostumes.security.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,9 +31,6 @@ public class RegistrationService {
         if (!isValidEmail)
             throw new IllegalStateException(EMAIL_NOT_VALID);
 
-
-
-
         String token =  userService.signUpUser(
                 new User(
                         request.getFirstName(),
@@ -54,10 +47,9 @@ public class RegistrationService {
                     request.getEmail(),
                     buildEmail(request.getFirstName(), link));
         }
-        catch (Exception e){
-            logger.error("Your email sender dont work !");
+        catch (Exception e) {
+            logger.error("Email sender dont work !");
         }
-
         return token;
     }
 

@@ -2,15 +2,14 @@ import axios from "axios";
 import Constants from "../constants/Constants";
 import { IToken, IUserLoginForm, IUserRegistrationForm } from "../models/AuthModel";
 
-const loginUrl = Constants.API_URL + "/auth/";
-const registrationUrl = Constants.API_URL + "/api/v1/";
+const baseUrl = Constants.API_URL + "/auth/";
 
 export const login = async (loginData: IUserLoginForm): Promise<IToken> => {
-  const response = await axios.post(loginUrl + "login", loginData);
+  const response = await axios.post(baseUrl + "login", loginData);
   return response.data;
 }
 
-export const registration = async (registrationData: IUserRegistrationForm): Promise<IToken> => {
-  const response = await axios.post(registrationUrl + "registration", registrationData);
+export const register = async (registrationData: IUserRegistrationForm): Promise<IToken> => {
+  const response = await axios.post(baseUrl + "register", registrationData);
   return response.data;
 }

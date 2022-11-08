@@ -10,7 +10,7 @@ import {
   IUserLoginForm,
   IUserRegistrationForm,
 } from "../models/AuthModel";
-import { login, registration } from "../services/AuthService";
+import { login, register } from "../services/AuthService";
 import jwt_decode from "jwt-decode";
 
 class AuthStore {
@@ -40,8 +40,8 @@ class AuthStore {
   };
 
   @action
-  registration = async (registrationData: IUserRegistrationForm) => {
-    const response = await registration(registrationData);
+  register = async (registrationData: IUserRegistrationForm) => {
+    const response = await register(registrationData);
 
     runInAction(() => {
       this.accessToken = response.accessToken;

@@ -18,7 +18,7 @@ const Register = () => {
   const onSubmit: SubmitHandler<IUserRegistrationForm> = async (
     data: IUserRegistrationForm
   ) => {
-    await authStore.registration(data).then(() => {
+    await authStore.register(data).then(() => {
       navigate("/home");
       window.location.reload();
     });

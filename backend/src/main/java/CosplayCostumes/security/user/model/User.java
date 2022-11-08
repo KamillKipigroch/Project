@@ -66,7 +66,7 @@ public class User implements UserDetails {
         this.opinion = new HashSet<>();
         this.orders = new HashSet<>();
         this.locked = false;
-        this.enabled = false;
+        this.enabled = true;
     }
 
 

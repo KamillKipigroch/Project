@@ -7,15 +7,13 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import SearchBar from "./searchBar";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Logo from "../assets/logo.png";
+import { useStores } from "../stores/root.store";
+import { observer } from "mobx-react-lite";
 
 const pages = ["Movies", "Games", "Anime", "Other"];
 
@@ -43,6 +41,7 @@ function ResponsiveAppBar() {
   };
 
   const navigate = useNavigate();
+  const { authStore } = useStores();
 
   return (
     <AppBar position="static" style={{ background: "#DD5353" }}>
@@ -141,13 +140,22 @@ function ResponsiveAppBar() {
             ))}
           </Box>
           <SearchBar />
-          <Button variant="text" component={Link} to="/login" color="inherit">
-            Sign in
-          </Button>
+          {authStore.isAuth ? (
+            <Button variant="text" onClick={() => {
+              authStore.logout();
+              navigate("/login");
+            }} color="inherit">
+              Logout
+            </Button>
+          ) : (
+            <Button variant="text" component={Link} to="/login" color="inherit">
+              Sign in
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
 
-export default ResponsiveAppBar;
+export default observer(ResponsiveAppBar);

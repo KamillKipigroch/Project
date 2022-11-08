@@ -1,20 +1,26 @@
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUserLoginForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
+import { useStores } from "../stores/root.store";
 
 export default function Home() {
+  const { authStore } = useStores();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IUserLoginForm>();
 
-  const onSubmit: SubmitHandler<IUserLoginForm> = (data: IUserLoginForm) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IUserLoginForm> = async (data: IUserLoginForm) => {
+    await authStore.login(data)
+      .then(() => {
+        navigate("/home");
+        window.location.reload();
+      })
   };
 
   return (
@@ -55,10 +61,6 @@ export default function Home() {
           style={{ marginBottom: "4px" }}
           {...register("password", {
             required: "Field required",
-            minLength: {
-              value: 6,
-              message: "Password is too short",
-            },
           })}
           error={!!errors?.password}
           helperText={errors?.password ? errors.password.message : null}

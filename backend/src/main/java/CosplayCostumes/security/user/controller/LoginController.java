@@ -42,8 +42,8 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegistrationRequest request) {
-        return registrationService.register(request);
+    public AuthResponse register(@RequestBody RegistrationRequest request) {
+        return new AuthResponse(registrationService.register(request));
     }
 
     public String authenticateAndGetToken(String username, String password) {

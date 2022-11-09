@@ -24,30 +24,50 @@ class AuthStore {
   @observable preferred_username: string | null = null;
   @observable email: string | null = null;
 
+  @observable loading: boolean = false;
+
   @computed get isAuth() {
     return !!this.accessToken;
   }
 
   @action
   login = async (loginData: IUserLoginForm) => {
-    const response = await login(loginData);
+    try {
+      this.loading = true;
 
-    runInAction(() => {
-      this.accessToken = response.accessToken;
-      this.decodeJwtToken();
-      this.saveDataToLocalStorage();
-    });
+      const response = await login(loginData);
+
+      runInAction(() => {
+        this.accessToken = response.accessToken;
+        this.decodeJwtToken();
+        this.saveDataToLocalStorage();
+      });
+
+      this.loading = false;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
   };
 
   @action
   register = async (registrationData: IUserRegistrationForm) => {
-    const response = await register(registrationData);
+    try {
+      this.loading = true;
 
-    runInAction(() => {
-      this.accessToken = response.accessToken;
-      this.decodeJwtToken();
-      this.saveDataToLocalStorage();
-    });
+      const response = await register(registrationData);
+
+      runInAction(() => {
+        this.accessToken = response.accessToken;
+        this.decodeJwtToken();
+        this.saveDataToLocalStorage();
+      });
+
+      this.loading = false;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
   };
 
   @action

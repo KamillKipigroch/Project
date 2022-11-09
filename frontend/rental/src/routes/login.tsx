@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IUserLoginForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
 import { useStores } from "../stores/root.store";
+import { LoadingButton } from "@mui/lab";
 
 export default function Home() {
   const { authStore } = useStores();
@@ -15,12 +16,13 @@ export default function Home() {
     formState: { errors },
   } = useForm<IUserLoginForm>();
 
-  const onSubmit: SubmitHandler<IUserLoginForm> = async (data: IUserLoginForm) => {
-    await authStore.login(data)
-      .then(() => {
-        navigate("/home");
-        window.location.reload();
-      })
+  const onSubmit: SubmitHandler<IUserLoginForm> = async (
+    data: IUserLoginForm
+  ) => {
+    await authStore.login(data).then(() => {
+      navigate("/home");
+      window.location.reload();
+    });
   };
 
   return (
@@ -75,13 +77,15 @@ export default function Home() {
             Sign up <ArrowForwardIcon style={{ fontSize: 10 }} />
           </Button>
         </Box>
-        <Button
+        <LoadingButton
+          loading={authStore.loading}
+          loadingIndicator="Loading.."
           variant="contained"
           type="submit"
           sx={{ marginTop: 2, bgcolor: "#DD5353" }}
         >
-          <Typography>Sign in</Typography>
-        </Button>
+          Sign in
+        </LoadingButton>
       </Box>
     </form>
   );

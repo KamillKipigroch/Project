@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IUserRegistrationForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
 import { useStores } from "../stores/root.store";
+import { LoadingButton } from "@mui/lab";
 
 const Register = () => {
   const { authStore } = useStores();
@@ -98,13 +99,15 @@ const Register = () => {
             Sign in <ArrowForwardIcon style={{ fontSize: 10 }} />
           </Button>
         </Box>
-        <Button
+        <LoadingButton
+          loading={authStore.loading}
+          loadingIndicator="Loading.."
           variant="contained"
           type="submit"
           sx={{ marginTop: 2, bgcolor: "#DD5353" }}
         >
           <Typography>Sign up</Typography>
-        </Button>
+        </LoadingButton>
       </Box>
     </form>
   );

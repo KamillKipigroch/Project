@@ -28,16 +28,40 @@ public class WebSecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
+            "/api/category/get-all",
+            "/api/condition/get-all",
+            "/api/opinion/get-all",
+            "/api/opinion-image/get-all",
+            "/api/order/get-all",
+            "/api/order-status/get-all",
+            "/api/product/get-all",
+            "/api/product-image/get-all",
+            "/api/product-type/get-all",
+            "/api/quality/get-all",
+            "/api/sub-category/get-all",
+
+            "/api/category/find/{code}",
+            "/api/condition/find/{code}",
+            "/api/opinion/find/{code}",
+            "/api/opinion-image/find/{code}",
+            "/api/order/find/{code}",
+            "/api/order-statu/find/{code}",
+            "/api/product/find/{code}",
+            "/api/product-image/find/{code}",
+            "/api/product-type/find/{code}",
+            "/api/quality/find/{code}",
+            "/api/sub-category/find/{code}",
+
             "/error",
             "/",
             "/csrf",
-            "/get-all",
             "/find/**",
     };
 
     private static final String[] ADMINISTRATOR_WHITE_LIST = {
             "/add",
             "/update",
+            "/get-all",
             "/delete"
     };
 
@@ -46,6 +70,7 @@ public class WebSecurityConfig {
             "/update-object",
             "/delete-object",
             "/get-all-objects",
+            "/get-all",
             "/find-object/**"
     };
 

@@ -18,7 +18,7 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/product")
+@RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;
     private final ProductImageController productImageController;

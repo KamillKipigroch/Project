@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Login from "../../routes/login";
-import { useStores } from "../../stores/root.store";
+import { authStore } from "../../stores/auth.store";
 
 const ProtectedRoutes = () => {
-  const { authStore } = useStores();
-
   return authStore.isAuth ? <Outlet /> : <Login />;
 };
 

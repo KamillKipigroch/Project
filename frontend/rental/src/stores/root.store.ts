@@ -1,12 +1,7 @@
 import React from "react";
-import AuthStore from "./auth.store";
 
 class RootStore {
-  authStore: AuthStore;
-
-  constructor() {
-    this.authStore = new AuthStore(this);
-  }
+  constructor() {}
 }
 
 const StoresContext = React.createContext(new RootStore());

@@ -12,8 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate, Link } from "react-router-dom";
 import SearchBar from "./searchBar";
 import Logo from "../assets/logo.png";
-import { useStores } from "../stores/root.store";
 import { observer } from "mobx-react-lite";
+import { authStore } from "../stores/auth.store";
 
 const pages = ["Movies", "Games", "Anime", "Other"];
 
@@ -41,7 +41,6 @@ function ResponsiveAppBar() {
   };
 
   const navigate = useNavigate();
-  const { authStore } = useStores();
 
   return (
     <AppBar position="static" style={{ background: "#DD5353" }}>

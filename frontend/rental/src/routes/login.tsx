@@ -4,11 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUserLoginForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
-import { useStores } from "../stores/root.store";
 import { LoadingButton } from "@mui/lab";
+import { authStore } from "../stores/auth.store";
 
 export default function Home() {
-  const { authStore } = useStores();
   const navigate = useNavigate();
   const {
     register,

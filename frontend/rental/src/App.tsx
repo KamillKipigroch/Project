@@ -15,14 +15,13 @@ import "@fontsource/roboto/700.css";
 import Register from "./routes/register";
 import MyToastComponent from "./components/Toast/MyToastComponent";
 import { AxiosInterceptors } from "./services/AxiosInterceptors";
-import { useStores } from "./stores/root.store";
 import { useEffect } from "react";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import { authStore } from "./stores/auth.store";
 
 AxiosInterceptors();
 
 function App() {
-  const { authStore } = useStores();
 
   useEffect(() => {
     authStore.autoLogin();

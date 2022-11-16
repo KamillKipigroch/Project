@@ -2,7 +2,7 @@ package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Order;
 import CosplayCostumes.rest.model.Product;
-import CosplayCostumes.rest.model.dto.OrderDTO;
+import CosplayCostumes.rest.model.dto.order.OrderDTO;
 import CosplayCostumes.rest.service.OrderService;
 import CosplayCostumes.rest.service.ProductService;
 import CosplayCostumes.security.user.model.User;

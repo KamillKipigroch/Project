@@ -26,11 +26,11 @@ public class LoadDatabase {
         return args -> {
 
             if (categoryRepository.findAll().isEmpty()) {
-                log.info("Preloading " + categoryRepository.save(new Category("Anime", new HashSet<>())));
-                log.info("Preloading " + categoryRepository.save(new Category("Movie", new HashSet<>())));
-                log.info("Preloading " + categoryRepository.save(new Category("Series", new HashSet<>())));
-                log.info("Preloading " + categoryRepository.save(new Category("Game", new HashSet<>())));
-                log.info("Preloading " + categoryRepository.save(new Category("Other", new HashSet<>())));
+                log.info("Preloading " + categoryRepository.save(new Category("Anime")));
+                log.info("Preloading " + categoryRepository.save(new Category("Movie")));
+                log.info("Preloading " + categoryRepository.save(new Category("Series")));
+                log.info("Preloading " + categoryRepository.save(new Category("Game")));
+                log.info("Preloading " + categoryRepository.save(new Category("Other")));
             }
 
             if (subCategoryRepository.findAll().isEmpty()) {

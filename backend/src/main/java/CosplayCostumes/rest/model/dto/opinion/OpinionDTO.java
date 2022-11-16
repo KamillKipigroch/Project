@@ -1,5 +1,6 @@
-package CosplayCostumes.rest.model.dto;
+package CosplayCostumes.rest.model.dto.opinion;
 
+import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
 import lombok.Data;
 
 import javax.validation.constraints.Max;

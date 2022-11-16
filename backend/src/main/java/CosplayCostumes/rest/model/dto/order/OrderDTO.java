@@ -1,4 +1,4 @@
-package CosplayCostumes.rest.model.dto;
+package CosplayCostumes.rest.model.dto.order;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Category;
 import CosplayCostumes.rest.model.Opinion;
-import CosplayCostumes.rest.model.dto.CategoryDTO;
+import CosplayCostumes.rest.model.dto.category.CategoryDTO;
 import CosplayCostumes.rest.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

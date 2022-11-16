@@ -1,4 +1,4 @@
-package CosplayCostumes.rest.model.dto;
+package CosplayCostumes.rest.model.dto.condition;
 
 import lombok.Data;
 

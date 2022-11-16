@@ -2,7 +2,6 @@ package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Product;
 import CosplayCostumes.rest.model.ProductImage;
-import CosplayCostumes.rest.model.dto.ProductImageDTO;
 import CosplayCostumes.rest.repostitory.ProductImageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,11 +29,11 @@ public class ProductImageService {
         return productImageRepository.findByCode(code).orElseThrow( () -> new FindException(PRODUCT_IMAGE_NO_FOUND + code));
     }
 
-    public ProductImage addProductImage(Product product, String code) {
+    public ProductImage addProductImage( String code) {
         if (productImageRepository.findByCode(code).isPresent())
             throw new FindException(PRODUCT_IMAGE_EXIST + code);
 
-        ProductImage newProductImage = new ProductImage(code, product);
+        ProductImage newProductImage = new ProductImage(code, null);
 
         return productImageRepository.save(newProductImage);
     }

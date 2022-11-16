@@ -26,18 +26,10 @@ public class OrderStatus implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "orderStatus")
-    private Set<Order> order;
 
     private String code;
 
     private Boolean visible;
-
-    public OrderStatus(Set<Order> order, String code) {
-        this.order = order;
-        this.code = code;
-        this.visible = true;
-    }
 
     public OrderStatus(String code) {
         this.code = code;

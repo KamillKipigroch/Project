@@ -1,9 +1,10 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Opinion;
-import CosplayCostumes.rest.model.OpinionImage;
 import CosplayCostumes.rest.model.Product;
-import CosplayCostumes.rest.model.dto.OpinionDTO;
+import CosplayCostumes.rest.model.dto.opinion.OpinionDTO;
+import CosplayCostumes.rest.model.dto.opinion.OpinionResponse;
+import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
 import CosplayCostumes.rest.service.OpinionService;
 import CosplayCostumes.rest.service.ProductService;
 import CosplayCostumes.security.user.model.User;
@@ -28,13 +29,21 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 public class OpinionController {
     private final OpinionService opinionService;
     private final OpinionImageController opinionImageController;
+
     private final UserService userService;
     private final ProductService productService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Opinion>> getAll() {
+    public ResponseEntity<List<OpinionResponse>> getAll() {
         List<Opinion> opinions = opinionService.findAllOpinion();
-        return new ResponseEntity<>(opinions, HttpStatus.OK);
+        List<OpinionResponse> opinionsResponse = new ArrayList<>();
+        opinions.forEach(opinion -> {
+            Set<OpinionImageDTO> images = new HashSet<>();
+            OpinionResponse opinionResponse = new OpinionResponse(opinion.getId(), opinion.getUser().getId(), opinion.getUser().getFirstName() + " " + opinion.getUser().getLastName(),
+                    opinion.getProduct().getId(), opinion.getProduct().getCode(), opinion.getValue(), opinion.getDescription(), images);
+            opinionsResponse.add(opinionResponse);
+        });
+        return new ResponseEntity<>(opinionsResponse, HttpStatus.OK);
     }
 
     @PostMapping("/add-object")
@@ -54,9 +63,19 @@ public class OpinionController {
 
     @PutMapping("/update-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Opinion> updateOpinion(@RequestBody Opinion opinion) {
-        Opinion newQuality = opinionService.updateOpinion(opinion);
-        return new ResponseEntity<>(newQuality, HttpStatus.OK);
+    public ResponseEntity<Opinion> updateOpinion(@RequestBody OpinionDTO opinionDTO) throws Exception {
+        User user = userService.findUserById(opinionDTO.getUserID());
+        Product product = productService.findProductById(opinionDTO.getProductID());
+
+        Opinion opinion = opinionService.findOpinionById(1L);
+
+                opinionService.updateOpinion(opinion);
+
+        opinionDTO.getOpinionImages().forEach(image -> {
+            image.setOpinionId(opinion.getId());
+            opinionImageController.addOpinionImage(image);
+        });
+        return new ResponseEntity<>(opinion, HttpStatus.OK);
     }
 
     @PutMapping("/delete-object")

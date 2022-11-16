@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Category;
-import CosplayCostumes.rest.model.dto.CategoryDTO;
+import CosplayCostumes.rest.model.dto.category.CategoryDTO;
 import CosplayCostumes.rest.repostitory.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

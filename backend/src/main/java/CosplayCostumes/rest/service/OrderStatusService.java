@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.OrderStatus;
-import CosplayCostumes.rest.model.dto.OrderStatusDTO;
+import CosplayCostumes.rest.model.dto.orderStatus.OrderStatusDTO;
 import CosplayCostumes.rest.repostitory.OrderStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

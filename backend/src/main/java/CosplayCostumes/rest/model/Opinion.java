@@ -36,9 +36,6 @@ public class Opinion implements Serializable {
     @JoinColumn(name = "product_id")
     Product product;
 
-    @OneToMany(mappedBy="opinion")
-    private Set<OpinionImage> images;
-
     private Double value;
 
     private String description;
@@ -51,7 +48,6 @@ public class Opinion implements Serializable {
     public Opinion(User user, Product product, Set<OpinionImage> images, Double value, String description, LocalDateTime createDate) {
         this.user = user;
         this.product = product;
-        this.images = images;
         this.value = value;
         this.description = description;
         this.createDate = createDate;

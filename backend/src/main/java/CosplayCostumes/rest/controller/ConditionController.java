@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Condition;
-import CosplayCostumes.rest.model.dto.ConditionDTO;
+import CosplayCostumes.rest.model.dto.condition.ConditionDTO;
 import CosplayCostumes.rest.service.ConditionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

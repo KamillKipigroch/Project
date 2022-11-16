@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.*;
-import CosplayCostumes.rest.model.dto.ProductDTO;
+import CosplayCostumes.rest.model.dto.product.ProductDTO;
 import CosplayCostumes.rest.repostitory.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,13 +25,19 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow(() -> new FindException(PRODUCT_ID_NO_FOUND + id));
     }
 
+    public void addImageToProduct(ProductImage productImage, Long id) {
+        Product p = productRepository.findById(id).orElseThrow(() -> new FindException(PRODUCT_ID_NO_FOUND + id));
+        p.getImages().add(productImage);
+        productRepository.save(p);
+    }
+
     public Product findProductByBusinessKey(String businessKey) {
         return productRepository.findByBusinessKey(businessKey).orElseThrow(() -> new FindException(PRODUCT_NO_FOUND + businessKey));
     }
 
-    public Product addProduct(ProductDTO product, String businessKey, ProductType productType, Category category, Quality quality, Condition condition) {
+    public Product addProduct(ProductDTO product, String businessKey, ProductType productType, Subcategory subcategory, Quality quality, Condition condition) {
         LocalDateTime createDate = LocalDateTime.now();
-        Product newProduct = new Product(businessKey, productType, null, category, condition, quality, null, null, product.getCode(), product.getDescription(), product.getPrice(), product.getHero(), createDate);
+        Product newProduct = new Product(businessKey, productType, null, subcategory, condition, quality, null, null, product.getCode(), product.getDescription(), product.getPrice(), product.getHero(), createDate);
 
         return productRepository.save(newProduct);
     }

@@ -2,8 +2,6 @@ package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.OpinionImage;
-import CosplayCostumes.rest.model.dto.OpinionDTO;
-import CosplayCostumes.rest.model.dto.OpinionImageDTO;
 import CosplayCostumes.rest.repostitory.OpinionImageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,8 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Opinion;
-import CosplayCostumes.rest.model.OpinionImage;
 import CosplayCostumes.rest.model.Product;
-import CosplayCostumes.rest.model.dto.OpinionDTO;
+import CosplayCostumes.rest.model.dto.opinion.OpinionDTO;
 import CosplayCostumes.rest.repostitory.OpinionRepository;
 import CosplayCostumes.security.user.model.User;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,6 @@ import java.lang.module.FindException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor

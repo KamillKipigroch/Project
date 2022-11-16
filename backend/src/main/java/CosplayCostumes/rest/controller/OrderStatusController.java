@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.OrderStatus;
-import CosplayCostumes.rest.model.dto.OrderStatusDTO;
+import CosplayCostumes.rest.model.dto.orderStatus.OrderStatusDTO;
 import CosplayCostumes.rest.service.OrderStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

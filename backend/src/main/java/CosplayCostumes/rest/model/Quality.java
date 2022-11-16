@@ -27,20 +27,11 @@ public class Quality implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "quality")
-    private Set<Product> products = new HashSet<>();
-
     private String code;
 
     private Boolean visible;
 
     public Quality(String code) {
-        this.code = code;
-        this.visible = true;
-    }
-
-    public Quality(Set<Product> products, String code) {
-        this.products = products;
         this.code = code;
         this.visible = true;
     }

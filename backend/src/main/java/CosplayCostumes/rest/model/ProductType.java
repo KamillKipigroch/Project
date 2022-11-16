@@ -26,8 +26,6 @@ public class ProductType implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "productType")
-    private Set<Product> products;
     private String code;
     private Boolean visible;
 

@@ -25,11 +25,11 @@ public class OpinionService {
         return opinionRepository.findAll();
     }
 
-    public Opinion findOpinionByUserAndProduct(User user, Product product) throws Exception {
-        return opinionRepository.findOpinionByUserAndProduct(user, product).orElseThrow(() -> new Exception(OPINION_NO_FOUND + user.getEmail() + product.getBusinessKey()));
+    public Opinion findOpinionByUserAndProduct(User user, Product product) {
+        return opinionRepository.findOpinionByUserAndProduct(user, product).orElseThrow(() -> new FindException(OPINION_NO_FOUND + user.getEmail() + product.getBusinessKey()));
     }
-    public Opinion findOpinionById(Long id) throws Exception {
-        return opinionRepository.findById(id).orElseThrow(() -> new Exception(OPINION_ID_NO_FOUND + id));
+    public Opinion findOpinionById(Long id) {
+        return opinionRepository.findById(id).orElseThrow(() -> new FindException(OPINION_ID_NO_FOUND + id));
     }
 
     public Opinion addOpinion(OpinionDTO opinion, User user, Product product) {
@@ -42,19 +42,17 @@ public class OpinionService {
         return opinionRepository.save(newOpinion);
     }
 
-    public Opinion updateOpinion(Opinion opinion) {
-        if (opinionRepository.findById(opinion.getId()).isEmpty()) {
-            throw new FindException(OPINION_NO_FOUND + opinion.getId());
-        } else {
-            opinion = opinionRepository.save(opinion);
-        }
+    public Opinion updateOpinion(OpinionDTO opinion) {
+       Opinion op = opinionRepository.findById(opinion.getId()).orElseThrow(() -> new FindException(OPINION_NO_FOUND + opinion.getId()));
+       op.setValue(opinion.getValue());
+       op.setDescription(opinion.getDescription());
+       op.setCreateDate(LocalDateTime.now());
 
-        return opinion;
+        return opinionRepository.save(op);
     }
 
-    public void deleteOpinion(Opinion opinion) {
-        if (opinionRepository.findById(opinion.getId()).isEmpty())
-            throw new FindException(OPINION_NO_FOUND + opinion.getId());
+    public void deleteOpinion(Long id) {
+        Opinion opinion = opinionRepository.findById(id).orElseThrow(() -> new FindException(OPINION_NO_FOUND + id));
         opinion.setVisible(false);
         opinionRepository.save(opinion);
     }

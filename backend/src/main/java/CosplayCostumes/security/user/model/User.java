@@ -1,7 +1,5 @@
 package CosplayCostumes.security.user.model;
 
-import CosplayCostumes.rest.model.Opinion;
-import CosplayCostumes.rest.model.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +11,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -33,13 +30,6 @@ public class User implements UserDetails {
     )
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "opinion_id")
-    private Set<Opinion> opinion;
-
-    @OneToMany
-    @JoinColumn(name = "order_id")
-    private Set<Order> orders;
     private String firstName;
 
     private String lastName;
@@ -63,8 +53,6 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.userRole = userRole;
-        this.opinion = new HashSet<>();
-        this.orders = new HashSet<>();
         this.locked = false;
         this.enabled = true;
     }
@@ -74,8 +62,6 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.userRole = userRole;
-        this.opinion = new HashSet<>();
-        this.orders = new HashSet<>();
         this.locked = false;
         this.enabled = true;
     }

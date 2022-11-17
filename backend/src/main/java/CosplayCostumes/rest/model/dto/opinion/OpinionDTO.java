@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Data
 public class OpinionDTO {
+    private Long id;
     private Long UserID;
     private Long ProductID;
     @Min(1)

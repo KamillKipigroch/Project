@@ -15,9 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Category implements Serializable {
     @Id
     @SequenceGenerator(name = "s_category",

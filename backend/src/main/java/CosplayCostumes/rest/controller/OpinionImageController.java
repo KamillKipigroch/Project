@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.OpinionImage;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
 import CosplayCostumes.rest.service.OpinionImageService;
 import CosplayCostumes.rest.service.OpinionService;
@@ -66,8 +67,8 @@ public class OpinionImageController {
 
     @PutMapping("/delete-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OpinionImage> deleteOpinionImage(@RequestBody OpinionImage opinionImage) {
-        opinionImageService.deleteOpinionImage(opinionImage);
+    public ResponseEntity<String> deleteOpinionImage(@RequestBody ModelDTO modelDTO) {
+        opinionImageService.deleteOpinionImage(opinionImageService.findOpinionImageById(modelDTO.getId()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

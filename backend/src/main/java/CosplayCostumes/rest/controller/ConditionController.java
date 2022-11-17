@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Condition;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.condition.ConditionDTO;
 import CosplayCostumes.rest.service.ConditionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,8 +49,8 @@ public class ConditionController {
 
     @PutMapping("/delete")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Condition> deleteCondition(@RequestBody Condition condition) {
-        conditionService.deleteCondition(condition);
+    public ResponseEntity<HttpStatus> deleteCondition(@RequestBody ModelDTO modelDTO) {
+        conditionService.deleteCondition(modelDTO.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

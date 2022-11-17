@@ -47,10 +47,10 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void deleteCategory(Category category) {
-        categoryRepository.findById(category.getId()).orElseThrow(() ->
-                new FindException(CATEGORY_ID_NO_FOUND + category.getId()));
-        category.setVisible(false);
-        categoryRepository.save(category);
+    public void deleteCategory(Long id) {
+        Category uCategory = categoryRepository.findById(id).orElseThrow(() ->
+                new FindException(CATEGORY_ID_NO_FOUND + id));
+        uCategory.setVisible(false);
+        categoryRepository.save(uCategory);
     }
 }

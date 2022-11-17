@@ -26,7 +26,6 @@ public class OrderStatus implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-
     private String code;
 
     private Boolean visible;

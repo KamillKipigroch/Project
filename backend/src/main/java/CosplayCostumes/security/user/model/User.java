@@ -1,5 +1,7 @@
 package CosplayCostumes.security.user.model;
 
+import CosplayCostumes.rest.model.Opinion;
+import CosplayCostumes.rest.model.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,6 +39,12 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "user")
+    Set<Order> orders;
+
+    @OneToMany(mappedBy = "user")
+    Set<Opinion> opinions;
 
     private String email;
 

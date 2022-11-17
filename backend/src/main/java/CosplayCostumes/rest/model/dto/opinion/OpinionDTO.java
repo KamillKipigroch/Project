@@ -1,5 +1,6 @@
-package CosplayCostumes.rest.model.dto;
+package CosplayCostumes.rest.model.dto.opinion;
 
+import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Data
 public class OpinionDTO {
+    private Long id;
     private Long UserID;
     private Long ProductID;
     @Min(1)

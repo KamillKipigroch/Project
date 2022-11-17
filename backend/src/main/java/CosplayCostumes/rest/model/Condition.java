@@ -27,8 +27,6 @@ public class Condition implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "condition")
-    private Set<Product> products = new HashSet<>();
     private int price;
 
     private String code;

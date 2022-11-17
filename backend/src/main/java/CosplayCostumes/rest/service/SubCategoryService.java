@@ -2,7 +2,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Subcategory;
-import CosplayCostumes.rest.model.dto.SubcategoryDTO;
+import CosplayCostumes.rest.model.dto.subcategory.SubcategoryDTO;
 import CosplayCostumes.rest.repostitory.SubCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,12 @@ public class SubCategoryService {
         return subCategoryRepository.findAll();
     }
 
-    public Subcategory findSubCategoryByCode(String code) throws Exception {
+    public Subcategory findSubCategoryByCode(String code) {
         return subCategoryRepository.findByCode(code).orElseThrow(() -> new FindException(SUB_CATEGORY_NO_FOUND + code));
+    }
+
+    public Subcategory findSubCategoryById(Long id) {
+        return subCategoryRepository.findById(id).orElseThrow(() -> new FindException(SUB_CATEGORY_ID_NO_FOUND + id));
     }
 
     public Subcategory addSubCategory(SubcategoryDTO subcategory) {

@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.ProductImage;
-import CosplayCostumes.rest.model.dto.ProductImageDTO;
+import CosplayCostumes.rest.model.dto.productImage.ProductImageDTO;
 import CosplayCostumes.rest.service.CloudinaryService;
 import CosplayCostumes.rest.service.ProductImageService;
 import CosplayCostumes.rest.service.ProductService;
@@ -55,7 +55,8 @@ public class ProductImageController {
         ProductImage productImage;
         try {
             String code = cloudinaryService.upload(productImageDTO.getFile());
-            productImage = productImageService.addProductImage(productService.findProductById(productImageDTO.getProductID()), code);
+            productImage = productImageService.addProductImage(code);
+            productService.addImageToProduct(productImage, productImageDTO.getProductID());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

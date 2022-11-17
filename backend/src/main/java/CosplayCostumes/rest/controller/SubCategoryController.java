@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Subcategory;
-import CosplayCostumes.rest.model.dto.SubcategoryDTO;
+import CosplayCostumes.rest.model.dto.subcategory.SubcategoryDTO;
 import CosplayCostumes.rest.service.SubCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

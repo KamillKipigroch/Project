@@ -2,11 +2,10 @@ package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.OpinionImage;
-import CosplayCostumes.rest.model.dto.OpinionDTO;
-import CosplayCostumes.rest.model.dto.OpinionImageDTO;
 import CosplayCostumes.rest.repostitory.OpinionImageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.lang.module.FindException;
 import java.util.List;
@@ -17,9 +16,13 @@ public class OpinionImageService {
     private final static String OPINION_IMAGE_NO_FOUND = "Failed to find opinion image ";
     private final static String OPINION_IMAGE_EXIST = "Opinion image with this name with this name is exist ";
     private final OpinionImageRepository opinionImageRepository;
+    private final CloudinaryService cloudinaryService;
 
     public List<OpinionImage> findAllOpinionImage() {
         return opinionImageRepository.findAll();
+    }
+    public OpinionImage findOpinionImageById(Long id) {
+        return opinionImageRepository.findById(id).orElseThrow(() -> new NotFoundException(OPINION_IMAGE_EXIST));
     }
 
     public OpinionImage findOpinionImageByCode(String code) throws Exception {

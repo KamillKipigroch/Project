@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Quality;
-import CosplayCostumes.rest.model.dto.QualityDTO;
+import CosplayCostumes.rest.model.dto.quality.QualityDTO;
 import CosplayCostumes.rest.service.QualityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Quality;
-import CosplayCostumes.rest.model.dto.QualityDTO;
+import CosplayCostumes.rest.model.dto.quality.QualityDTO;
 import CosplayCostumes.rest.repostitory.QualityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

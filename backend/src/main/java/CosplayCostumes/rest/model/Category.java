@@ -15,9 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Category implements Serializable {
     @Id
     @SequenceGenerator(name = "s_category",
@@ -33,18 +30,10 @@ public class Category implements Serializable {
 
     private String code;
 
-    @OneToMany(mappedBy="category")
-    private Set<Subcategory> subcategories;
-
-    @OneToMany
-    @JoinColumn(name = "product_id")
-    private Set<Product> product;
-
     private Boolean visible;
 
-    public Category(String code, Set<Subcategory> subcategories) {
+    public Category(String code) {
         this.code = code;
-        this.subcategories = subcategories;
         this.visible = true;
     }
 }

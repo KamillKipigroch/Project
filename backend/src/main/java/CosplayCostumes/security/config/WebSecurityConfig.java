@@ -71,6 +71,7 @@ public class WebSecurityConfig {
             "/delete-object",
             "/get-all-objects",
             "/get-all",
+            "/update-status-object",
             "/find-object/**"
     };
 

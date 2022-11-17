@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.Condition;
-import CosplayCostumes.rest.model.dto.ConditionDTO;
+import CosplayCostumes.rest.model.dto.condition.ConditionDTO;
 import CosplayCostumes.rest.repostitory.ConditionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,10 +45,10 @@ public class ConditionService {
         return conditionRepository.save(condition);
     }
 
-    public void deleteCondition(Condition condition) {
-        conditionRepository.findById(condition.getId()).orElseThrow( () ->
-                new FindException(CONDITION_ID_NO_FOUND + condition.getId()));
-        condition.setVisible(false);
-        conditionRepository.save(condition);
+    public void deleteCondition(Long id) {
+        Condition c = conditionRepository.findById(id).orElseThrow( () ->
+                new FindException(CONDITION_ID_NO_FOUND + id));
+        c.setVisible(false);
+        conditionRepository.save(c);
     }
 }

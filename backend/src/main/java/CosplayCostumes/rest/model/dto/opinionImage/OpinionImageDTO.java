@@ -1,4 +1,4 @@
-package CosplayCostumes.rest.model.dto;
+package CosplayCostumes.rest.model.dto.opinionImage;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

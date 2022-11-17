@@ -1,8 +1,8 @@
 package CosplayCostumes.rest.controller;
 
-import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.OpinionImage;
-import CosplayCostumes.rest.model.dto.OpinionImageDTO;
+import CosplayCostumes.rest.model.dto.ModelDTO;
+import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
 import CosplayCostumes.rest.service.OpinionImageService;
 import CosplayCostumes.rest.service.OpinionService;
 import CosplayCostumes.rest.service.CloudinaryService;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 
@@ -32,8 +31,7 @@ public class OpinionImageController {
     @GetMapping("/get-all")
     public ResponseEntity<List<ByteArrayResource>> getAll() {
         List<OpinionImage> opinionImages = opinionImageService.findAllOpinionImage();
-
-        List<ByteArrayResource> listImage = new ArrayList<>();
+        List<ByteArrayResource> listImage = new ArrayList<ByteArrayResource>();
         opinionImages.forEach(image -> listImage.add(cloudinaryService.downloadImg(image.getCode(), 1024, 768, false)));
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("content-disposition", "attachment; filename=image.jpg");
@@ -69,8 +67,8 @@ public class OpinionImageController {
 
     @PutMapping("/delete-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OpinionImage> deleteOpinionImage(@RequestBody OpinionImage opinionImage) {
-        opinionImageService.deleteOpinionImage(opinionImage);
+    public ResponseEntity<String> deleteOpinionImage(@RequestBody ModelDTO modelDTO) {
+        opinionImageService.deleteOpinionImage(opinionImageService.findOpinionImageById(modelDTO.getId()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

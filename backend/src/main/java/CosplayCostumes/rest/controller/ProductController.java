@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.*;
-import CosplayCostumes.rest.model.dto.ProductDTO;
+import CosplayCostumes.rest.model.dto.product.ProductDTO;
 import CosplayCostumes.rest.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
@@ -25,7 +23,7 @@ public class ProductController {
     private final ProductTypeService productTypeService;
     private final ConditionService conditionService;
     private final QualityService qualityService;
-    private final CategoryService categoryService;
+    private final SubCategoryService subCategoryService;
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Product>> getAllQualities() {
@@ -43,14 +41,12 @@ public class ProductController {
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> addProduct(@RequestBody ProductDTO productDTO) {
         ProductType productType = productTypeService.findProductTypeById(productDTO.getProductTypeID());
-
-
         String businessKey = String.valueOf(100000000 + productService.findAllProduct().size()) + productType.getCode().substring(2);
-        Category category = categoryService.findCategoryById(productDTO.getCategoryID());
+        Subcategory subcategory = subCategoryService.findSubCategoryById(productDTO.getSubCategoryID());
         Quality quality = qualityService.findQualityById(productDTO.getQualityID());
         Condition condition = conditionService.findConditionByID(productDTO.getConditionID());
 
-        Product newProduct = productService.addProduct(productDTO, businessKey, productType, category, quality, condition);
+        Product newProduct = productService.addProduct(productDTO, businessKey, productType, subcategory, quality, condition);
         productDTO.getProductImages().forEach(image -> {
             image.setProductID(newProduct.getId());
             productImageController.addProductImage(image);

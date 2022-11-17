@@ -2,7 +2,8 @@ package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Category;
 import CosplayCostumes.rest.model.Opinion;
-import CosplayCostumes.rest.model.dto.CategoryDTO;
+import CosplayCostumes.rest.model.dto.ModelDTO;
+import CosplayCostumes.rest.model.dto.category.CategoryDTO;
 import CosplayCostumes.rest.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -49,8 +50,8 @@ public class CategoryController {
 
     @PutMapping("/delete")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Opinion> deleteCategory(@RequestBody Category category) {
-        categoryService.deleteCategory(category);
+    public ResponseEntity<HttpStatus> deleteCategory(@RequestBody ModelDTO modelDTO) {
+        categoryService.deleteCategory(modelDTO.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

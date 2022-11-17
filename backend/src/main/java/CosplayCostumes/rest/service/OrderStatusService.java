@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.service;
 
 import CosplayCostumes.rest.model.OrderStatus;
-import CosplayCostumes.rest.model.dto.OrderStatusDTO;
+import CosplayCostumes.rest.model.dto.orderStatus.OrderStatusDTO;
 import CosplayCostumes.rest.repostitory.OrderStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,11 @@ public class OrderStatusService {
         return orderStatusRepository.findAll();
     }
 
-    public OrderStatus findOrderStatusByCode(String code) throws Exception {
-        return orderStatusRepository.findByCode(code).orElseThrow(() -> new Exception(ORDER_STATUS_NO_FOUND + code));
+    public OrderStatus findOrderStatusByCode(String code){
+        return orderStatusRepository.findByCode(code).orElseThrow(() -> new FindException(ORDER_STATUS_NO_FOUND + code));
+    }
+    public OrderStatus findOrderStatusById(Long id) {
+        return orderStatusRepository.findById(id).orElseThrow(() -> new FindException(ORDER_STATUS_EXIST));
     }
 
     public OrderStatus addOrderStatus(OrderStatusDTO orderStatus) {
@@ -33,6 +36,7 @@ public class OrderStatusService {
     }
 
     public OrderStatus updateOrderStatus(OrderStatus orderStatus) {
+//        OrderStatus order = orderStatusRepository.findById(id)
         return orderStatusRepository.save(orderStatus);
     }
 

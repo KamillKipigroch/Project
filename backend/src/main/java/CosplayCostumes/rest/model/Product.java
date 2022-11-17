@@ -38,8 +38,8 @@ public class Product implements Serializable {
     private Set<ProductImage> images = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "subcategory_id")
+    private Subcategory subcategory;
 
     @ManyToOne
     @JoinColumn(name = "condition_id")
@@ -48,11 +48,9 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "quality_id")
     private Quality quality;
-    @OneToMany(mappedBy = "product")
-    private Set<Opinion> opinions = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
-    private Set<Order> orders = new HashSet<>();
+    private Set<Opinion> opinions = new HashSet<>();
 
     private String code;
 
@@ -67,15 +65,14 @@ public class Product implements Serializable {
 
     private Boolean visible;
 
-    public Product(String businessKey, ProductType productType, Set<ProductImage> images, Category category, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
+    public Product(String businessKey, ProductType productType, Set<ProductImage> images, Subcategory subcategory, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
         this.businessKey = businessKey;
         this.productType = productType;
         this.images = images;
-        this.category = category;
+        this.subcategory = subcategory;
         this.condition = condition;
         this.quality = quality;
         this.opinions = opinions;
-        this.orders = orders;
         this.code = code;
         this.description = description;
         this.price = price;

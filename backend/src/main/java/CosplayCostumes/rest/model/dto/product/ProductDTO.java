@@ -1,5 +1,6 @@
-package CosplayCostumes.rest.model.dto;
+package CosplayCostumes.rest.model.dto.product;
 
+import CosplayCostumes.rest.model.dto.productImage.ProductImageDTO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,7 +9,7 @@ import java.util.Set;
 @Data
 public class ProductDTO implements Serializable {
     private Long productTypeID;
-    private Long categoryID;
+    private Long subCategoryID;
     private Long conditionID;
     private Long qualityID;
     private String code;

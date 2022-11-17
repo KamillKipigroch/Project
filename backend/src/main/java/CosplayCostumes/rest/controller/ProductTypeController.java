@@ -1,7 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.ProductType;
-import CosplayCostumes.rest.model.dto.ProductTypeDTO;
+import CosplayCostumes.rest.model.dto.productType.ProductTypeDTO;
 import CosplayCostumes.rest.service.ProductTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

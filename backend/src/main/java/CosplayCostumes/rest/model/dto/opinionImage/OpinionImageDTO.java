@@ -8,5 +8,5 @@ import java.io.Serializable;
 @Data
 public class OpinionImageDTO implements Serializable {
     private Long opinionId;
-    private MultipartFile file;
+    private String fileUrl;
 }

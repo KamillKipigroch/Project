@@ -9,4 +9,5 @@ public interface OrderStatusRepository extends JpaRepository<OrderStatus, Long> 
     Optional<OrderStatus> findById(Long id);
 
     Optional<OrderStatus> findByCode(String code);
+    Optional<OrderStatus> findByLevel(int level);
 }

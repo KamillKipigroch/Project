@@ -34,7 +34,7 @@ public class OrderController {
 
     @GetMapping("/get-all-objects")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<List<OrderResponse>> getAllOrder() {
+    public ResponseEntity<List<OrderResponse>> getAllOrders() {
         List<Order> orders = orderService.findAllOrder();
         List<OrderResponse> response = new ArrayList<>();
         orders.forEach(order -> response.add(orderMapper(order)));
@@ -71,8 +71,8 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private OrderResponse orderMapper(Order order){
-        return new OrderResponse(order.getId(),order.getOrderStatus().getId(), order.getOrderStatus().getCode(), order.getProduct().getId(), order.getProduct().getCode(),
+    private OrderResponse orderMapper(Order order) {
+        return new OrderResponse(order.getId(), order.getOrderStatus().getId(), order.getOrderStatus().getCode(), order.getProduct().getId(), order.getProduct().getCode(),
                 order.getUser().getId(), order.getUser().getFirstName() + " " + order.getUser().getLastName());
     }
 }

@@ -40,9 +40,12 @@ public class ConditionService {
     }
 
     public Condition updateCondition(Condition condition) {
-        conditionRepository.findById(condition.getId()).orElseThrow( () ->
+        var update =conditionRepository.findById(condition.getId()).orElseThrow( () ->
                 new FindException(CONDITION_ID_NO_FOUND + condition.getId()));
-        return conditionRepository.save(condition);
+        update.setCode(condition.getCode());
+        update.setVisible(condition.getVisible());
+        update.setPrice(condition.getPrice());
+        return conditionRepository.save(update);
     }
 
     public void deleteCondition(Long id) {

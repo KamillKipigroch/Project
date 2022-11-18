@@ -1,7 +1,6 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Category;
-import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.category.CategoryDTO;
 import CosplayCostumes.rest.service.CategoryService;
@@ -34,6 +33,12 @@ public class CategoryController {
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
+        Category category = categoryService.findCategoryById(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO category) {
@@ -52,6 +57,6 @@ public class CategoryController {
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteCategory(@RequestBody ModelDTO modelDTO) {
         categoryService.deleteCategory(modelDTO.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK,HttpStatus.OK);
     }
 }

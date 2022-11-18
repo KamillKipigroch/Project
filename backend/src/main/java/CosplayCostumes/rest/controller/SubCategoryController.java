@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Subcategory;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.subcategory.SubcategoryDTO;
 import CosplayCostumes.rest.service.SubCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,14 +22,20 @@ public class SubCategoryController {
     private final SubCategoryService subCategoryService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Subcategory>> getAll() {
+    public ResponseEntity<List<Subcategory>> getAllSubCategories() {
         List<Subcategory> allSubCategory = subCategoryService.findAllSubCategory();
         return new ResponseEntity<>(allSubCategory, HttpStatus.OK);
     }
 
     @GetMapping("/find/{code}")
-    public ResponseEntity<Subcategory> findByCode(@PathVariable("code") String code) throws Exception {
+    public ResponseEntity<Subcategory> findSubcategory(@PathVariable("code") String code) {
         Subcategory categoryByCode = subCategoryService.findSubCategoryByCode(code);
+        return new ResponseEntity<>(categoryByCode, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Subcategory> findSubcategoryById(@PathVariable("id") Long id) {
+        Subcategory categoryByCode = subCategoryService.findSubCategoryById(id);
         return new ResponseEntity<>(categoryByCode, HttpStatus.OK);
     }
 
@@ -48,8 +55,8 @@ public class SubCategoryController {
 
     @PutMapping("/delete")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Subcategory> deleteSubcategory(@RequestBody Subcategory subcategory) {
-        subCategoryService.deleteSubCategory(subcategory);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteSubcategory(@RequestBody ModelDTO modelDTO) {
+        subCategoryService.deleteSubCategory(modelDTO.getId());
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

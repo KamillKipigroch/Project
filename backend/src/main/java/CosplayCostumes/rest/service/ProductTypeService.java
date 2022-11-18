@@ -37,13 +37,17 @@ public class ProductTypeService {
     }
 
     public ProductType updateProductType(ProductType productType) {
-        return productTypeRepository.save(productType);
+        var update =productTypeRepository.findById(productType.getId()).orElseThrow(() ->
+                new FindException(PRODUCT_TYPE_ID_NO_FOUND + productType.getId()));
+        update.setCode(productType.getCode());
+        update.setVisible(productType.getVisible());
+        return productTypeRepository.save(update);
     }
 
-    public void deleteProductType(ProductType productType) {
-        productTypeRepository.findById(productType.getId()).orElseThrow(() ->
-                new FindException(PRODUCT_TYPE_ID_NO_FOUND + productType.getId()));
-        productType.setVisible(false);
-        productTypeRepository.save(productType);
+    public void deleteProductType(Long id) {
+        var delete =productTypeRepository.findById(id).orElseThrow(() ->
+                new FindException(PRODUCT_TYPE_ID_NO_FOUND + id));
+        delete.setVisible(false);
+        productTypeRepository.save(delete);
     }
 }

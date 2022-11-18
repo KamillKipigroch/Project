@@ -45,15 +45,19 @@ public class SubCategoryService {
     }
 
     public Subcategory updateSubCategory(Subcategory subcategory) {
-        subCategoryRepository.findById(subcategory.getId()).orElseThrow(() ->
+       var update = subCategoryRepository.findById(subcategory.getId()).orElseThrow(() ->
                 new FindException(SUB_CATEGORY_ID_NO_FOUND + subcategory.getId()));
-        return subCategoryRepository.save(subcategory);
+       update.setCategory(subcategory.getCategory());
+       update.setVisible(subcategory.getVisible());
+       update.setCode(subcategory.getCode());
+       update.setDescription(subcategory.getDescription());
+        return subCategoryRepository.save(update);
     }
 
-    public void deleteSubCategory(Subcategory subcategory) {
-        subCategoryRepository.findById(subcategory.getId()).orElseThrow(() ->
-                new FindException(SUB_CATEGORY_ID_NO_FOUND + subcategory.getId()));
-        subcategory.setVisible(false);
-        subCategoryRepository.save(subcategory);
+    public void deleteSubCategory(Long id) {
+        var delete = subCategoryRepository.findById(id).orElseThrow(() ->
+                new FindException(SUB_CATEGORY_ID_NO_FOUND + id));
+        delete.setVisible(false);
+        subCategoryRepository.save(delete);
     }
 }

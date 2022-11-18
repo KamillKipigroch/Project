@@ -33,6 +33,12 @@ public class ConditionController {
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Condition> findConditionById(@PathVariable("id") Long id) {
+        Condition category = conditionService.findConditionByID(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Condition> addCondition(@RequestBody ConditionDTO condition) {
@@ -51,6 +57,6 @@ public class ConditionController {
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteCondition(@RequestBody ModelDTO modelDTO) {
         conditionService.deleteCondition(modelDTO.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

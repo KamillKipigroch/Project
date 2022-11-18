@@ -2,6 +2,7 @@ package CosplayCostumes.security.user.model;
 
 import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,22 +39,30 @@ public class User implements UserDetails {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     Set<Order> orders;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     Set<Opinion> opinions;
 
+    @JsonIgnore
     private String email;
 
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     private String image;
 
+    @JsonIgnore
     private Boolean locked;
 
+    @JsonIgnore
     private Boolean enabled;
 
     public User(String firstName, String lastName, String email, String password, UserRole userRole) {

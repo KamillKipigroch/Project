@@ -13,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderStatusService {
     private final static String ORDER_STATUS_NO_FOUND = "Failed to find order status with name";
+    private final static String ORDER_STATUS_NO_FOUND_ID = "Failed to find order status with id";
+    private final static String ORDER_STATUS_NO_EXIST = "Failed to find order status";
     private final static String ORDER_STATUS_EXIST = "Order status with this name is already exist ! ";
     private final OrderStatusRepository orderStatusRepository;
 
@@ -27,22 +29,33 @@ public class OrderStatusService {
         return orderStatusRepository.findById(id).orElseThrow(() -> new FindException(ORDER_STATUS_EXIST));
     }
 
+    public OrderStatus findLowestStatus() {
+        int minLevel = orderStatusRepository.findAll().stream().mapToInt(OrderStatus::getLevel).min().orElseThrow( () -> new FindException(ORDER_STATUS_NO_EXIST));
+
+        return orderStatusRepository.findByLevel(minLevel).orElseThrow( () -> new FindException(ORDER_STATUS_NO_EXIST));
+    }
+
+
     public OrderStatus addOrderStatus(OrderStatusDTO orderStatus) {
         if (orderStatusRepository.findByCode(orderStatus.getCode()).isPresent())
             throw new FindException(ORDER_STATUS_EXIST);
 
-        OrderStatus newOrderStatus = new OrderStatus(orderStatus.getCode());
+        OrderStatus newOrderStatus = new OrderStatus(orderStatus.getCode(), orderStatus.getLevel());
         return orderStatusRepository.save(newOrderStatus);
     }
 
     public OrderStatus updateOrderStatus(OrderStatus orderStatus) {
-//        OrderStatus order = orderStatusRepository.findById(id)
-        return orderStatusRepository.save(orderStatus);
+        OrderStatus order = orderStatusRepository.findById(orderStatus.getId()).orElseThrow(() ->
+                new FindException(ORDER_STATUS_NO_FOUND_ID + orderStatus.getId()));
+        order.setCode(orderStatus.getCode());
+        order.setVisible(orderStatus.getVisible());
+
+        return orderStatusRepository.save(order);
     }
 
-    public void deleteOrderStatus(OrderStatus orderStatus) {
-        if (orderStatusRepository.findByCode(orderStatus.getCode()).isEmpty())
-            throw new FindException(ORDER_STATUS_EXIST);
+    public void deleteOrderStatus(Long id) {
+        OrderStatus orderStatus = orderStatusRepository.findById(id).orElseThrow( () ->
+             new FindException(ORDER_STATUS_EXIST));
         orderStatus.setVisible(false);
         orderStatusRepository.save(orderStatus);
     }

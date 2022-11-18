@@ -48,6 +48,7 @@ public class OrderService {
         Order or = orderRepository.findById(orderId).orElseThrow(() ->
                 new FindException(ORDER_ID_NO_FOUND + orderId));
         or.setOrderStatus(orderStatus);
+
         return orderRepository.save(or);
     }
 }

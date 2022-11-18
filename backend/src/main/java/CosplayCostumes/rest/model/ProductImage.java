@@ -1,5 +1,6 @@
 package CosplayCostumes.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class ProductImage implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
     private String code;

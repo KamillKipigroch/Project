@@ -35,7 +35,7 @@ public class OpinionController {
     private final ProductService productService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<OpinionResponse>> getAll() {
+    public ResponseEntity<List<OpinionResponse>> getAllOpinions() {
         List<Opinion> opinions = opinionService.findAllOpinion();
         List<OpinionResponse> opinionsResponse = new ArrayList<>();
         opinions.forEach(opinion -> {
@@ -64,20 +64,20 @@ public class OpinionController {
     @PutMapping("/update-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<OpinionResponse> updateOpinion(@RequestBody OpinionDTO opinionDTO) {
-       Opinion opinion =  opinionService.updateOpinion(opinionDTO);
+        Opinion opinion = opinionService.updateOpinion(opinionDTO);
 
         return new ResponseEntity<>(opinionMapper(opinion, new HashSet<>()), HttpStatus.OK);
     }
 
     @PutMapping("/delete-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<HttpStatus> deleteCondition(@RequestBody ModelDTO modelDTO) {
+    public ResponseEntity<HttpStatus> deleteOpinion(@RequestBody ModelDTO modelDTO) {
         opinionService.deleteOpinion(modelDTO.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 
     private OpinionResponse opinionMapper(Opinion opinion, Set<OpinionImageDTO> images) {
-        return  new OpinionResponse(opinion.getId(), opinion.getUser().getId(), opinion.getUser().getFirstName() + " " + opinion.getUser().getLastName(),
+        return new OpinionResponse(opinion.getId(), opinion.getUser().getId(), opinion.getUser().getFirstName() + " " + opinion.getUser().getLastName(),
                 opinion.getProduct().getId(), opinion.getProduct().getCode(), opinion.getValue(), opinion.getDescription(), images);
 
     }

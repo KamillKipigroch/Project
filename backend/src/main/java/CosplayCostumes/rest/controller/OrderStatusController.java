@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.OrderStatus;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.orderStatus.OrderStatusDTO;
 import CosplayCostumes.rest.service.OrderStatusService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,29 +30,36 @@ public class OrderStatusController {
 
     @GetMapping("/find-object/{code}")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderStatus> findCategory(@PathVariable("code") String code) throws Exception {
+    public ResponseEntity<OrderStatus> findOrderStatus(@PathVariable("code") String code) {
         OrderStatus orderStatus = orderStatusService.findOrderStatusByCode(code);
+        return new ResponseEntity<>(orderStatus, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-object/{id}")
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
+    public ResponseEntity<OrderStatus> findOrderStatusById(@PathVariable("id") Long id) {
+        OrderStatus orderStatus = orderStatusService.findOrderStatusById(id);
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);
     }
 
     @PostMapping("/add")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderStatus> addCategory(@RequestBody OrderStatusDTO orderStatusDTO) {
+    public ResponseEntity<OrderStatus> addOrderStatus(@RequestBody OrderStatusDTO orderStatusDTO) {
         OrderStatus newCategory = orderStatusService.addOrderStatus(orderStatusDTO);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
     @PutMapping("/update")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderStatus> updateCategory(@RequestBody OrderStatus orderStatus) {
+    public ResponseEntity<OrderStatus> updateOrderStatus(@RequestBody OrderStatus orderStatus) {
         OrderStatus newCategory = orderStatusService.updateOrderStatus(orderStatus);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
     @PutMapping("/delete")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderStatus> deleteCategory(@RequestBody OrderStatus orderStatus) {
-        orderStatusService.deleteOrderStatus(orderStatus);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteOrderStatus(@RequestBody ModelDTO modelDTO) {
+        orderStatusService.deleteOrderStatus(modelDTO.getId());
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

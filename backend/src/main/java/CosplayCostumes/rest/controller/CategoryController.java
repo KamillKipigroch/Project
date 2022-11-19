@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.Category;
+import CosplayCostumes.rest.model.Condition;
 import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.category.CategoryDTO;
 import CosplayCostumes.rest.service.CategoryService;
@@ -27,18 +28,11 @@ public class CategoryController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{code}")
-    public ResponseEntity<Category> findCategory(@PathVariable("code") String code) {
-        Category category = categoryService.findCategoryByCode(code);
-        return new ResponseEntity<>(category, HttpStatus.OK);
-    }
-
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Category> getBrand(@PathVariable Long id) {
         Category category = categoryService.findCategoryById(id);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
-
     @PostMapping("/add")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO category) {
@@ -53,7 +47,7 @@ public class CategoryController {
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteCategory(@RequestBody ModelDTO modelDTO) {
         categoryService.deleteCategory(modelDTO.getId());

@@ -50,7 +50,7 @@ public class OpinionImageController {
         return new ResponseEntity<>(opinionImage, HttpStatus.OK);
     }
 
-    @PutMapping("/delete-object")
+    @PutMapping("/disable-visibility-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteOpinionImage(@RequestBody ModelDTO modelDTO) {
         opinionImageService.deleteOpinionImage(opinionImageService.findOpinionImageById(modelDTO.getId()));

@@ -3,6 +3,8 @@ package CosplayCostumes.rest.service;
 import CosplayCostumes.rest.model.Opinion;
 import CosplayCostumes.rest.model.Product;
 import CosplayCostumes.rest.model.dto.opinion.OpinionDTO;
+import CosplayCostumes.rest.model.dto.opinion.OpinionRequest;
+import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
 import CosplayCostumes.rest.repostitory.OpinionRepository;
 import CosplayCostumes.security.user.model.User;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import java.lang.module.FindException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -32,12 +35,12 @@ public class OpinionService {
         return opinionRepository.findById(id).orElseThrow(() -> new FindException(OPINION_ID_NO_FOUND + id));
     }
 
-    public Opinion addOpinion(OpinionDTO opinion, User user, Product product) {
+    public Opinion addOpinion(OpinionRequest opinion, User user, Product product) {
         opinionRepository.findOpinionByUserAndProduct(user, product).orElseThrow( () ->
              new FindException(OPINION_EXIST));
 
         LocalDateTime createDate = LocalDateTime.now();
-        Opinion newOpinion = new Opinion(user, product, new HashSet<>(), opinion.getValue() ,opinion.getDescription(),createDate);
+        Opinion newOpinion = new Opinion(user, product, opinion.getValue() ,opinion.getDescription(),createDate);
 
         return opinionRepository.save(newOpinion);
     }

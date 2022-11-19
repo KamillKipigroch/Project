@@ -32,14 +32,8 @@ public class ProductController {
         return new ResponseEntity<>(allProduct, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{businessKey}")
-    public ResponseEntity<Product> findProduct(@PathVariable("businessKey") String code) {
-        Product product = productService.findProductByBusinessKey(code);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Product> findPrudctById(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Product> findProductId(@PathVariable Long id) {
         Product product = productService.findProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
@@ -68,7 +62,7 @@ public class ProductController {
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteProduct(@RequestBody ModelDTO modelDTO) {
         productService.deleteProduct(modelDTO.getId());

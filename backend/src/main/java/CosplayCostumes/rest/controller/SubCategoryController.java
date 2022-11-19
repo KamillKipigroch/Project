@@ -27,13 +27,7 @@ public class SubCategoryController {
         return new ResponseEntity<>(allSubCategory, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{code}")
-    public ResponseEntity<Subcategory> findSubcategory(@PathVariable("code") String code) {
-        Subcategory categoryByCode = subCategoryService.findSubCategoryByCode(code);
-        return new ResponseEntity<>(categoryByCode, HttpStatus.OK);
-    }
-
-    @GetMapping("/find/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Subcategory> findSubcategoryById(@PathVariable("id") Long id) {
         Subcategory categoryByCode = subCategoryService.findSubCategoryById(id);
         return new ResponseEntity<>(categoryByCode, HttpStatus.OK);
@@ -53,7 +47,7 @@ public class SubCategoryController {
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteSubcategory(@RequestBody ModelDTO modelDTO) {
         subCategoryService.deleteSubCategory(modelDTO.getId());

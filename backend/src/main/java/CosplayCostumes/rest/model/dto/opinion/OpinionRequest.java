@@ -8,9 +8,8 @@ import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Data
-public class OpinionDTO {
-    private Long id;
-    private String userEmail;
+public class OpinionRequest {
+    private String emailUser;
     private Long ProductID;
     @Min(1)
     @Max(5)

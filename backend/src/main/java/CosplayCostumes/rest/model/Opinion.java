@@ -50,7 +50,7 @@ public class Opinion implements Serializable {
     private Boolean visible;
 
 
-    public Opinion(User user, Product product, Set<OpinionImage> images, Double value, String description, LocalDateTime createDate) {
+    public Opinion(User user, Product product, Double value, String description, LocalDateTime createDate) {
         this.user = user;
         this.product = product;
         this.value = value;

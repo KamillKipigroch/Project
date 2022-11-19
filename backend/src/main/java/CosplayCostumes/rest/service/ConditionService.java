@@ -36,6 +36,7 @@ public class ConditionService {
         Condition newCondition = new Condition();
         newCondition.setCode(condition.getCode());
         newCondition.setVisible(true);
+        newCondition.setPrice(condition.getPrice());
         return conditionRepository.save(newCondition);
     }
 

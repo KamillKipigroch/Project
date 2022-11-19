@@ -1,5 +1,6 @@
 package CosplayCostumes.rest.controller;
 
+import CosplayCostumes.rest.model.Condition;
 import CosplayCostumes.rest.model.OrderStatus;
 import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.orderStatus.OrderStatusDTO;
@@ -28,16 +29,9 @@ public class OrderStatusController {
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);
     }
 
-    @GetMapping("/find-object/{code}")
-    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderStatus> findOrderStatus(@PathVariable("code") String code) {
-        OrderStatus orderStatus = orderStatusService.findOrderStatusByCode(code);
-        return new ResponseEntity<>(orderStatus, HttpStatus.OK);
-    }
 
-    @GetMapping("/find-object/{id}")
-    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderStatus> findOrderStatusById(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<OrderStatus> findOrderStatusById(@PathVariable Long id) {
         OrderStatus orderStatus = orderStatusService.findOrderStatusById(id);
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);
     }
@@ -56,7 +50,7 @@ public class OrderStatusController {
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteOrderStatus(@RequestBody ModelDTO modelDTO) {
         orderStatusService.deleteOrderStatus(modelDTO.getId());

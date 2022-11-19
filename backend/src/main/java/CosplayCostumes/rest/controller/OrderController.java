@@ -63,7 +63,7 @@ public class OrderController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("/delete-object")
+    @PutMapping("/disable-visibility-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteOrder(@RequestBody ModelDTO modelDTO) {
         orderService.deleteOrder(orderService.findOrderById(modelDTO.getId()));

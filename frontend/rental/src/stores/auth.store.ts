@@ -14,6 +14,10 @@ import { login, register } from "../services/AuthService";
 import jwt_decode from "jwt-decode";
 
 class AuthStore {
+  constructor() {
+    makeObservable(this);
+  }
+
   @observable accessToken: string | null = null;
   @observable rol: string[] | null = null;
   @observable name: string | null = null;

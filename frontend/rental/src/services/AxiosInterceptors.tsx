@@ -11,14 +11,14 @@ export const AxiosInterceptors = () => {
     const { status, data } = error.response;
 
     if (data) {
-      toast.error(data);
-    }
-
-    if (data === "" && status === 401) {
+      if (data.message) {
+        toast.error(data.message);
+      } else {
+        toast.error(data);
+      }
+    } else if (data === "" && status === 401) {
       toast.error("Invalid credentials");
-    }
-    
-    if (status === 500) {
+    } else if (status === 500) {
       toast.error("Internal server error");
     }
 

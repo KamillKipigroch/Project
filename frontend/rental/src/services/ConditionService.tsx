@@ -10,12 +10,22 @@ export const getConditions = async (): Promise<ICondition[]> => {
   return response.data;
 }
 
+export const getConditionById = async (conditionId: number): Promise<ICondition> => {
+  const response = await axios.get(baseUrl + conditionId);
+  return response.data;
+}
+
 export const addCondition = async (data: IAddCondition): Promise<ICondition> => {
   const response = await axios.post(baseUrl + "add", data, axiosConfig);
   return response.data;
 }
 
 export const updateCondition = async (data: ICondition): Promise<ICondition> => {
-  const response = await axios.post(baseUrl + "update", data, axiosConfig);
+  const response = await axios.put(baseUrl + "update", data, axiosConfig);
+  return response.data;
+}
+
+export const disableVisibilityCondition = async (conditionId: number): Promise<void> => {
+  const response = await axios.put(baseUrl + "disable-visibility", { id: conditionId }, axiosConfig);
   return response.data;
 }

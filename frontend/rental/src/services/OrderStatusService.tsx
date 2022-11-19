@@ -10,6 +10,11 @@ export const getOrderStatuses = async (): Promise<IOrderStatus[]> => {
   return response.data;
 }
 
+export const getOrderStatusById = async (orderStatusId: number): Promise<IOrderStatus> => {
+  const response = await axios.get(baseUrl + orderStatusId);
+  return response.data;
+}
+
 export const addOrderStatus = async (data: IAddOrderStatus): Promise<IOrderStatus> => {
   const response = await axios.post(baseUrl + "add", data, axiosConfig);
   return response.data; 
@@ -18,4 +23,9 @@ export const addOrderStatus = async (data: IAddOrderStatus): Promise<IOrderStatu
 export const updateOrderStatus = async (data: IOrderStatus): Promise<IOrderStatus> => {
   const response = await axios.put(baseUrl + "update", data, axiosConfig);
   return response.data; 
+}
+
+export const disableVisibilityOrderStatus = async (orderStatusId: number): Promise<void> => {
+  const response = await axios.put(baseUrl + "disable-visibility", { id: orderStatusId }, axiosConfig);
+  return response.data;
 }

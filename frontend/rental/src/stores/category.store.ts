@@ -1,6 +1,18 @@
-import { action, makeObservable, observable, runInAction } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import { IAddCategory, ICategory } from "../models/CategoryModel";
-import { addCategory, getCategories, updateCategory } from "../services/CategoryService";
+import {
+  addCategory,
+  disableVisibilityCategory,
+  getCategories,
+  getCategoryById,
+  updateCategory,
+} from "../services/CategoryService";
 
 export class CategoryStore {
   constructor(context: any) {
@@ -10,49 +22,91 @@ export class CategoryStore {
   @observable categories: ICategory[] = [];
   @observable loading: boolean = false;
 
+  @computed get allCategories() {
+    return this.categories;
+  }
+
+  @computed get visibleCategories() {
+    return this.categories.filter((x) => x.visible === true);
+  }
+
+  @computed get notVisibleCategories() {
+    return this.categories.filter((x) => x.visible === false);
+  }
+
   @action
-  getCategories = async () => {
+  fetchCategories = async () => {
     try {
       this.loading = true;
-      const response = await getCategories()
+      const response = await getCategories();
       runInAction(() => {
         this.categories = response;
         this.loading = false;
-      })
+      });
     } catch (error) {
       this.loading = false;
       throw error;
     }
-  }
+  };
+
+  @action
+  getCategoryById = async (categoryId: number) => {
+    try {
+      this.loading = true;
+      const response = await getCategoryById(categoryId);
+      this.loading = false;
+      return response;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
+  };
 
   @action
   addCategory = async (categoryData: IAddCategory) => {
     try {
       this.loading = true;
+
       const response = await addCategory(categoryData);
-      runInAction(() => {
-        this.categories = [...this.categories, response];
-        this.loading = false;
-      })
+      this.categories = [...this.categories, response];
+
+      this.loading = false;
+      return response;
     } catch (error) {
       this.loading = false;
       throw error;
     }
-  }
+  };
 
   @action
   updateCategory = async (categoryData: ICategory) => {
     try {
       this.loading = true;
+
       const response = await updateCategory(categoryData);
-      runInAction(() => {
-        const foundIndex = this.categories.findIndex(x => x.id === response.id);
-        this.categories[foundIndex] = response;
-        this.loading = false;
-      })
+      const foundIndex = this.categories.findIndex((x) => x.id === response.id);
+      this.categories[foundIndex] = response;
+
+      this.loading = false;
+      return response;
     } catch (error) {
       this.loading = false;
       throw error;
     }
-  }
+  };
+
+  @action
+  disableVisibility = async (categoryId: number) => {
+    try {
+      this.loading = true;
+      await disableVisibilityCategory(categoryId);
+      runInAction(async () => {
+        await this.fetchCategories();
+        this.loading = false;
+      });
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
+  };
 }

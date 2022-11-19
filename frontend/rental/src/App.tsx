@@ -7,6 +7,7 @@ import "@fontsource/roboto/700.css";
 import MyToastComponent from "./components/Toast/MyToastComponent";
 import { AxiosInterceptors } from "./services/AxiosInterceptors";
 import MainRoutes from "./components/ProtectedRoutes/MainRoutes";
+import { observer } from "mobx-react-lite";
 
 AxiosInterceptors();
 
@@ -20,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

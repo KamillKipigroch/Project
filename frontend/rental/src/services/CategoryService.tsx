@@ -10,6 +10,11 @@ export const getCategories = async (): Promise<ICategory[]> => {
   return response.data;
 }
 
+export const getCategoryById = async (categoryId: number): Promise<ICategory> => {
+  const response = await axios.get(baseUrl + categoryId);
+  return response.data;
+}
+ 
 export const addCategory = async (data: IAddCategory): Promise<ICategory> => {
   const response = await axios.post(baseUrl + "add", data, axiosConfig);
   return response.data;
@@ -17,5 +22,10 @@ export const addCategory = async (data: IAddCategory): Promise<ICategory> => {
 
 export const updateCategory = async (data: ICategory): Promise<ICategory> => {
   const response = await axios.put(baseUrl + "update", data, axiosConfig);
+  return response.data;
+}
+
+export const disableVisibilityCategory = async (categoryId: number): Promise<void> => {
+  const response = await axios.put(baseUrl + "disable-visibility", { id: categoryId }, axiosConfig);
   return response.data;
 }

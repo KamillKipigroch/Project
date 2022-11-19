@@ -1,12 +1,11 @@
 export interface IOpinion {
   id: number;
-  userName: string;
   productName: string;
-  value: string;
+  value: number;
   description: string;
   opinionImages: IOpinionOpinionImage[];
   productID: number;
-  userID: number;
+  userEmail: string;
 }
 
 export interface IOpinionOpinionImage {
@@ -16,9 +15,25 @@ export interface IOpinionOpinionImage {
 
 export interface IUpdateOpinion {
   id: number;
+  userEmail: string;
   value: number;
   description: string;
   opinionImages: IOpinionOpinionImage[];
   productID: number;
-  userID: number;
+}
+
+export interface IAddOpinion {
+  emailUser: string;
+  value: number;
+  description: string;
+  opinionImages: IOpinionOpinionImage[];
+  productID: number;
+}
+
+export interface IAddOpinionResponse {
+  id: number;
+  value: number;
+  description: number;
+  createDate: number;
+  visible: boolean;
 }

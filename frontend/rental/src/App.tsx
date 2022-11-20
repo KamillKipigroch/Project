@@ -7,11 +7,16 @@ import "@fontsource/roboto/700.css";
 import MyToastComponent from "./components/Toast/MyToastComponent";
 import { AxiosInterceptors } from "./services/AxiosInterceptors";
 import MainRoutes from "./components/ProtectedRoutes/MainRoutes";
-import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import { authStore } from "./stores/auth.store";
 
 AxiosInterceptors();
 
 function App() {
+  useEffect(() => {
+    authStore.autoLogin();
+  }, []);
+
   return (
     <div>
       <MyToastComponent />
@@ -21,4 +26,4 @@ function App() {
   );
 }
 
-export default observer(App);
+export default App;

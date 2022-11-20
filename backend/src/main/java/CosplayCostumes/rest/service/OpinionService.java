@@ -21,7 +21,7 @@ import java.util.Set;
 public class OpinionService {
     private final static String OPINION_NO_FOUND = "Failed to find opinion with user \s and product \s";
     private final static String OPINION_ID_NO_FOUND = "Failed to find opinion with id ";
-    private final static String OPINION_EXIST = "Condition with this name is already exist ! ";
+    private final static String OPINION_EXIST = "User already has an opinion about this product !";
     private final OpinionRepository opinionRepository;
 
     public List<Opinion> findAllOpinion() {
@@ -36,8 +36,9 @@ public class OpinionService {
     }
 
     public Opinion addOpinion(OpinionRequest opinion, User user, Product product) {
-        opinionRepository.findOpinionByUserAndProduct(user, product).orElseThrow( () ->
-             new FindException(OPINION_EXIST));
+        if( opinionRepository.findOpinionByUserAndProduct(user, product).isPresent()) {
+            throw new FindException(OPINION_EXIST);
+        }
 
         LocalDateTime createDate = LocalDateTime.now();
         Opinion newOpinion = new Opinion(user, product, opinion.getValue() ,opinion.getDescription(),createDate);

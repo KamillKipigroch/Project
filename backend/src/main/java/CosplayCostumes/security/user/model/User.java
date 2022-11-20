@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -32,6 +31,7 @@ public class User implements UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "user_s"
     )
+    @JsonIgnore
     private Long id;
 
     private String firstName;
@@ -50,7 +50,6 @@ public class User implements UserDetails {
     @JsonIgnore
     Set<Opinion> opinions;
 
-    @JsonIgnore
     private String email;
 
     @JsonIgnore

@@ -48,10 +48,12 @@ public class ProductController {
         Condition condition = conditionService.findConditionByID(productDTO.getConditionID());
 
         Product newProduct = productService.addProduct(productDTO, businessKey, productType, subcategory, quality, condition);
-        productDTO.getProductImages().forEach(image -> {
-            image.setProductID(newProduct.getId());
-            productImageController.addProductImage(image);
-        });
+        if(!productDTO.getProductImages().isEmpty()) {
+            productDTO.getProductImages().stream().filter(it -> it.getFileUrl() != null).forEach(image -> {
+                image.setProductID(newProduct.getId());
+                productImageController.addProductImage(image);
+            });
+        }
         return new ResponseEntity<>(newProduct, HttpStatus.OK);
     }
 

@@ -38,6 +38,7 @@ public class SubCategoryService {
 
         Subcategory newSubCategory = new Subcategory();
         newSubCategory.setCategory(categoryService.findCategoryById(subcategory.getCategoryID()));
+        newSubCategory.setDescription(subcategory.getDescription());
         newSubCategory.setCode(subcategory.getCode());
         newSubCategory.setVisible(true);
 
@@ -47,8 +48,8 @@ public class SubCategoryService {
     public Subcategory updateSubCategory(Subcategory subcategory) {
        var update = subCategoryRepository.findById(subcategory.getId()).orElseThrow(() ->
                 new FindException(SUB_CATEGORY_ID_NO_FOUND + subcategory.getId()));
-       update.setCategory(subcategory.getCategory());
-       update.setVisible(subcategory.getVisible());
+        update.setCategory(categoryService.findCategoryById(subcategory.getCategory().getId()));
+        update.setVisible(subcategory.getVisible());
        update.setCode(subcategory.getCode());
        update.setDescription(subcategory.getDescription());
         return subCategoryRepository.save(update);

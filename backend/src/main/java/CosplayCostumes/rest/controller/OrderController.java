@@ -4,6 +4,7 @@ import CosplayCostumes.rest.model.Order;
 import CosplayCostumes.rest.model.OrderStatus;
 import CosplayCostumes.rest.model.Product;
 import CosplayCostumes.rest.model.dto.ModelDTO;
+import CosplayCostumes.rest.model.dto.order.OrderChangeStatusRequest;
 import CosplayCostumes.rest.model.dto.order.OrderDTO;
 import CosplayCostumes.rest.model.dto.order.OrderResponse;
 import CosplayCostumes.rest.service.OrderService;
@@ -55,7 +56,7 @@ public class OrderController {
 
     @PutMapping("/update-status-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderResponse> updateOrderStatus(@RequestBody OrderResponse order) {
+    public ResponseEntity<OrderResponse> updateOrderStatus(@RequestBody OrderChangeStatusRequest order) {
         OrderStatus orderStatus = orderStatusService.findOrderStatusById(order.getStatusId());
         Order newOrder = orderService.updateOrderStatus(order.getId(), orderStatus);
         OrderResponse response = orderMapper(newOrder);

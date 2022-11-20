@@ -28,53 +28,16 @@ public class WebSecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/api/category/get-all",
-            "/api/condition/get-all",
-            "/api/opinion/get-all",
-            "/api/opinion-image/get-all",
-            "/api/order/get-all",
-            "/api/order-status/get-all",
-            "/api/product/get-all",
-            "/api/product-image/get-all",
-            "/api/product-type/get-all",
-            "/api/quality/get-all",
-            "/api/sub-category/get-all",
-
-            "/api/category/{code}",
-            "/api/category/{code}",
-            "/api/condition/{code}",
-            "/api/opinion/{code}",
-            "/api/opinion-image/{code}",
-            "/api/order/{code}",
-            "/api/order-status/{code}",
-            "/api/product/{business-key}",
-            "/api/product-image/{code}",
-            "/api/product-type/{code}",
-            "/api/quality/{code}",
-            "/api/sub-category/{code}",
-
-            "/api/category/{id}",
-            "/api/condition/{id}",
-            "/api/opinion/{id}",
-            "/api/opinion-image/{id}",
-            "/api/order/{id}",
-            "/api/order-status/{id}",
-            "/api/product/{id}",
-            "/api/product-image/{id}",
-            "/api/product-type/{id}",
-            "/api/quality/{id}",
-            "/api/sub-category/{id}",
-
-            "/error",
-            "/",
-            "/csrf",
+            "/get-all",
             "/find/**",
+            "/error",
+            "/csrf",
+            "**/find/**",
     };
 
     private static final String[] ADMINISTRATOR_WHITE_LIST = {
             "/add",
             "/update",
-            "/get-all",
             "/disable-visibility"
     };
 
@@ -82,10 +45,9 @@ public class WebSecurityConfig {
             "/add-object",
             "/update-object",
             "/disable-visibility-object",
-            "/get-all-objects",
-            "/get-all",
             "/update-status-object",
-            "/find-object/**"
+            "/find-object/**",
+            "/get-all-objects"
     };
 
     @Bean
@@ -98,8 +60,7 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                 .antMatchers(USER_AND_ADMINISTRATOR_WHITE_LIST).hasAnyAuthority(USER, ADMIN)
                 .antMatchers(ADMINISTRATOR_WHITE_LIST).hasAuthority(ADMIN)
-                .antMatchers(APPLICATION_WHITE_LIST).permitAll()
-                .anyRequest().authenticated();
+                .antMatchers(APPLICATION_WHITE_LIST).permitAll();
         http.addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

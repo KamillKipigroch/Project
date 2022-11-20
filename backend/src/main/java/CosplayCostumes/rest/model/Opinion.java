@@ -1,9 +1,8 @@
 package CosplayCostumes.rest.model;
 
 import CosplayCostumes.security.user.model.User;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,9 +30,9 @@ public class Opinion implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"id","opinions","userRole", "username", "authorities","accountNonExpired","credentialsNonExpired","accountNonLocked"})
     User user;
 
     @ManyToOne
@@ -44,6 +43,10 @@ public class Opinion implements Serializable {
     private Double value;
 
     private String description;
+
+    @OneToMany(mappedBy = "opinion")
+    @JsonIgnoreProperties({"opinion"})
+    private Set<OpinionImage> opinionImages;
 
     private LocalDateTime createDate;
 

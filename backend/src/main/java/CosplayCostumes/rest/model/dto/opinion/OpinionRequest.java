@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.model.dto.opinion;
 
-import CosplayCostumes.rest.model.dto.opinionImage.OpinionImageDTO;
+import CosplayCostumes.rest.model.dto.image.ImageDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -15,5 +16,6 @@ public class OpinionRequest {
     @Max(5)
     private Double value;
     private String description;
-    private Set<OpinionImageDTO> opinionImages;
+    @JsonIgnoreProperties({"opinionId"})
+    private Set<ImageDTO> opinionImages;
 }

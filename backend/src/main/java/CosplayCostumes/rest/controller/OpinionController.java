@@ -57,7 +57,6 @@ public class OpinionController {
         Opinion opinion = opinionService.addOpinion(opinionDTO, user, product);
 
         opinionDTO.getOpinionImages().forEach(image -> {
-            image.setOpinionId(opinion.getId());
             opinionImageService.addOpinionImage(opinion, image.getFileUrl());
         });
         Opinion response = opinionService.findOpinionById(opinion.getId());

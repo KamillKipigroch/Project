@@ -27,7 +27,7 @@ public class SubCategoryController {
         return new ResponseEntity<>(allSubCategory, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<Subcategory> findSubcategoryById(@PathVariable("id") Long id) {
         Subcategory categoryByCode = subCategoryService.findSubCategoryById(id);
         return new ResponseEntity<>(categoryByCode, HttpStatus.OK);

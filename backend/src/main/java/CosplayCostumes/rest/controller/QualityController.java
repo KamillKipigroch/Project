@@ -28,7 +28,7 @@ public class QualityController {
         return new ResponseEntity<>(allQuality, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<Quality> findQuality(@PathVariable Long id) {
         Quality quality = qualityService.findQualityById(id);
         return new ResponseEntity<>(quality, HttpStatus.OK);

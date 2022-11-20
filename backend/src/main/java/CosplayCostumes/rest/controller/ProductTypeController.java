@@ -29,7 +29,7 @@ public class ProductTypeController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<ProductType> findProductType(@PathVariable Long id) {
         ProductType orderStatus = productTypeService.findProductTypeById(id);
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);

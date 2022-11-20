@@ -30,7 +30,7 @@ public class OrderStatusController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<OrderStatus> findOrderStatusById(@PathVariable Long id) {
         OrderStatus orderStatus = orderStatusService.findOrderStatusById(id);
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);

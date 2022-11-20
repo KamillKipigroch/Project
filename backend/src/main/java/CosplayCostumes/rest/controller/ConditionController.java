@@ -28,7 +28,7 @@ public class ConditionController {
         return new ResponseEntity<>(conditions, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<Condition> findConditionById(@PathVariable Long id) {
         Condition category = conditionService.findConditionByID(id);
         return new ResponseEntity<>(category, HttpStatus.OK);

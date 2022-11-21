@@ -11,7 +11,7 @@ export const getProductTypes = async (): Promise<IProductType[]> => {
 }
 
 export const getProductTypeById = async (orderStatusId: number): Promise<IProductType> => {
-  const response = await axios.get(baseUrl + orderStatusId, axiosConfig);
+  const response = await axios.get(baseUrl + `find/${orderStatusId}`, axiosConfig);
   return response.data;
 }
 

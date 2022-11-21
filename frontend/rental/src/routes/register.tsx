@@ -19,7 +19,7 @@ const Register = () => {
     data: IUserRegistrationForm
   ) => {
     await authStore.register(data).then(() => {
-      navigate("/home");
+      navigate("/");
       window.location.reload();
     });
   };

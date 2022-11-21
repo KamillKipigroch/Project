@@ -11,7 +11,7 @@ export const getSubCategories = async (): Promise<ISubCategory[]> => {
 };
 
 export const getSubCategoryById = async (subCategoryId: number): Promise<ISubCategory> => {
-  const response = await axios.get(baseUrl + subCategoryId, axiosConfig);
+  const response = await axios.get(baseUrl + `find${subCategoryId}`, axiosConfig);
   return response.data;
 };
 

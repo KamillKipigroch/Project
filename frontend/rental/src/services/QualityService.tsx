@@ -11,7 +11,7 @@ export const getQualities = async (): Promise<IQuality[]> => {
 };
 
 export const getQualityById = async (qualityId: number): Promise<IQuality> => {
-  const response = await axios.get(baseUrl + qualityId, axiosConfig);
+  const response = await axios.get(baseUrl + `find/${qualityId}`, axiosConfig);
   return response.data;
 };
 

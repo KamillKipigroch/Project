@@ -19,7 +19,7 @@ export default function Home() {
     data: IUserLoginForm
   ) => {
     await authStore.login(data).then(() => {
-      navigate("/home");
+      navigate("/");
       window.location.reload();
     });
   };

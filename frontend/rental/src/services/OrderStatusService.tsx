@@ -11,7 +11,7 @@ export const getOrderStatuses = async (): Promise<IOrderStatus[]> => {
 }
 
 export const getOrderStatusById = async (orderStatusId: number): Promise<IOrderStatus> => {
-  const response = await axios.get(baseUrl + orderStatusId);
+  const response = await axios.get(baseUrl + `find/${orderStatusId}`);
   return response.data;
 }
 

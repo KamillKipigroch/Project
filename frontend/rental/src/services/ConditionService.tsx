@@ -11,7 +11,7 @@ export const getConditions = async (): Promise<ICondition[]> => {
 }
 
 export const getConditionById = async (conditionId: number): Promise<ICondition> => {
-  const response = await axios.get(baseUrl + conditionId);
+  const response = await axios.get(baseUrl + `find/${conditionId}`);
   return response.data;
 }
 

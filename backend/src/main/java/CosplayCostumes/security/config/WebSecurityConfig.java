@@ -42,16 +42,16 @@ public class WebSecurityConfig {
             "/api/product-type/get-all",
             "/api/quality/get-all",
 
-            "/api/sub-category/find/?",
-            "/api/category/find/?",
-            "/api/condition/find/?",
-            "/api/opinion/find/?",
-            "/api/opinion-image/find/?",
-            "/api/order/find/?",
-            "/api/product/find/?",
-            "/api/product-image/find/?",
-            "/api/product-type/find/?",
-            "/api/quality/find/?",
+            "/api/sub-category/find/?*",
+            "/api/category/find/?*",
+            "/api/condition/find/?*",
+            "/api/opinion/find/?*",
+            "/api/opinion-image/find/?*",
+            "/api/order/find/?*",
+            "/api/product/find/?*",
+            "/api/product-image/find/?*",
+            "/api/product-type/find/?*",
+            "/api/quality/find/?*",
 
             "/error",
             "/csrf"
@@ -69,7 +69,7 @@ public class WebSecurityConfig {
             "?*/update-object",
             "?*/disable-visibility-object",
             "?*/update-status-object",
-            "?*/find-object/**",
+            "?*/find-object/?*",
             "?*/get-all-objects"
     };
 

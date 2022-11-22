@@ -1,6 +1,8 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home";
+import AdminPanel from "./routes/adminPanel";
+import Profile from "./routes/profile";
 import Login from "./routes/login";
 import Movies from "./routes/movies";
 import Games from "./routes/games";
@@ -34,7 +36,9 @@ function App() {
 
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="/adminPanel" element={<AdminPanel />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/movie">
           <Route path=":productId" element={<Product />} />

@@ -1,6 +1,7 @@
 package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.*;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.product.ProductDTO;
 import CosplayCostumes.rest.service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,9 +32,9 @@ public class ProductController {
         return new ResponseEntity<>(allProduct, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{businessKey}")
-    public ResponseEntity<Product> findQuality(@PathVariable("businessKey") String code) {
-        Product product = productService.findProductByBusinessKey(code);
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Product> findProductId(@PathVariable Long id) {
+        Product product = productService.findProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
@@ -47,10 +48,12 @@ public class ProductController {
         Condition condition = conditionService.findConditionByID(productDTO.getConditionID());
 
         Product newProduct = productService.addProduct(productDTO, businessKey, productType, subcategory, quality, condition);
-        productDTO.getProductImages().forEach(image -> {
-            image.setProductID(newProduct.getId());
-            productImageController.addProductImage(image);
-        });
+        if(!productDTO.getProductImages().isEmpty()) {
+            productDTO.getProductImages().stream().filter(it -> it.getFileUrl() != null).forEach(image -> {
+                image.setProductID(newProduct.getId());
+                productImageController.addProductImage(image);
+            });
+        }
         return new ResponseEntity<>(newProduct, HttpStatus.OK);
     }
 
@@ -61,10 +64,10 @@ public class ProductController {
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Product> deleteProduct(@RequestBody Product product) {
-        productService.deleteProduct(product);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteProduct(@RequestBody ModelDTO modelDTO) {
+        productService.deleteProduct(modelDTO.getId());
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

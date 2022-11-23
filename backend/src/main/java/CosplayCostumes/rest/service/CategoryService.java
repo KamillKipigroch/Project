@@ -42,9 +42,11 @@ public class CategoryService {
     }
 
     public Category updateCategory(Category category) {
-        categoryRepository.findById(category.getId()).orElseThrow(() ->
+        var update = categoryRepository.findById(category.getId()).orElseThrow(() ->
                     new FindException(CATEGORY_ID_NO_FOUND + category.getId()));
-        return categoryRepository.save(category);
+        update.setCode(category.getCode());
+        update.setVisible(category.getVisible());
+        return categoryRepository.save(update);
     }
 
     public void deleteCategory(Long id) {

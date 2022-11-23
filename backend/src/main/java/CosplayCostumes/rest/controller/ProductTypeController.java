@@ -1,6 +1,8 @@
 package CosplayCostumes.rest.controller;
 
+import CosplayCostumes.rest.model.Product;
 import CosplayCostumes.rest.model.ProductType;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.productType.ProductTypeDTO;
 import CosplayCostumes.rest.service.ProductTypeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,11 +28,13 @@ public class ProductTypeController {
         return new ResponseEntity<>(allProductTypes, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{code}")
-    public ResponseEntity<ProductType> findProductType(@PathVariable("code") String code) throws Exception {
-        ProductType orderStatus = productTypeService.findProductTypeByCode(code);
+
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ProductType> findProductType(@PathVariable Long id) {
+        ProductType orderStatus = productTypeService.findProductTypeById(id);
         return new ResponseEntity<>(orderStatus, HttpStatus.OK);
     }
+
 
     @PostMapping("/add")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
@@ -46,10 +50,10 @@ public class ProductTypeController {
         return new ResponseEntity<>(newType, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<ProductType> deleteCategory(@RequestBody ProductType productType) {
-        productTypeService.deleteProductType(productType);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteCategory(@RequestBody ModelDTO modelDTO) {
+        productTypeService.deleteProductType(modelDTO.getId());
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

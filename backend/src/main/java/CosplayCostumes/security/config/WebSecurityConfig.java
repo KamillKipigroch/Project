@@ -15,6 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.hibernate.criterion.Restrictions.and;
+
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -24,55 +26,51 @@ public class WebSecurityConfig {
     public static final String USER = UserRole.User.toString();
 
     private static final String[] APPLICATION_WHITE_LIST = {
-            "/public/**", "/auth/**",
+            "/auth/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
+
+            "/api/sub-category/get-all",
             "/api/category/get-all",
             "/api/condition/get-all",
             "/api/opinion/get-all",
             "/api/opinion-image/get-all",
             "/api/order/get-all",
-            "/api/order-status/get-all",
             "/api/product/get-all",
             "/api/product-image/get-all",
             "/api/product-type/get-all",
             "/api/quality/get-all",
-            "/api/sub-category/get-all",
 
-            "/api/category/find/{code}",
-            "/api/condition/find/{code}",
-            "/api/opinion/find/{code}",
-            "/api/opinion-image/find/{code}",
-            "/api/order/find/{code}",
-            "/api/order-statu/find/{code}",
-            "/api/product/find/{code}",
-            "/api/product-image/find/{code}",
-            "/api/product-type/find/{code}",
-            "/api/quality/find/{code}",
-            "/api/sub-category/find/{code}",
+            "/api/sub-category/find/?*",
+            "/api/category/find/?*",
+            "/api/condition/find/?*",
+            "/api/opinion/find/?*",
+            "/api/opinion-image/find/?*",
+            "/api/order/find/?*",
+            "/api/product/find/?*",
+            "/api/product-image/find/?*",
+            "/api/product-type/find/?*",
+            "/api/quality/find/?*",
 
             "/error",
-            "/",
-            "/csrf",
-            "/find/**",
+            "/csrf"
     };
 
     private static final String[] ADMINISTRATOR_WHITE_LIST = {
-            "/add",
-            "/update",
-            "/get-all",
-            "/delete"
+            "?*/add",
+            "?*/update",
+            "?*/api/order-status/get-all-object",
+            "?*/disable-visibility"
     };
 
     private static final String[] USER_AND_ADMINISTRATOR_WHITE_LIST = {
-            "/add-object",
-            "/update-object",
-            "/delete-object",
-            "/get-all-objects",
-            "/get-all",
-            "/update-status-object",
-            "/find-object/**"
+            "?*/add-object",
+            "?*/update-object",
+            "?*/disable-visibility-object",
+            "?*/update-status-object",
+            "?*/find-object/?*",
+            "?*/get-all-objects"
     };
 
     @Bean

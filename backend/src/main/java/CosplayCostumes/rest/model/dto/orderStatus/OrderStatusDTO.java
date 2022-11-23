@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class OrderStatusDTO {
     private String code;
+    private int level;
 }

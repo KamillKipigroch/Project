@@ -4,6 +4,7 @@ import CosplayCostumes.rest.model.Order;
 import CosplayCostumes.rest.model.OrderStatus;
 import CosplayCostumes.rest.model.Product;
 import CosplayCostumes.rest.model.dto.ModelDTO;
+import CosplayCostumes.rest.model.dto.order.OrderChangeStatusRequest;
 import CosplayCostumes.rest.model.dto.order.OrderDTO;
 import CosplayCostumes.rest.model.dto.order.OrderResponse;
 import CosplayCostumes.rest.service.OrderService;
@@ -34,7 +35,7 @@ public class OrderController {
 
     @GetMapping("/get-all-objects")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<List<OrderResponse>> getAllOrder() {
+    public ResponseEntity<List<OrderResponse>> getAllOrders() {
         List<Order> orders = orderService.findAllOrder();
         List<OrderResponse> response = new ArrayList<>();
         orders.forEach(order -> response.add(orderMapper(order)));
@@ -55,7 +56,7 @@ public class OrderController {
 
     @PutMapping("/update-status-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<OrderResponse> updateOrderStatus(@RequestBody OrderResponse order) {
+    public ResponseEntity<OrderResponse> updateOrderStatus(@RequestBody OrderChangeStatusRequest order) {
         OrderStatus orderStatus = orderStatusService.findOrderStatusById(order.getStatusId());
         Order newOrder = orderService.updateOrderStatus(order.getId(), orderStatus);
         OrderResponse response = orderMapper(newOrder);
@@ -63,7 +64,7 @@ public class OrderController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("/delete-object")
+    @PutMapping("/disable-visibility-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteOrder(@RequestBody ModelDTO modelDTO) {
         orderService.deleteOrder(orderService.findOrderById(modelDTO.getId()));
@@ -71,8 +72,8 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private OrderResponse orderMapper(Order order){
-        return new OrderResponse(order.getId(),order.getOrderStatus().getId(), order.getOrderStatus().getCode(), order.getProduct().getId(), order.getProduct().getCode(),
+    private OrderResponse orderMapper(Order order) {
+        return new OrderResponse(order.getId(), order.getOrderStatus().getId(), order.getOrderStatus().getCode(), order.getProduct().getId(), order.getProduct().getCode(),
                 order.getUser().getId(), order.getUser().getFirstName() + " " + order.getUser().getLastName());
     }
 }

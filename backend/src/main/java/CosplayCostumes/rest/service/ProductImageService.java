@@ -13,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductImageService {
     private final static String PRODUCTS_IMAGE_NO_FOUND = "Failed to find products images with product ";
-    private final static String PRODUCT_IMAGE_NO_FOUND = "Failed to find products images with code ";
+    private final static String PRODUCT_IMAGE_NO_FOUND = "Failed to find products images with name ";
+    private final static String PRODUCT_IMAGE_NO_FOUND_ID = "Failed to find products images with id ";
     private final static String PRODUCT_IMAGE_EXIST = "Product image with this name with this name is exist ";
     private final ProductImageRepository productImageRepository;
 
@@ -21,8 +22,8 @@ public class ProductImageService {
         return productImageRepository.findAll();
     }
 
-    public List<ProductImage> findProductImageByProduct(Product product) throws Exception {
-        return productImageRepository.findByProduct(product).orElseThrow(() -> new Exception(PRODUCTS_IMAGE_NO_FOUND + product.getBusinessKey()));
+    public List<ProductImage> findProductImageByProduct(Product product) {
+        return productImageRepository.findByProduct(product).orElseThrow(() -> new FindException(PRODUCTS_IMAGE_NO_FOUND + product.getBusinessKey()));
     }
 
     public ProductImage findProductImageByCode(String code){
@@ -42,10 +43,10 @@ public class ProductImageService {
         return productImageRepository.save(productImage);
     }
 
-    public void deleteProductImage(ProductImage productImage) {
-        if (productImageRepository.findByCode(productImage.getCode()).isPresent())
-            throw new FindException(PRODUCT_IMAGE_EXIST + productImage.getCode());
-        productImage.setVisible(false);
-        productImageRepository.save(productImage);
+    public void deleteProductImage(Long id) {
+        var delete = productImageRepository.findById(id).orElseThrow( () ->
+                new FindException(PRODUCT_IMAGE_NO_FOUND_ID + id));
+        delete.setVisible(false);
+        productImageRepository.save(delete);
     }
 }

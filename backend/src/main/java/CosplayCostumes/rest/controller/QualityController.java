@@ -1,6 +1,8 @@
 package CosplayCostumes.rest.controller;
 
+import CosplayCostumes.rest.model.ProductType;
 import CosplayCostumes.rest.model.Quality;
+import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.quality.QualityDTO;
 import CosplayCostumes.rest.service.QualityService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,9 +28,9 @@ public class QualityController {
         return new ResponseEntity<>(allQuality, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{code}")
-    public ResponseEntity<Quality> findQuality(@PathVariable("code") String code) {
-        Quality quality = qualityService.findQualityByCode(code);
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Quality> findQuality(@PathVariable Long id) {
+        Quality quality = qualityService.findQualityById(id);
         return new ResponseEntity<>(quality, HttpStatus.OK);
     }
 
@@ -46,10 +48,10 @@ public class QualityController {
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<Quality> deleteSubcategory(@RequestBody Quality quality) {
-        qualityService.deleteQuality(quality);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteSubcategory(@RequestBody ModelDTO modelDTO) {
+        qualityService.deleteQuality(modelDTO.getId());
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

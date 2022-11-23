@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 public class OpinionDTO {
     private Long id;
-    private Long UserID;
+    private String userEmail;
     private Long ProductID;
     @Min(1)
     @Max(5)

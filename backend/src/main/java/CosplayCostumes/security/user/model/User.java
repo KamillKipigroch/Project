@@ -1,5 +1,8 @@
 package CosplayCostumes.security.user.model;
 
+import CosplayCostumes.rest.model.Opinion;
+import CosplayCostumes.rest.model.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,6 +31,7 @@ public class User implements UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "user_s"
     )
+    @JsonIgnore
     private Long id;
 
     private String firstName;
@@ -35,16 +39,29 @@ public class User implements UserDetails {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    Set<Order> orders;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    Set<Opinion> opinions;
 
     private String email;
 
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     private String image;
 
+    @JsonIgnore
     private Boolean locked;
 
+    @JsonIgnore
     private Boolean enabled;
 
     public User(String firstName, String lastName, String email, String password, UserRole userRole) {

@@ -10,8 +10,7 @@ import java.util.Set;
 @Data
 public class OpinionResponse {
     private Long id;
-    private Long UserID;
-    private String userName;
+    private String UserEmail;
     private Long ProductID;
     private String productName;
     private Double value;

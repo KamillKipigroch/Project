@@ -43,14 +43,52 @@ public class ProductService {
     }
 
     public Product updateProduct(Product product) {
-        productRepository.findById(product.getId()).orElseThrow(() ->
+        var updateProduct = productRepository.findById(product.getId()).orElseThrow(() ->
                 new FindException(PRODUCT_ID_NO_FOUND + product.getId()));
-        return productRepository.save(product);
+        if (product.getProductType() != null)
+            updateProduct.setProductType(product.getProductType());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setHero(product.getHero());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setCode(product.getCode());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setCondition(product.getCondition());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setDescription(product.getDescription());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setImages(product.getImages());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setPrice(product.getPrice());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setVisible(product.getVisible());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+        if (product.getProductType() != null)
+            updateProduct.setQuality(product.getQuality());
+        else
+            throw new IllegalArgumentException("Cunt save null value !");
+
+
+        return productRepository.save(updateProduct);
     }
 
-    public void deleteProduct(Product product) {
-        productRepository.findById(product.getId()).orElseThrow(() ->
-                new FindException(PRODUCT_ID_NO_FOUND + product.getId()));
+    public void deleteProduct(Long id) {
+        var product = productRepository.findById(id).orElseThrow(() ->
+                new FindException(PRODUCT_ID_NO_FOUND + id));
         product.setVisible(false);
         productRepository.save(product);
     }

@@ -29,9 +29,12 @@ public class OrderStatus implements Serializable {
     private String code;
 
     private Boolean visible;
+    @Column(nullable = false, unique = true)
+    private int level;
 
-    public OrderStatus(String code) {
+    public OrderStatus(String code, int level) {
         this.code = code;
+        this.level = level;
         this.visible = true;
     }
 }

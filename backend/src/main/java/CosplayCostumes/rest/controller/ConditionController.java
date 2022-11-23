@@ -1,5 +1,6 @@
 package CosplayCostumes.rest.controller;
 
+import CosplayCostumes.rest.model.Category;
 import CosplayCostumes.rest.model.Condition;
 import CosplayCostumes.rest.model.dto.ModelDTO;
 import CosplayCostumes.rest.model.dto.condition.ConditionDTO;
@@ -27,11 +28,12 @@ public class ConditionController {
         return new ResponseEntity<>(conditions, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{code}")
-    public ResponseEntity<Condition> findCondition(@PathVariable("code") String code) {
-        Condition category = conditionService.findConditionByCode(code);
+    @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Condition> findConditionById(@PathVariable Long id) {
+        Condition category = conditionService.findConditionByID(id);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
+
 
     @PostMapping("/add")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
@@ -40,17 +42,17 @@ public class ConditionController {
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Condition> updateCondition(@RequestBody Condition condition) {
         Condition newCategory = conditionService.updateCondition(condition);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
-    @PutMapping("/delete")
+    @PutMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteCondition(@RequestBody ModelDTO modelDTO) {
         conditionService.deleteCondition(modelDTO.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK, HttpStatus.OK);
     }
 }

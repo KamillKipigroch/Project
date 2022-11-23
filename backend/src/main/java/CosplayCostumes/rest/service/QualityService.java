@@ -41,15 +41,17 @@ public class QualityService {
     }
 
     public Quality updateQuality(Quality quality) {
-        qualityRepository.findById(quality.getId()).orElseThrow(() ->
+        var update =qualityRepository.findById(quality.getId()).orElseThrow(() ->
                 new FindException(QUALITY_ID_NO_FOUND + quality.getId()));
-        return qualityRepository.save(quality);
+        update.setCode(quality.getCode());
+        update.setVisible(quality.getVisible());
+        return qualityRepository.save(update);
     }
 
-    public void deleteQuality(Quality quality) {
-        qualityRepository.findById(quality.getId()).orElseThrow(() ->
-                new FindException(QUALITY_ID_NO_FOUND + quality.getId()));
-        quality.setVisible(false);
-        qualityRepository.save(quality);
+    public void deleteQuality(Long id) {
+        var delete =qualityRepository.findById(id).orElseThrow(() ->
+                new FindException(QUALITY_ID_NO_FOUND + id));
+        delete.setVisible(false);
+        qualityRepository.save(delete);
     }
 }

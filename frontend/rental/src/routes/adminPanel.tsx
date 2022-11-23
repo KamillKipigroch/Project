@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ButtonGroup from "../components/adminPanel/ButtonGroup";
+import ProductsDataGrid from '../components/adminPanel/productsDataGrid';
 
 const Container = styled.div`
   display: flex;
@@ -11,15 +12,24 @@ const ControlPanel = styled.div`
     flex-direction: row;
 `
 
+const Div = styled.div`
+    background-color: #EDDBC0;
+    // height: 500px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 15px;
+    margin: 10px;
+`
+
 export default function AdminPanel() {
     return(
         <Container>
-            <div>
+            <Div>
                 <ButtonGroup />
-            </div>
-            <div>
-                
-            </div>
+            </Div>
+            <Div>
+                <ProductsDataGrid />
+            </Div>
 
         </Container>
 

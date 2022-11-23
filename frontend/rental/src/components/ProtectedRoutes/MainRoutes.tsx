@@ -8,12 +8,14 @@ import Other from "../../routes/other";
 import Product from "../../routes/product";
 import Register from "../../routes/register";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import AdminPanel from "../../routes/adminPanel";
 
 const MainRoutes = () => (
   <Routes>
     {/* Public routes */}
     <Route path="" element={<Home />} />
     <Route path="/login" element={<Login />} />
+    <Route path="/adminPanel" element={<AdminPanel />} />
     <Route path="/register" element={<Register />} />
     <Route path="/movie">
       <Route path=":productId" element={<Product />} />

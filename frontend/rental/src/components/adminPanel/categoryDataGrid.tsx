@@ -5,22 +5,9 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   { field: 'visible', headerName: 'Visible', width: 90 },
-  {
-    field: 'name',
-    headerName: 'Name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'productType',
-    headerName: 'Product Type',
-    type: 'singleSelect',
-    width: 120,
-    editable: true,
-    //TODO
-    //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ['EU-resident', 'junior']
-  },
+  { field: 'name', headerName: 'Name', width: 150, editable: true, },
+  //TODO options
+  { field: 'productType', headerName: 'Product Type', type: 'singleSelect', width: 120, editable: true, valueOptions: ['EU-resident', 'junior'] },
 ];
 
 const rows = [

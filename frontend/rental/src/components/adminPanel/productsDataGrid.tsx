@@ -4,106 +4,98 @@ import { useStores } from "../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
-import { EMPTY_ARRAY } from "mobx/dist/internal";
 
-const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
-  { field: "visible", headerName: "Visible", width: 90 },
-  {
-    field: "name",
-    headerName: "Name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "description",
-    headerName: "Description",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "price",
-    headerName: "Price",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "hero",
-    headerName: "Hero",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "productType",
-    headerName: "Product Type",
-    type: "singleSelect",
-    width: 120,
-    editable: true,
-    //TODO
-    //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ["Costumes", "junior"],
-  },
-  {
-    field: "quality",
-    headerName: "Quality",
-    type: "singleSelect",
-    width: 120,
-    editable: true,
-    //TODO
-    //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ["Costumes", "junior"],
-  },
-  {
-    field: "condition",
-    headerName: "Condition",
-    type: "singleSelect",
-    width: 120,
-    editable: true,
-    //TODO
-    //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ["Costumes", "junior"],
-  },
-  {
-    //TODO
-    //make a button which opens image, can swithc it from your pc photo
-    field: "image",
-    headerName: "Image",
-    width: 110,
-    editable: true,
-  },
-];
 
-const rows = [
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-];
+const getUniqueNames = (names: string[]) => {
+  let uniqueNames = names.filter((element, index) => {
+    return names.indexOf(element) === index;
+  });
+  return uniqueNames;
+}
 
 const ProductsDataGrid = () => {
-  const { productStore } = useStores();
-  const { productTypeStore } = useStores();
 
+  //get productTypes
+  const { productTypeStore } = useStores();
   useEffect(() => {
     productTypeStore.fetchProductTypes()
       .then(() => console.log(toJS(productTypeStore.allProductTypes)));
   }, [productTypeStore]);
 
-  
+  //get qualities
+  const { qualityStore } = useStores();
+  useEffect(() => {
+    qualityStore.fetchQualities()
+      .then(() => console.log(toJS(qualityStore.allQualities)));
+  }, [qualityStore]);
+
+  //get conditions
+  const { conditionStore } = useStores();
+  useEffect(() => {
+    conditionStore.fetchConditions()
+      .then(() => console.log(toJS(conditionStore.allConditions)));
+  }, [conditionStore]);
+
+  //get subcategory
+  const { subCategoryStore } = useStores();
+  useEffect(() => {
+    subCategoryStore.fetchSubCategories()
+      .then(() => console.log(toJS(subCategoryStore.allSubCategories)));
+  }, [subCategoryStore]);
+
+  //get products
+  const { productStore } = useStores();
   useEffect(() => {
     productStore.fetchProducts()
       .then(() => console.log(toJS(productStore.allProducts)));
   }, [productStore]);
 
-  let productTypeNames = []
+  //get unique productType names
+  let productTypeNames: string[] = []
   for (let i = 0; i < productTypeStore.allProductTypes.length; i++) {
-    
-
+    productTypeNames.push(productTypeStore.allProductTypes[i].code)
   }
+  let uniqueProductTypeNames = getUniqueNames(productTypeNames);
+
+  //get unique quality names
+  let qualityNames: string[] = []
+  for (let i = 0; i < qualityStore.allQualities.length; i++) {
+    qualityNames.push(qualityStore.allQualities[i].code)
+  }
+  let uniqueQualityNames = getUniqueNames(qualityNames);
+
+  //get unique condition names
+  let conditionNames: string[] = []
+  for (let i = 0; i < conditionStore.allConditions.length; i++) {
+    qualityNames.push(conditionStore.allConditions[i].code)
+  }
+  let uniqueConditionNames = getUniqueNames(qualityNames);
+
+  //get unique subcategory names
+  let subcategoryNames: string[] = []
+  for (let i = 0; i < subCategoryStore.allSubCategories.length; i++) {
+    qualityNames.push(subCategoryStore.allSubCategories[i].code)
+  }
+  let uniqueSubcategoryNames = getUniqueNames(qualityNames);
+
+  
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "visible", headerName: "Visible", width: 90 },
+    { field: "name", headerName: "Name", width: 150, editable: true, },
+    { field: "createDate", headerName: "Create Date", width: 150, editable: true,},
+    { field: "description", headerName: "Description", width: 150, editable: true, },
+    { field: "price", headerName: "Price", type: "number", width: 110, editable: true, },
+    { field: "hero", headerName: "Hero", width: 110, editable: true, },
+    { field: "productType", headerName: "Product Type", type: "singleSelect", width: 120, editable: true, valueOptions: uniqueProductTypeNames, },
+    { field: "quality", headerName: "Quality", type: "singleSelect", width: 120, editable: true, valueOptions: uniqueQualityNames, },
+    { field: "condition", headerName: "Condition", type: "singleSelect", width: 120, editable: true, valueOptions: uniqueConditionNames, },
+    { field: "subcategory", headerName: "Subcategory", type: "singleSelect", width: 120, editable: true, valueOptions: uniqueSubcategoryNames, },
+    //TODO opinions form
+    { field: "opinions", headerName: "Opinions", width: 110, editable: true, },
+    //TODO make a button which opens image, can swithc it from your pc photo
+    { field: "image", headerName: "Image", width: 110, editable: true, },
+  ];
 
   let displayProducts = []
   for (let i = 0; i < productStore.allProducts.length; i++) {
@@ -111,13 +103,14 @@ const ProductsDataGrid = () => {
       id: i,
       visible: productStore.allProducts[i].visible,
       name: productStore.allProducts[i].code,
+      createDate: productStore.allProducts[i].createDate,
       description: productStore.allProducts[i].description,
       price: productStore.allProducts[i].price.toFixed(2),
       hero: productStore.allProducts[i].hero,
       productType: productStore.allProducts[i].productType.code,
       quality:  productStore.allProducts[i].quality.code,
       condition: productStore.allProducts[i].condition.code,
-      image: EMPTY_ARRAY,
+      image: '',
     });
   }
 

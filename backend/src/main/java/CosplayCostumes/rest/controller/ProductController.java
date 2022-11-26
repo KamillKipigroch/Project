@@ -29,12 +29,19 @@ public class ProductController {
     @GetMapping("/get-all")
     public ResponseEntity<List<Product>> getAllQualities() {
         List<Product> allProduct = productService.findAllProduct();
+        allProduct.forEach(product ->
+                product.setPrice(
+                        (product.getPrice() * product.getCondition().getPrice()) / 100
+                ));
         return new ResponseEntity<>(allProduct, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<Product> findProductId(@PathVariable Long id) {
         Product product = productService.findProductById(id);
+        product.setPrice(
+                (product.getPrice() * product.getCondition().getPrice()) / 100
+        );
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
@@ -60,6 +67,9 @@ public class ProductController {
     @PutMapping("/update")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        product.setPrice(
+                (product.getPrice() *  100) / product.getCondition().getPrice()
+        );
         Product newQuality = productService.updateProduct(product);
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }

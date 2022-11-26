@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ButtonGroup from "../components/adminPanel/ButtonGroup";
+import CategoryDataGrid from "../components/adminPanel/categoryDataGrid";
 import ProductsDataGrid from '../components/adminPanel/productsDataGrid';
 
 const Container = styled.div`
@@ -29,6 +30,9 @@ export default function AdminPanel() {
             </Div>
             <Div>
                 <ProductsDataGrid />
+            </Div>
+            <Div>
+                <CategoryDataGrid />
             </Div>
 
         </Container>

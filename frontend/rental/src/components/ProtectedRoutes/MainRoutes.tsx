@@ -8,14 +8,28 @@ import Other from "../../routes/other";
 import Product from "../../routes/product";
 import Register from "../../routes/register";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import AdminPanel from "../../routes/adminPanel";
+import AdminPanelProducts from "../../routes/adminPanels/adminPanelProducts";
+import AdminPanelCategories from "../../routes/adminPanels/adminPanelCategories";
+import AdminPanelConditions from "../../routes/adminPanels/adminPanelConditions";
+import AdminPanelOpinions from "../../routes/adminPanels/adminPanelOpinions";
+import AdminPanelOrderStatuses from "../../routes/adminPanels/adminPanelOrderStatuses";
+import AdminPanelProductTypes from "../../routes/adminPanels/adminPanelProductTypes";
+import AdminPanelQualities from "../../routes/adminPanels/adminPanelQualities";
+import AdminPanelSubCategories from "../../routes/adminPanels/adminPanelSubCategories";
 
 const MainRoutes = () => (
   <Routes>
     {/* Public routes */}
     <Route path="" element={<Home />} />
     <Route path="/login" element={<Login />} />
-    <Route path="/adminPanel" element={<AdminPanel />} />
+    <Route path="/adminPanelProducts" element={<AdminPanelProducts />} />
+    <Route path="/adminPanelCategories" element={<AdminPanelCategories />} />
+    <Route path="/adminPanelConditions" element={<AdminPanelConditions />} />
+    <Route path="/adminPanelOpinions" element={<AdminPanelOpinions />} />
+    <Route path="/adminPanelOrderStatuses" element={<AdminPanelOrderStatuses />} />
+    <Route path="/adminPanelProductTypes" element={<AdminPanelProductTypes />} />
+    <Route path="/adminPanelQualities" element={<AdminPanelQualities />} />
+    <Route path="/adminPanelSubCategories" element={<AdminPanelSubCategories />} />
     <Route path="/register" element={<Register />} />
     <Route path="/movie">
       <Route path=":productId" element={<Product />} />

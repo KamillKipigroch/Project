@@ -67,21 +67,22 @@ const ProductsDataGrid = () => {
   //get unique condition names
   let conditionNames: string[] = []
   for (let i = 0; i < conditionStore.allConditions.length; i++) {
-    qualityNames.push(conditionStore.allConditions[i].code)
+    conditionNames.push(conditionStore.allConditions[i].code)
   }
-  let uniqueConditionNames = getUniqueNames(qualityNames);
+  let uniqueConditionNames = getUniqueNames(conditionNames);
 
   //get unique subcategory names
   let subcategoryNames: string[] = []
   for (let i = 0; i < subCategoryStore.allSubCategories.length; i++) {
-    qualityNames.push(subCategoryStore.allSubCategories[i].code)
+    subcategoryNames.push(subCategoryStore.allSubCategories[i].code)
   }
-  let uniqueSubcategoryNames = getUniqueNames(qualityNames);
+  let uniqueSubcategoryNames = getUniqueNames(subcategoryNames);
 
   
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90 },
-    { field: "visible", headerName: "Visible", width: 90 },
+    { field: "id", headerName: "ID", width: 90, editable: false, },
+    { field: "businessKey", headerName: "businessKey", width: 90, editable: false, },
+    { field: "visible", headerName: "Visible", width: 90, editable: true, },
     { field: "name", headerName: "Name", width: 150, editable: true, },
     { field: "createDate", headerName: "Create Date", width: 150, editable: true,},
     { field: "description", headerName: "Description", width: 150, editable: true, },
@@ -97,10 +98,11 @@ const ProductsDataGrid = () => {
     { field: "image", headerName: "Image", width: 110, editable: true, },
   ];
 
-  let displayProducts = []
+  let display = []
   for (let i = 0; i < productStore.allProducts.length; i++) {
-    displayProducts.push({
-      id: i,
+    display.push({
+      id: productStore.allProducts[i].id,
+      businessKey: productStore.allProducts[i].businessKey,
       visible: productStore.allProducts[i].visible,
       name: productStore.allProducts[i].code,
       createDate: productStore.allProducts[i].createDate,
@@ -110,6 +112,9 @@ const ProductsDataGrid = () => {
       productType: productStore.allProducts[i].productType.code,
       quality:  productStore.allProducts[i].quality.code,
       condition: productStore.allProducts[i].condition.code,
+      subcategory: productStore.allProducts[i].subcategory.code,
+      // TODO opinions
+      opinions: '',
       image: '',
     });
   }
@@ -117,7 +122,7 @@ const ProductsDataGrid = () => {
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={displayProducts}
+        rows={display}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

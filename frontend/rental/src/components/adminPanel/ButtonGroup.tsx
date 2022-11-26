@@ -16,9 +16,7 @@ export default function VariantButtonGroup() {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="outlined button group">
-        <Button>New</Button>
-        <Button>Update</Button>
-        <Button>Hide from user</Button>
+        <Button>Save changes</Button>
       </ButtonGroup>
     </Box>
   );

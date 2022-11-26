@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import { useStores } from "../../stores/root.store";
+import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
@@ -12,29 +12,27 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function StatusesDataDataGrid() {
+export default function ProductTypesDataGrid() {
 
   //get order status
-  const { orderStatusStore } = useStores();
+  const { productTypeStore } = useStores();
   useEffect(() => {
-    orderStatusStore.fetchOrderStatuses()
-      .then(() => console.log(toJS(orderStatusStore.allOrderStatuses)));
-  }, [orderStatusStore]);
+    productTypeStore.fetchProductTypes()
+      .then(() => console.log(toJS(productTypeStore.allProductTypes)));
+  }, [productTypeStore]);
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, editable: false, },
     { field: "name", headerName: "Name", width: 90, editable: true, },
     { field: "visible", headerName: "Visible", width: 90, editable: true, },
-    { field: "level", headerName: "Level", width: 90, editable: true, },
   ];
 
   let display = []
-  for (let i = 0; i < orderStatusStore.allOrderStatuses.length; i++) {
+  for (let i = 0; i < productTypeStore.allProductTypes.length; i++) {
     display.push({
-      id: orderStatusStore.allOrderStatuses[i].id,
-      name: orderStatusStore.allOrderStatuses[i].code,
-      visible: orderStatusStore.allOrderStatuses[i].visible,
-      level: orderStatusStore.allOrderStatuses[i].level,
+      id: productTypeStore.allProductTypes[i].id,
+      name: productTypeStore.allProductTypes[i].code,
+      visible: productTypeStore.allProductTypes[i].visible,
     });
   }
 

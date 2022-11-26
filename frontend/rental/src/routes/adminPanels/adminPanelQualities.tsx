@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import ButtonGroup from "../../components/adminPanel/ButtonGroup";
-import QualitiesDataGrid from "../../components/adminPanel/qualitiesDataGrid";
+import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
+import QualitiesDataGrid from "../../components/adminPanel/dataGrids/qualitiesDataGrid";
 
 const Container = styled.div`
+  background-color: #EDDBC0;
   display: flex;
   flex-direction: column;
 `
 
 const Div = styled.div`
-    background-color: #EDDBC0;
-    // height: 500px;
     display: flex;
     justify-content: flex-start;
     border-radius: 15px;
@@ -19,6 +19,9 @@ const Div = styled.div`
 export default function AdminPanelQualities() {
     return(
         <Container>
+            <Div>
+                <ElementsButtonGroup />
+            </Div>
             <Div>
                 <ButtonGroup />
             </Div>

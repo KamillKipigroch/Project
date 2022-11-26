@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import ButtonGroup from "../../components/adminPanel/ButtonGroup";
 import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
-import ProductsDataGrid from '../../components/adminPanel/dataGrids/productsDataGrid';
 
 const Container = styled.div`
   background-color: #EDDBC0;
@@ -16,17 +14,11 @@ const Div = styled.div`
     margin: 10px;
 `
 
-export default function AdminPanelProducts() {
+export default function AdminPanel() {
     return(
         <Container>
             <Div>
                 <ElementsButtonGroup />
-            </Div>
-            <Div>
-                <ButtonGroup />
-            </Div>
-            <Div>
-                <ProductsDataGrid />
             </Div>
 
         </Container>

@@ -16,12 +16,14 @@ import AdminPanelOrderStatuses from "../../routes/adminPanels/adminPanelOrderSta
 import AdminPanelProductTypes from "../../routes/adminPanels/adminPanelProductTypes";
 import AdminPanelQualities from "../../routes/adminPanels/adminPanelQualities";
 import AdminPanelSubCategories from "../../routes/adminPanels/adminPanelSubCategories";
+import AdminPanel from "../../routes/adminPanels/adminPanel";
 
 const MainRoutes = () => (
   <Routes>
     {/* Public routes */}
     <Route path="" element={<Home />} />
     <Route path="/login" element={<Login />} />
+    <Route path="/adminPanel" element={ <AdminPanel /> } />
     <Route path="/adminPanelProducts" element={<AdminPanelProducts />} />
     <Route path="/adminPanelCategories" element={<AdminPanelCategories />} />
     <Route path="/adminPanelConditions" element={<AdminPanelConditions />} />

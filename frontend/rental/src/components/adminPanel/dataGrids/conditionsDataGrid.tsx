@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import { useStores } from "../../stores/root.store";
+import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
@@ -12,27 +12,29 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function ProductTypesDataGrid() {
+export default function ConditionsDataGrid() {
 
-  //get order status
-  const { productTypeStore } = useStores();
+  //get conditions
+  const { conditionStore } = useStores();
   useEffect(() => {
-    productTypeStore.fetchProductTypes()
-      .then(() => console.log(toJS(productTypeStore.allProductTypes)));
-  }, [productTypeStore]);
+    conditionStore.fetchConditions()
+      .then(() => console.log(toJS(conditionStore.allConditions)));
+  }, [conditionStore]);
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: "name", headerName: "Name", width: 90, editable: true, },
-    { field: "visible", headerName: "Visible", width: 90, editable: true, },
+    { field: 'price', headerName: 'Price', width: 90, editable: true, },
+    { field: 'visible', headerName: 'Visible', width: 90, editable: true, },
+    { field: 'name', headerName: 'Name', width: 150, editable: true, },
   ];
 
   let display = []
-  for (let i = 0; i < productTypeStore.allProductTypes.length; i++) {
+  for (let i = 0; i < conditionStore.allConditions.length; i++) {
     display.push({
-      id: productTypeStore.allProductTypes[i].id,
-      name: productTypeStore.allProductTypes[i].code,
-      visible: productTypeStore.allProductTypes[i].visible,
+      id: conditionStore.allConditions[i].id,
+      price: conditionStore.allConditions[i].price,
+      visible: conditionStore.allConditions[i].visible,
+      name: conditionStore.allConditions[i].code,
     });
   }
 

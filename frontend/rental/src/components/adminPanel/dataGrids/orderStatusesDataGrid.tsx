@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import { useStores } from "../../stores/root.store";
+import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
@@ -12,29 +12,29 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function ConditionsDataGrid() {
+export default function StatusesDataDataGrid() {
 
-  //get conditions
-  const { conditionStore } = useStores();
+  //get order status
+  const { orderStatusStore } = useStores();
   useEffect(() => {
-    conditionStore.fetchConditions()
-      .then(() => console.log(toJS(conditionStore.allConditions)));
-  }, [conditionStore]);
+    orderStatusStore.fetchOrderStatuses()
+      .then(() => console.log(toJS(orderStatusStore.allOrderStatuses)));
+  }, [orderStatusStore]);
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: 'price', headerName: 'Price', width: 90, editable: true, },
-    { field: 'visible', headerName: 'Visible', width: 90, editable: true, },
-    { field: 'name', headerName: 'Name', width: 150, editable: true, },
+    { field: "name", headerName: "Name", width: 90, editable: true, },
+    { field: "visible", headerName: "Visible", width: 90, editable: true, },
+    { field: "level", headerName: "Level", width: 90, editable: true, },
   ];
 
   let display = []
-  for (let i = 0; i < conditionStore.allConditions.length; i++) {
+  for (let i = 0; i < orderStatusStore.allOrderStatuses.length; i++) {
     display.push({
-      id: conditionStore.allConditions[i].id,
-      price: conditionStore.allConditions[i].price,
-      visible: conditionStore.allConditions[i].visible,
-      name: conditionStore.allConditions[i].code,
+      id: orderStatusStore.allOrderStatuses[i].id,
+      name: orderStatusStore.allOrderStatuses[i].code,
+      visible: orderStatusStore.allOrderStatuses[i].visible,
+      level: orderStatusStore.allOrderStatuses[i].level,
     });
   }
 

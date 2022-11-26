@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import ButtonGroup from "../../components/adminPanel/ButtonGroup";
-import OrderStatusDataGrid from "../../components/adminPanel/orderStatusesDataGrid";
+import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
+import OrderStatusDataGrid from "../../components/adminPanel/dataGrids/orderStatusesDataGrid";
 
 const Container = styled.div`
+  background-color: #EDDBC0;
   display: flex;
   flex-direction: column;
 `
 
 const Div = styled.div`
-    background-color: #EDDBC0;
-    // height: 500px;
     display: flex;
     justify-content: flex-start;
     border-radius: 15px;
@@ -19,6 +19,9 @@ const Div = styled.div`
 export default function AdminPanelOrderStatuses() {
     return(
         <Container>
+            <Div>
+                <ElementsButtonGroup />
+            </Div>
             <Div>
                 <ButtonGroup />
             </Div>

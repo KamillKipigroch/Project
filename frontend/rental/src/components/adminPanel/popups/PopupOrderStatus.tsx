@@ -57,16 +57,15 @@ export default function Popup() {
                         <Element>
                             <TextField
                                 required
-                                id="outlined-number"
-                                label="Id"
-                                type="number"
+                                id="outlined-required"
+                                label="Name"
                             />
                         </Element>
                         <Element>
                             <TextField
                                 required
                                 id="outlined-required"
-                                label="Name"
+                                label="Level"
                             />
                         </Element>
                         <Element>

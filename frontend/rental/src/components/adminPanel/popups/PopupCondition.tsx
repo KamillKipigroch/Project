@@ -51,14 +51,14 @@ export default function Popup() {
             </Button>
             </ThemeProvider>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add category</DialogTitle>
+                <DialogTitle>Add condition</DialogTitle>
                 <DialogContent>
                     <Div>
                         <Element>
                             <TextField
                                 required
                                 id="outlined-number"
-                                label="Id"
+                                label="Price"
                                 type="number"
                             />
                         </Element>

@@ -51,14 +51,21 @@ export default function Popup() {
             </Button>
             </ThemeProvider>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add category</DialogTitle>
+                <DialogTitle>Add opinion</DialogTitle>
                 <DialogContent>
                     <Div>
                         <Element>
                             <TextField
                                 required
+                                id="outlined-required"
+                                label="Product Name"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
                                 id="outlined-number"
-                                label="Id"
+                                label="Value"
                                 type="number"
                             />
                         </Element>
@@ -66,12 +73,23 @@ export default function Popup() {
                             <TextField
                                 required
                                 id="outlined-required"
-                                label="Name"
+                                label="Description"
                             />
                         </Element>
                         <Element>
-                            Visible
-                            <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />
+                            <TextField
+                                required
+                                id="outlined-number"
+                                label="Product ID"
+                                type="number"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
+                                id="outlined-required"
+                                label="Email"
+                            />
                         </Element>
                     </Div>
                 </DialogContent>

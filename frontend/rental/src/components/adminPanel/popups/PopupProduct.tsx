@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,6 +9,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import styled from "styled-components";
 import Checkbox from '@mui/material/Checkbox';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import dayjs, { Dayjs } from 'dayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 
 const theme = createTheme({
     palette: {
@@ -43,6 +48,14 @@ export default function Popup() {
         setOpen(false);
     };
 
+    const [value, setValue] = React.useState<Dayjs | null>(
+        dayjs('2014-08-18T21:11:54'),
+    );
+
+    const handleChange = (newValue: Dayjs | null) => {
+        setValue(newValue);
+    };
+
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -57,8 +70,22 @@ export default function Popup() {
                         <Element>
                             <TextField
                                 required
+                                id="outlined-required"
+                                label="Name"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
+                                id="outlined-required"
+                                label="Description"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
                                 id="outlined-number"
-                                label="Id"
+                                label="Price"
                                 type="number"
                             />
                         </Element>
@@ -66,9 +93,17 @@ export default function Popup() {
                             <TextField
                                 required
                                 id="outlined-required"
-                                label="Name"
+                                label="Hero"
                             />
                         </Element>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                            label="Date&Time picker"
+                            value={value}
+                            onChange={handleChange}
+                            renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => <TextField {...params} />}
+                        />
+                        </LocalizationProvider>
                         <Element>
                             Visible
                             <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />

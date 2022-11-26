@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ButtonGroup from "../../components/adminPanel/ButtonGroup";
 import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
 import ProductsDataGrid from '../../components/adminPanel/dataGrids/productsDataGrid';
+import PopupProduct from "../../components/adminPanel/popups/PopupProduct";
 
 const Container = styled.div`
   background-color: #EDDBC0;
@@ -23,7 +24,7 @@ export default function AdminPanelProducts() {
                 <ElementsButtonGroup />
             </Div>
             <Div>
-                <ButtonGroup />
+                <PopupProduct />
             </Div>
             <Div>
                 <ProductsDataGrid />

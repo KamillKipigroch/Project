@@ -4,6 +4,7 @@ import { useStores } from "../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
+import { EMPTY_ARRAY } from "mobx/dist/internal";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -41,7 +42,7 @@ const columns: GridColDef[] = [
     editable: true,
     //TODO
     //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ["EU-resident", "junior"],
+    valueOptions: ["Costumes", "junior"],
   },
   {
     field: "quality",
@@ -51,7 +52,7 @@ const columns: GridColDef[] = [
     editable: true,
     //TODO
     //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ["EU-resident", "junior"],
+    valueOptions: ["Costumes", "junior"],
   },
   {
     field: "condition",
@@ -61,7 +62,7 @@ const columns: GridColDef[] = [
     editable: true,
     //TODO
     //dynamiczne opcje wyboru - valueOptions
-    valueOptions: ["EU-resident", "junior"],
+    valueOptions: ["Costumes", "junior"],
   },
   {
     //TODO
@@ -81,69 +82,49 @@ const rows = [
     price: 100,
     hero: "big city hero",
   },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
-  {
-    id: 1,
-    name: "Spiderman costume",
-    description: "full bodysuit",
-    price: 100,
-    hero: "big city hero",
-  },
 ];
 
 const ProductsDataGrid = () => {
   const { productStore } = useStores();
+  const { productTypeStore } = useStores();
 
+  useEffect(() => {
+    productTypeStore.fetchProductTypes()
+      .then(() => console.log(toJS(productTypeStore.allProductTypes)));
+  }, [productTypeStore]);
+
+  
   useEffect(() => {
     productStore.fetchProducts()
       .then(() => console.log(toJS(productStore.allProducts)));
   }, [productStore]);
 
+  let productTypeNames = []
+  for (let i = 0; i < productTypeStore.allProductTypes.length; i++) {
+    
+
+  }
+
+  let displayProducts = []
+  for (let i = 0; i < productStore.allProducts.length; i++) {
+    displayProducts.push({
+      id: i,
+      visible: productStore.allProducts[i].visible,
+      name: productStore.allProducts[i].code,
+      description: productStore.allProducts[i].description,
+      price: productStore.allProducts[i].price.toFixed(2),
+      hero: productStore.allProducts[i].hero,
+      productType: productStore.allProducts[i].productType.code,
+      quality:  productStore.allProducts[i].quality.code,
+      condition: productStore.allProducts[i].condition.code,
+      image: EMPTY_ARRAY,
+    });
+  }
+
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={productStore.allProducts}
+        rows={displayProducts}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

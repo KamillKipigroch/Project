@@ -36,6 +36,19 @@ export default function ProductTypesDataGrid() {
     });
   }
 
+  // let display = [
+  //   {
+  //     id: 1,
+  //     name: "namesss",
+  //     visible: true
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "namesss",
+  //     visible: true
+  //   }
+  // ]
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

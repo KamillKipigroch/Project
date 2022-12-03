@@ -57,21 +57,9 @@ export default function Popup() {
                         <Element>
                             <TextField
                                 required
-                                id="outlined-number"
-                                label="Id"
-                                type="number"
-                            />
-                        </Element>
-                        <Element>
-                            <TextField
-                                required
                                 id="outlined-required"
                                 label="Name"
                             />
-                        </Element>
-                        <Element>
-                            Visible
-                            <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />
                         </Element>
                     </Div>
                 </DialogContent>

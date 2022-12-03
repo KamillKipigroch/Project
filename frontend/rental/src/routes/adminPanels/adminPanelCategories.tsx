@@ -1,7 +1,9 @@
+import Button from "@mui/material/Button";
 import styled from "styled-components";
 import ButtonGroup from "../../components/adminPanel/ButtonGroup";
 import CategoriesDataGrid from "../../components/adminPanel/dataGrids/categoriesDataGrid";
 import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
+import PopupCategory from "../../components/adminPanel/popups/PopupCategory";
 
 const Container = styled.div`
   background-color: #EDDBC0;
@@ -23,6 +25,12 @@ export default function AdminPanelCategories() {
                 <ElementsButtonGroup />
             </Div>
             <Div>
+                <Button>
+                    add
+                </Button>
+                <PopupCategory />
+            </Div>
+            <Div>
                 <ButtonGroup />
             </Div>
             <Div>
@@ -32,4 +40,8 @@ export default function AdminPanelCategories() {
         </Container>
 
     )
+}
+
+function AlertDialogSlide() {
+    throw new Error("Function not implemented.");
 }

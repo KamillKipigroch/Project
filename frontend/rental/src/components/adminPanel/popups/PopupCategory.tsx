@@ -61,15 +61,11 @@ export default function Popup() {
                                 label="Name"
                             />
                         </Element>
-                        <Element>
-                            Visible
-                            <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />
-                        </Element>
                     </Div>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button onClick={handleClose}>OK</Button>
                 </DialogActions>
             </Dialog>
         </div>

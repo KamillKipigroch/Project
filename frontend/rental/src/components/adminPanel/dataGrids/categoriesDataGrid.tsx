@@ -29,6 +29,19 @@ export default function CategoriesDataGrid() {
     });
   }
 
+  // let display = [
+  //   {
+  //     id: 1,
+  //     visible: true,
+  //     name: "test1"
+  //   },
+  //   {
+  //     id: 2,
+  //     visible: true,
+  //     name: "test2"
+  //   }
+  // ]
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

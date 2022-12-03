@@ -1,7 +1,7 @@
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import AlertDialogSlide from './popups/PopupCategory';
-import Popup from './popups/PopupCategory';
+import PopupCategory from './popups/PopupCategory';
 import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { purple } from '@mui/material/colors';
@@ -32,7 +32,7 @@ export default function VariantButtonGroup() {
             AlertDialogSlide();
           }}>Save changes
         </ColorButton>
-        <Popup />
+        <PopupCategory />
       </ButtonGroup>
     </Box>
   );

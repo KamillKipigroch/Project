@@ -66,11 +66,8 @@ export default function Popup() {
                                 required
                                 id="outlined-required"
                                 label="Level"
+                                type="number"
                             />
-                        </Element>
-                        <Element>
-                            Visible
-                            <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />
                         </Element>
                     </Div>
                 </DialogContent>

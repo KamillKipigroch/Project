@@ -18,6 +18,16 @@ type ImageDTO = {
   price: number;
 }
 
+// type ProductDTO = {
+//   code: string;
+//   price: number;
+//   hero: string;
+//   productType: IProductType;
+//   images: any[];
+//   condition: ICondition;
+//   quality: IQuality;
+// }
+
 export default function BoxComponent({path, name, price}: ImageDTO) {
   return (
     <Box component="span" sx={{

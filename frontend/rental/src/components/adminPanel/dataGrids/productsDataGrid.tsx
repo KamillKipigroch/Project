@@ -55,28 +55,37 @@ const ProductsDataGrid = () => {
   for (let i = 0; i < productTypeStore.allProductTypes.length; i++) {
     productTypeNames.push(productTypeStore.allProductTypes[i].code)
   }
+  //uncomment
   let uniqueProductTypeNames = getUniqueNames(productTypeNames);
+  //let uniqueProductTypeNames = ["productType1", "productType2"];
 
   //get unique quality names
   let qualityNames: string[] = []
   for (let i = 0; i < qualityStore.allQualities.length; i++) {
     qualityNames.push(qualityStore.allQualities[i].code)
   }
+  //uncomment
   let uniqueQualityNames = getUniqueNames(qualityNames);
+  //let uniqueQualityNames = ["quality1", "quality2"];
 
   //get unique condition names
   let conditionNames: string[] = []
   for (let i = 0; i < conditionStore.allConditions.length; i++) {
     conditionNames.push(conditionStore.allConditions[i].code)
   }
+  //uncomment
   let uniqueConditionNames = getUniqueNames(conditionNames);
+  //let uniqueConditionNames = ["condition1", "condition2"];
 
   //get unique subcategory names
   let subcategoryNames: string[] = []
   for (let i = 0; i < subCategoryStore.allSubCategories.length; i++) {
     subcategoryNames.push(subCategoryStore.allSubCategories[i].code)
   }
+
+  //uncomment
   let uniqueSubcategoryNames = getUniqueNames(subcategoryNames);
+  //let uniqueSubcategoryNames = ["subcategory1", "subcategory2"];
 
   
   const columns: GridColDef[] = [
@@ -118,6 +127,42 @@ const ProductsDataGrid = () => {
       image: '',
     });
   }
+
+  // let display = [
+  //   {
+  //     id: 1,
+  //     businessKey: 123,
+  //     visible: true,
+  //     name: "nametest",
+  //     createDate: "12.01.2022",
+  //     description: "teruyesiuhsi",
+  //     price: 123,
+  //     hero: "aria",
+  //     productType: "productType1",
+  //     quality: "quality1",
+  //     condition: "condition2",
+  //     subcategory: "subcategory1",
+  //     opinions: '',
+  //     image: ''
+  //   },
+  //   {
+  //     id: 2,
+  //     businessKey: 1223,
+  //     visible: true,
+  //     name: "nametest",
+  //     createDate: "13.01.2022",
+  //     description: "teruyesiuhsi",
+  //     price: 123,
+  //     hero: "fsfsfs",
+  //     productType: "productType test",
+  //     quality: "good",
+  //     condition: "condition test",
+  //     subcategory: "testetses",
+  //     opinions: '',
+  //     image: ''
+
+  //   }
+  // ]
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>

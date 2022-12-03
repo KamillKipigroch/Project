@@ -45,6 +45,18 @@ export default function OpinionsDataGrid() {
     });
   }
 
+  // let display = [
+  //   {
+  //     id: 1,
+  //     productName: "test1",
+  //     value: 213,
+  //     description: "testowy description",
+  //     opinionImages: '',
+  //     productID: 12312,
+  //     userEmail: "aa@aa.pl"
+  //   }
+  // ]
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

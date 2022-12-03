@@ -38,6 +38,23 @@ export default function StatusesDataDataGrid() {
     });
   }
 
+  // let display = [
+  //   {
+  //     id: 1,
+  //     name: "test1",
+  //     visible: true,
+  //     field: "12131",
+  //     level: 1
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "test2",
+  //     visible: true,
+  //     field: "12222",
+  //     level: 1
+  //   }
+  // ]
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

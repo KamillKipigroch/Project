@@ -57,8 +57,15 @@ export default function Popup() {
                         <Element>
                             <TextField
                                 required
+                                id="outlined-required"
+                                label="Name"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
                                 id="outlined-number"
-                                label="Id"
+                                label="Category ID"
                                 type="number"
                             />
                         </Element>
@@ -66,12 +73,8 @@ export default function Popup() {
                             <TextField
                                 required
                                 id="outlined-required"
-                                label="Name"
+                                label="Description"
                             />
-                        </Element>
-                        <Element>
-                            Visible
-                            <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />
                         </Element>
                     </Div>
                 </DialogContent>

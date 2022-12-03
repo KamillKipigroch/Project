@@ -36,6 +36,19 @@ export default function QualitiesDataGrid() {
     });
   }
 
+  // let display = [
+  //   {
+  //     id: 1,
+  //     name: "sdadasd",
+  //     visible: true
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "sdadasd",
+  //     visible: true
+  //   }
+  // ]
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

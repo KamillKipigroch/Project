@@ -38,6 +38,21 @@ export default function ConditionsDataGrid() {
     });
   }
 
+  // let display = [
+  //   {
+  //     id: 1,
+  //     price: 100,
+  //     visible: true,
+  //     name: "test1"
+  //   },
+  //   {
+  //     id: 2,
+  //     price: 100,
+  //     visible: true,
+  //     name: "test2"
+  //   }
+  // ]
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

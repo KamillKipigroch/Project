@@ -57,13 +57,6 @@ export default function Popup() {
                         <Element>
                             <TextField
                                 required
-                                id="outlined-required"
-                                label="Product Name"
-                            />
-                        </Element>
-                        <Element>
-                            <TextField
-                                required
                                 id="outlined-number"
                                 label="Value"
                                 type="number"
@@ -91,11 +84,17 @@ export default function Popup() {
                                 label="Email"
                             />
                         </Element>
+                        <Element>
+                        <Button variant="contained" component="label">
+                            Upload image
+                            <input hidden accept="image/*" multiple type="file" />
+                        </Button>
+                        </Element>
                     </Div>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button onClick={handleClose}>OK</Button>
                 </DialogActions>
             </Dialog>
         </div>

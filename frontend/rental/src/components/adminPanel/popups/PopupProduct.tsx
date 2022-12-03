@@ -96,17 +96,43 @@ export default function Popup() {
                                 label="Hero"
                             />
                         </Element>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker
-                            label="Date&Time picker"
-                            value={value}
-                            onChange={handleChange}
-                            renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => <TextField {...params} />}
-                        />
-                        </LocalizationProvider>
                         <Element>
-                            Visible
-                            <Checkbox {...{ inputProps: { 'aria-label': 'Checkbox demo' } }} defaultChecked />
+                            <TextField
+                                required
+                                id="outlined-number"
+                                label="Product type ID"
+                                type="number"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
+                                id="outlined-number"
+                                label="Subcategory ID"
+                                type="number"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
+                                id="outlined-number"
+                                label="Condition ID"
+                                type="number"
+                            />
+                        </Element>
+                        <Element>
+                            <TextField
+                                required
+                                id="outlined-number"
+                                label="Quality ID"
+                                type="number"
+                            />
+                        </Element>
+                        <Element>
+                        <Button variant="contained" component="label">
+                            Upload image
+                            <input hidden accept="image/*" multiple type="file" />
+                        </Button>
                         </Element>
                     </Div>
                 </DialogContent>

@@ -33,7 +33,9 @@ export default function SubCategoriesDataGrid() {
   for (let i = 0; i < categoryStore.allCategories.length; i++) {
     categoryNames.push(categoryStore.allCategories[i].code)
   }
+  //uncomment
   let uniqueCategoryNames = getUniqueNames(categoryNames);
+  //let uniqueCategoryNames = ["category1", "category2"]
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, editable: false, },
@@ -53,6 +55,23 @@ export default function SubCategoriesDataGrid() {
       visible: subCategoryStore.allSubCategories[i].visible,
     });
   }
+
+  // let display = [
+  //   {
+  //     id: 1,
+  //     name: "213131",
+  //     category: "category1",
+  //     description: "dadsdadas",
+  //     visible: true
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "222222131",
+  //     category: "category2",
+  //     description: "dadsdadas",
+  //     visible: true
+  //   }
+  // ]
 
   return (
     <Box sx={{ height: 400, width: '100%' }}>

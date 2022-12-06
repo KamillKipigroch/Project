@@ -12,7 +12,7 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function QualitiesDataGrid() {
+const QualitiesDataGrid = () => {
 
   //get order status
   const { qualityStore } = useStores();
@@ -63,3 +63,5 @@ export default function QualitiesDataGrid() {
     </Box>
   );
 }
+
+export default observer(QualitiesDataGrid);

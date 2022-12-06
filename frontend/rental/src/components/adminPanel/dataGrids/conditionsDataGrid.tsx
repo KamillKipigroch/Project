@@ -12,7 +12,7 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function ConditionsDataGrid() {
+const ConditionsDataGrid = () => {
 
   //get conditions
   const { conditionStore } = useStores();
@@ -67,3 +67,5 @@ export default function ConditionsDataGrid() {
     </Box>
   );
 }
+
+export default observer(ConditionsDataGrid);

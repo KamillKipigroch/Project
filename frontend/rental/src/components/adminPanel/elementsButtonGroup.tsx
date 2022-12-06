@@ -29,7 +29,7 @@ export default function ElementsButtonGroup() {
       <ButtonGroup variant="outlined" aria-label="outlined button group">
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelcategories">Categories</ColorButton>
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelconditions">Conditions</ColorButton>
-        <ColorButton variant="contained" href="http://localhost:3000/adminpanelopinions">Opinions</ColorButton>
+        {/* <ColorButton variant="contained" href="http://localhost:3000/adminpanelopinions">Opinions</ColorButton> */}
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelorderstatuses">Order statuses</ColorButton>
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelproducts">Products</ColorButton>
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelproducttypes">Product types</ColorButton>

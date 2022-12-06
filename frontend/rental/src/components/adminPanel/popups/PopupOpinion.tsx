@@ -46,7 +46,7 @@ export default function Popup() {
     return (
         <div>
             <ThemeProvider theme={theme}>
-            <Button color="secondary" variant="contained" onClick={handleClickOpen}>
+            <Button color="secondary" variant="contained" onClick={handleClickOpen} sx={{ml: 1}}>
                 New element
             </Button>
             </ThemeProvider>

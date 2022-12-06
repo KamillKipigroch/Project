@@ -4,7 +4,6 @@ import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup
 import OpinionsDataGrid from "../../components/adminPanel/dataGrids/opinionsDataGrid";
 
 const Container = styled.div`
-  background-color: #EDDBC0;
   display: flex;
   flex-direction: column;
 `

@@ -12,7 +12,7 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function StatusesDataDataGrid() {
+const StatusesDataDataGrid = () => {
 
   //get order status
   const { orderStatusStore } = useStores();
@@ -23,7 +23,7 @@ export default function StatusesDataDataGrid() {
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: "name", headerName: "Name", width: 90, editable: true, },
+    { field: "name", headerName: "Name", width: 120, editable: true, },
     { field: "visible", headerName: "Visible", width: 90, editable: true, },
     { field: "level", headerName: "Level", width: 90, editable: true, },
   ];
@@ -69,3 +69,5 @@ export default function StatusesDataDataGrid() {
     </Box>
   );
 }
+
+export default observer(StatusesDataDataGrid);

@@ -46,12 +46,12 @@ export default function Popup() {
     return (
         <div>
             <ThemeProvider theme={theme}>
-            <Button color="secondary" variant="contained" onClick={handleClickOpen}>
+            <Button color="secondary" variant="contained" onClick={handleClickOpen} sx={{ml: 1}}>
                 New element
             </Button>
             </ThemeProvider>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add category</DialogTitle>
+                <DialogTitle>Add sub category</DialogTitle>
                 <DialogContent>
                     <Div>
                         <Element>

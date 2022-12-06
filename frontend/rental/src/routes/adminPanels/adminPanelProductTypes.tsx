@@ -2,9 +2,9 @@ import styled from "styled-components";
 import ButtonGroup from "../../components/adminPanel/ButtonGroup";
 import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
 import ProductTypesDataGrid from "../../components/adminPanel/dataGrids/productTypesDataGrid";
+import Popup from "../../components/adminPanel/popups/PopupProductType";
 
 const Container = styled.div`
-  background-color: #EDDBC0;
   display: flex;
   flex-direction: column;
 `
@@ -23,7 +23,8 @@ export default function AdminPanelProductTypes() {
                 <ElementsButtonGroup />
             </Div>
             <Div>
-                <ButtonGroup />
+                {/* <ButtonGroup /> */}
+                <Popup />
             </Div>
             <Div>
                 <ProductTypesDataGrid />

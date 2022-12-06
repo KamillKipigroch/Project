@@ -12,7 +12,7 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function ProductTypesDataGrid() {
+const ProductTypesDataGrid = () => {
 
   //get order status
   const { productTypeStore } = useStores();
@@ -23,7 +23,7 @@ export default function ProductTypesDataGrid() {
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: "name", headerName: "Name", width: 90, editable: true, },
+    { field: "name", headerName: "Name", width: 200, editable: true, },
     { field: "visible", headerName: "Visible", width: 90, editable: true, },
   ];
 
@@ -63,3 +63,5 @@ export default function ProductTypesDataGrid() {
     </Box>
   );
 }
+
+export default observer(ProductTypesDataGrid);

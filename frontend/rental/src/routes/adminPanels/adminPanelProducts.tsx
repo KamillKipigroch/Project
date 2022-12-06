@@ -5,7 +5,6 @@ import ProductsDataGrid from '../../components/adminPanel/dataGrids/productsData
 import PopupProduct from "../../components/adminPanel/popups/PopupProduct";
 
 const Container = styled.div`
-  background-color: #EDDBC0;
   display: flex;
   flex-direction: column;
 `

@@ -17,21 +17,13 @@ import AdminPanelProductTypes from "../../routes/adminPanels/adminPanelProductTy
 import AdminPanelQualities from "../../routes/adminPanels/adminPanelQualities";
 import AdminPanelSubCategories from "../../routes/adminPanels/adminPanelSubCategories";
 import AdminPanel from "../../routes/adminPanels/adminPanel";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const MainRoutes = () => (
   <Routes>
     {/* Public routes */}
     <Route path="" element={<Home />} />
     <Route path="/login" element={<Login />} />
-    <Route path="/adminPanel" element={ <AdminPanel /> } />
-    <Route path="/adminPanelProducts" element={<AdminPanelProducts />} />
-    <Route path="/adminPanelCategories" element={<AdminPanelCategories />} />
-    <Route path="/adminPanelConditions" element={<AdminPanelConditions />} />
-    <Route path="/adminPanelOpinions" element={<AdminPanelOpinions />} />
-    <Route path="/adminPanelOrderStatuses" element={<AdminPanelOrderStatuses />} />
-    <Route path="/adminPanelProductTypes" element={<AdminPanelProductTypes />} />
-    <Route path="/adminPanelQualities" element={<AdminPanelQualities />} />
-    <Route path="/adminPanelSubCategories" element={<AdminPanelSubCategories />} />
     <Route path="/register" element={<Register />} />
     <Route path="/movie">
       <Route path=":productId" element={<Product />} />
@@ -45,6 +37,26 @@ const MainRoutes = () => (
     <Route path="*" element={<PageNotFound />} />
 
     {/* Protected routes with admin role */}
+    <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>
+      <Route path="/adminPanel" element={<AdminPanel />} />
+      <Route path="/adminPanelProducts" element={<AdminPanelProducts />} />
+      <Route path="/adminPanelCategories" element={<AdminPanelCategories />} />
+      <Route path="/adminPanelConditions" element={<AdminPanelConditions />} />
+      <Route path="/adminPanelOpinions" element={<AdminPanelOpinions />} />
+      <Route
+        path="/adminPanelOrderStatuses"
+        element={<AdminPanelOrderStatuses />}
+      />
+      <Route
+        path="/adminPanelProductTypes"
+        element={<AdminPanelProductTypes />}
+      />
+      <Route path="/adminPanelQualities" element={<AdminPanelQualities />} />
+      <Route
+        path="/adminPanelSubCategories"
+        element={<AdminPanelSubCategories />}
+      />
+    </Route>
   </Routes>
 );
 

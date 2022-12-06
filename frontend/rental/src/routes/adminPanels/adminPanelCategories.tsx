@@ -6,7 +6,6 @@ import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup
 import PopupCategory from "../../components/adminPanel/popups/PopupCategory";
 
 const Container = styled.div`
-  background-color: #EDDBC0;
   display: flex;
   flex-direction: column;
 `
@@ -24,14 +23,12 @@ export default function AdminPanelCategories() {
             <Div>
                 <ElementsButtonGroup />
             </Div>
-            <Div>
-                <Button>
-                    add
-                </Button>
+            {/* <Div>
                 <PopupCategory />
-            </Div>
+            </Div> */}
             <Div>
-                <ButtonGroup />
+                {/* <ButtonGroup /> */}
+                <PopupCategory />
             </Div>
             <Div>
                 <CategoriesDataGrid />

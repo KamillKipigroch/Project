@@ -12,7 +12,7 @@ const getUniqueNames = (names: string[]) => {
   return uniqueNames;
 }
 
-export default function SubCategoriesDataGrid() {
+const SubCategoriesDataGrid = () => {
 
   //get order status
   const { subCategoryStore } = useStores();
@@ -38,11 +38,11 @@ export default function SubCategoriesDataGrid() {
   //let uniqueCategoryNames = ["category1", "category2"]
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: "name", headerName: "Name", width: 90, editable: true, },
-    { field: "category", headerName: "Category", type: "singleSelect", width: 120, editable: true, valueOptions: uniqueCategoryNames, },
-    { field: "description", headerName: "Description", width: 90, editable: true, },
-    { field: "visible", headerName: "Visible", width: 90, editable: true, },
+    { field: 'id', headerName: 'ID', editable: false, flex: 1 },
+    { field: "name", headerName: "Name", editable: true, flex: 1, },
+    { field: "category", headerName: "Category", type: "singleSelect", flex: 1,  editable: true, valueOptions: uniqueCategoryNames, },
+    { field: "description", headerName: "Description", editable: true, flex: 10 },
+    { field: "visible", headerName: "Visible", editable: true, flex: 1 },
   ];
 
   let display = []
@@ -87,3 +87,5 @@ export default function SubCategoriesDataGrid() {
     </Box>
   );
 }
+
+export default observer(SubCategoriesDataGrid);

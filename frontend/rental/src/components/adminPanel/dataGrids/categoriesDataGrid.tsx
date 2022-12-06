@@ -5,22 +5,22 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 
-export default function CategoriesDataGrid() {
-
+const CategoriesDataGrid = () => {
   //get categories
   const { categoryStore } = useStores();
   useEffect(() => {
-    categoryStore.fetchCategories()
+    categoryStore
+      .fetchCategories()
       .then(() => console.log(toJS(categoryStore.allCategories)));
   }, [categoryStore]);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: 'visible', headerName: 'Visible', width: 90 },
-    { field: 'name', headerName: 'Name', width: 150, editable: true, },
+    { field: "id", headerName: "ID", editable: false },
+    { field: "visible", headerName: "Visible" },
+    { field: "name", headerName: "Name", editable: true },
   ];
 
-  let display = []
+  let display = [];
   for (let i = 0; i < categoryStore.allCategories.length; i++) {
     display.push({
       id: categoryStore.allCategories[i].id,
@@ -43,7 +43,12 @@ export default function CategoriesDataGrid() {
   // ]
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box
+      sx={{
+        height: 400,
+        width: "100%",
+      }}
+    >
       <DataGrid
         rows={display}
         columns={columns}
@@ -56,3 +61,5 @@ export default function CategoriesDataGrid() {
     </Box>
   );
 }
+
+export default observer(CategoriesDataGrid);

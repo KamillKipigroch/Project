@@ -27,11 +27,11 @@ export default function VariantButtonGroup() {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="outlined button group">
-        <ColorButton
+        {/* <ColorButton
           onClick={() => {
             AlertDialogSlide();
           }}>Save changes
-        </ColorButton>
+        </ColorButton> */}
         <PopupCategory />
       </ButtonGroup>
     </Box>

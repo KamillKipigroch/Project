@@ -108,6 +108,9 @@ export class SubCategoryStore {
       await disableVisibilitySubCategory(subCategoryId);
       runInAction(async () => {
         await this.fetchSubCategories();
+
+        toast.success("Successfully disabled visibility of a sub-category!");
+
         this.loading = false;
       });
     } catch (error) {

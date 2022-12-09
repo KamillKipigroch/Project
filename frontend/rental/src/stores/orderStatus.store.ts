@@ -108,6 +108,9 @@ export class OrderStatusStore {
       await disableVisibilityOrderStatus(orderStatusId);
       runInAction(async () => {
         await this.fetchOrderStatuses();
+
+        toast.success("Successfully disabled visibility of a order status!");
+
         this.loading = false;
       });
     } catch (error) {

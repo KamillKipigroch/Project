@@ -1,9 +1,11 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
+import { IconButton, Tooltip } from "@mui/material";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckIcon from '@mui/icons-material/Check';
 
 const CategoriesDataGrid = () => {
   //get categories
@@ -16,6 +18,30 @@ const CategoriesDataGrid = () => {
     { field: "id", headerName: "ID", editable: false },
     { field: "visible", headerName: "Visible" },
     { field: "name", headerName: "Name", editable: true },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: ({ row: { id, visible } }) => {
+        return (
+          <Box>
+            {visible ? (
+              <Tooltip title="Hide" arrow={true}>
+                <IconButton onClick={() => categoryStore.disableVisibility(id)}>
+                  <CheckIcon sx={{ color: "green" }} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Make visible" arrow={true}>
+                <IconButton >
+                  <BlockIcon sx={{ color: "red" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
+        );
+      },
+    },
   ];
 
   let display = [];

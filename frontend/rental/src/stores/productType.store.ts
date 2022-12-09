@@ -108,6 +108,9 @@ export class ProductTypeStore {
       await disableVisibilityProductType(productTypeId);
       runInAction(async () => {
         await this.fetchProductTypes();
+
+        toast.success("Successfully disabled visibility of a product type!");
+
         this.loading = false;
       });
     } catch (error) {

@@ -106,6 +106,9 @@ export class QualityStore {
       await disableVisibilityQuality(qualityId);
       runInAction(async () => {
         await this.fetchQualities();
+
+        toast.success("Successfully disabled visibility of a quality!");
+
         this.loading = false;
       });
     } catch (error) {

@@ -105,6 +105,9 @@ export class CategoryStore {
       await disableVisibilityCategory(categoryId);
       runInAction(async () => {
         await this.fetchCategories();
+        
+        toast.success("Successfully disabled visibility of a category!");
+        
         this.loading = false;
       });
     } catch (error) {

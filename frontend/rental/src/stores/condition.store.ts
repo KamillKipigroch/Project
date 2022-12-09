@@ -106,6 +106,9 @@ export class ConditionStore {
       await disableVisibilityCondition(conditionId);
       runInAction(async () => {
         await this.fetchConditions();
+
+        toast.success("Successfully disabled visibility of a condition!");
+
         this.loading = false;
       });
     } catch (error) {

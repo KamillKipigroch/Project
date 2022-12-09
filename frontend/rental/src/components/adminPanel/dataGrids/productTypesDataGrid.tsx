@@ -1,9 +1,11 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
+import { IconButton, Tooltip } from "@mui/material";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckIcon from '@mui/icons-material/Check';
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -23,6 +25,30 @@ const ProductTypesDataGrid = () => {
     { field: "id", headerName: "ID", width: 90, editable: false },
     { field: "name", headerName: "Name", width: 200, editable: true },
     { field: "visible", headerName: "Visible", width: 90, editable: true },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: ({ row: { id, visible } }) => {
+        return (
+          <Box>
+            {visible ? (
+              <Tooltip title="Hide" arrow={true}>
+                <IconButton onClick={() => productTypeStore.disableVisibility(id)}>
+                  <CheckIcon sx={{ color: "green" }} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Make visible" arrow={true}>
+                <IconButton >
+                  <BlockIcon sx={{ color: "red" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
+        );
+      },
+    },
   ];
 
   let display = [];

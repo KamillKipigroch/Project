@@ -22,6 +22,10 @@ export class CategoryStore {
 
   @observable categories: ICategory[] = [];
   @observable loading: boolean = false;
+  
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedCategory: ICategory | undefined;
 
   @computed get allCategories() {
     return this.categories;
@@ -33,6 +37,21 @@ export class CategoryStore {
 
   @computed get notVisibleCategories() {
     return this.categories.filter((x) => x.visible === false);
+  }
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.editedCategory = this.categories.find(x => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  }
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
   }
 
   @action
@@ -89,6 +108,8 @@ export class CategoryStore {
       const response = await updateCategory(categoryData);
       const foundIndex = this.categories.findIndex((x) => x.id === response.id);
       this.categories[foundIndex] = response;
+
+      toast.success("Successfully updated category!");
 
       this.loading = false;
       return response;

@@ -29,7 +29,6 @@ export default function AdminPanelCategories() {
             <Div>
                 <CategoriesDataGrid />
             </Div>
-
         </Container>
 
     )

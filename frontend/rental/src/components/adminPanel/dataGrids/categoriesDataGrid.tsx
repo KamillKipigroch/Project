@@ -5,7 +5,10 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from "@mui/icons-material/Edit";
+import PopupCategory from "../popups/PopupCategory";
+import { Row } from "react-bootstrap";
 
 const CategoriesDataGrid = () => {
   //get categories
@@ -33,11 +36,18 @@ const CategoriesDataGrid = () => {
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
-                <IconButton >
+                <IconButton onClick={() => {
+                  // console.log(row);
+                }}>
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>
             )}
+            <Tooltip title="Edit" arrow={true}>
+              <IconButton onClick={() => categoryStore.openPopup(id)}>
+                <EditIcon sx={{ color: "#4f70e8" }} />
+              </IconButton>
+            </Tooltip>
           </Box>
         );
       },

@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -35,27 +34,24 @@ const Element = styled.div`
 `;
 
 const Popup = () => {
+  const { categoryStore } = useStores();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IAddCategory>();
 
-  const { categoryStore } = useStores();
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddCategory> = async (data) => {
-    await categoryStore.addCategory(data);
-    handleClose();
+    if (categoryStore.editMode) {
+      if (categoryStore.editedCategory) {
+        categoryStore.editedCategory.code = data.code;
+        await categoryStore.updateCategory(categoryStore.editedCategory);
+      }
+    } else {
+      await categoryStore.addCategory(data);
+    }
+    categoryStore.closePopup();
   };
 
   return (
@@ -64,15 +60,20 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => categoryStore.openPopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={categoryStore.isPopupOpen}
+        onClose={categoryStore.closePopup}
+      >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add category</DialogTitle>
+          <DialogTitle>
+            {categoryStore.editMode ? <>Edit category</> : <>Add category</>}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -91,13 +92,13 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={() => categoryStore.closePopup()}>Cancel</Button>
             <Button type="submit">OK</Button>
           </DialogActions>
         </form>
       </Dialog>
     </div>
   );
-}
+};
 
 export default observer(Popup);

@@ -10,24 +10,22 @@ const getUniqueNames = (names: string[]) => {
     return names.indexOf(element) === index;
   });
   return uniqueNames;
-}
+};
 
 const QualitiesDataGrid = () => {
-
   //get order status
   const { qualityStore } = useStores();
   useEffect(() => {
-    qualityStore.fetchQualities()
-      .then(() => console.log(toJS(qualityStore.allQualities)));
+    qualityStore.fetchQualities();
   }, [qualityStore]);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: "name", headerName: "Name", width: 90, editable: true, },
-    { field: "visible", headerName: "Visible", width: 90, editable: true, },
+    { field: "id", headerName: "ID", width: 90, editable: false },
+    { field: "name", headerName: "Name", width: 90, editable: true },
+    { field: "visible", headerName: "Visible", width: 90, editable: true },
   ];
 
-  let display = []
+  let display = [];
   for (let i = 0; i < qualityStore.allQualities.length; i++) {
     display.push({
       id: qualityStore.allQualities[i].id,
@@ -50,7 +48,7 @@ const QualitiesDataGrid = () => {
   // ]
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={display}
         columns={columns}
@@ -62,6 +60,6 @@ const QualitiesDataGrid = () => {
       />
     </Box>
   );
-}
+};
 
 export default observer(QualitiesDataGrid);

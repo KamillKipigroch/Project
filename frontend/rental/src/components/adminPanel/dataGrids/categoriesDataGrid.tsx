@@ -9,9 +9,7 @@ const CategoriesDataGrid = () => {
   //get categories
   const { categoryStore } = useStores();
   useEffect(() => {
-    categoryStore
-      .fetchCategories()
-      .then(() => console.log(toJS(categoryStore.allCategories)));
+    categoryStore.fetchCategories();
   }, [categoryStore]);
 
   const columns: GridColDef[] = [
@@ -60,6 +58,6 @@ const CategoriesDataGrid = () => {
       />
     </Box>
   );
-}
+};
 
 export default observer(CategoriesDataGrid);

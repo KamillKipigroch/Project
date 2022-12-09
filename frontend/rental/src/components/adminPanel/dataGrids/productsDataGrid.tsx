@@ -17,41 +17,31 @@ const ProductsDataGrid = () => {
   //get productTypes
   const { productTypeStore } = useStores();
   useEffect(() => {
-    productTypeStore
-      .fetchProductTypes()
-      .then(() => console.log(toJS(productTypeStore.allProductTypes)));
+    productTypeStore.fetchProductTypes();
   }, [productTypeStore]);
 
   //get qualities
   const { qualityStore } = useStores();
   useEffect(() => {
-    qualityStore
-      .fetchQualities()
-      .then(() => console.log(toJS(qualityStore.allQualities)));
+    qualityStore.fetchQualities();
   }, [qualityStore]);
 
   //get conditions
   const { conditionStore } = useStores();
   useEffect(() => {
-    conditionStore
-      .fetchConditions()
-      .then(() => console.log(toJS(conditionStore.allConditions)));
+    conditionStore.fetchConditions();
   }, [conditionStore]);
 
   //get subcategory
   const { subCategoryStore } = useStores();
   useEffect(() => {
-    subCategoryStore
-      .fetchSubCategories()
-      .then(() => console.log(toJS(subCategoryStore.allSubCategories)));
+    subCategoryStore.fetchSubCategories();
   }, [subCategoryStore]);
 
   //get products
   const { productStore } = useStores();
   useEffect(() => {
-    productStore
-      .fetchProducts()
-      .then(() => console.log(toJS(productStore.allProducts)));
+    productStore.fetchProducts();
   }, [productStore]);
 
   //get unique productType names
@@ -100,7 +90,8 @@ const ProductsDataGrid = () => {
       headerName: "Create Date",
       width: 150,
       editable: true,
-      valueFormatter: (params) => moment(params?.value).format("DD-MM-YYYY HH:MM"),
+      valueFormatter: (params) =>
+        moment(params?.value).format("DD-MM-YYYY HH:MM"),
     },
     {
       field: "description",

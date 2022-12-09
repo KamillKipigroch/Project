@@ -10,25 +10,23 @@ const getUniqueNames = (names: string[]) => {
     return names.indexOf(element) === index;
   });
   return uniqueNames;
-}
+};
 
 const ConditionsDataGrid = () => {
-
   //get conditions
   const { conditionStore } = useStores();
   useEffect(() => {
-    conditionStore.fetchConditions()
-      .then(() => console.log(toJS(conditionStore.allConditions)));
+    conditionStore.fetchConditions();
   }, [conditionStore]);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: 'price', headerName: 'Price', width: 90, editable: true, },
-    { field: 'visible', headerName: 'Visible', width: 90, editable: true, },
-    { field: 'name', headerName: 'Name', width: 150, editable: true, },
+    { field: "id", headerName: "ID", width: 90, editable: false },
+    { field: "price", headerName: "Price", width: 90, editable: true },
+    { field: "visible", headerName: "Visible", width: 90, editable: true },
+    { field: "name", headerName: "Name", width: 150, editable: true },
   ];
 
-  let display = []
+  let display = [];
   for (let i = 0; i < conditionStore.allConditions.length; i++) {
     display.push({
       id: conditionStore.allConditions[i].id,
@@ -54,7 +52,7 @@ const ConditionsDataGrid = () => {
   // ]
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={display}
         columns={columns}
@@ -66,6 +64,6 @@ const ConditionsDataGrid = () => {
       />
     </Box>
   );
-}
+};
 
 export default observer(ConditionsDataGrid);

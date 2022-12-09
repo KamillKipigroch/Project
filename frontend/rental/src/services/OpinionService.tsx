@@ -6,7 +6,7 @@ import { axiosConfig } from "./AxiosConfiguration";
 const baseUrl = Constants.API_URL + "/api/opinion/";
 
 export const getOpinions = async (): Promise<IOpinion[]> => {
-  const response = await axios.get(baseUrl + "get-all", axiosConfig);
+  const response = await axios.get(baseUrl + "get-all");
   return response.data;
 };
 

@@ -6,12 +6,12 @@ import { axiosConfig } from "./AxiosConfiguration";
 const baseUrl = Constants.API_URL + "/api/sub-category/";
 
 export const getSubCategories = async (): Promise<ISubCategory[]> => {
-  const response = await axios.get(baseUrl + "get-all", axiosConfig);
+  const response = await axios.get(baseUrl + "get-all");
   return response.data;
 };
 
 export const getSubCategoryById = async (subCategoryId: number): Promise<ISubCategory> => {
-  const response = await axios.get(baseUrl + `find${subCategoryId}`, axiosConfig);
+  const response = await axios.get(baseUrl + `find${subCategoryId}`);
   return response.data;
 };
 

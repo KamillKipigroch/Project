@@ -6,12 +6,12 @@ import { axiosConfig } from "./AxiosConfiguration";
 const baseUrl = Constants.API_URL + "/api/quality/";
 
 export const getQualities = async (): Promise<IQuality[]> => {
-  const response = await axios.get(baseUrl + "get-all", axiosConfig);
+  const response = await axios.get(baseUrl + "get-all");
   return response.data;
 };
 
 export const getQualityById = async (qualityId: number): Promise<IQuality> => {
-  const response = await axios.get(baseUrl + `find/${qualityId}`, axiosConfig);
+  const response = await axios.get(baseUrl + `find/${qualityId}`);
   return response.data;
 };
 

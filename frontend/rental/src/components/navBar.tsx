@@ -14,8 +14,11 @@ import SearchBar from "./searchBar";
 import Logo from "../assets/logo.png";
 import { observer } from "mobx-react-lite";
 import { authStore } from "../stores/auth.store";
+import { UserRole } from "../models/Enums";
+import { useEffect } from "react";
 
 const pages = ["Movies", "Games", "Anime", "Other"];
+const adminPages = ["AdminPanel"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -42,12 +45,15 @@ function ResponsiveAppBar() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(authStore.rol);
+  }, []);
+
   return (
     <AppBar position="static" style={{ background: "#DD5353" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <img src={Logo} width="8%" height="100%" />
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -76,39 +82,7 @@ function ResponsiveAppBar() {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={() => {
-                    navigate("/" + page);
-                    handleCloseNavMenu();
-                  }}
-                >
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
-          {/* <img src={Logo} width='8%' height='100%'/> */}
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -137,13 +111,30 @@ function ResponsiveAppBar() {
                 {page}
               </Button>
             ))}
+            {authStore.rol?.find((role) => role === UserRole.Admin)
+              ? adminPages.map((page) => {
+                  return (
+                    <Button
+                      key={page}
+                      onClick={() => navigate("/" + page)}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page}
+                    </Button>
+                  );
+                })
+              : null}
           </Box>
           <SearchBar />
           {authStore.isAuth ? (
-            <Button variant="text" onClick={() => {
-              authStore.logout();
-              navigate("/login");
-            }} color="inherit">
+            <Button
+              variant="text"
+              onClick={() => {
+                authStore.logout();
+                navigate("/login");
+              }}
+              color="inherit"
+            >
               Logout
             </Button>
           ) : (

@@ -10,25 +10,23 @@ const getUniqueNames = (names: string[]) => {
     return names.indexOf(element) === index;
   });
   return uniqueNames;
-}
+};
 
 const StatusesDataDataGrid = () => {
-
   //get order status
   const { orderStatusStore } = useStores();
   useEffect(() => {
-    orderStatusStore.fetchOrderStatuses()
-      .then(() => console.log(toJS(orderStatusStore.allOrderStatuses)));
+    orderStatusStore.fetchOrderStatuses();
   }, [orderStatusStore]);
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90, editable: false, },
-    { field: "name", headerName: "Name", width: 120, editable: true, },
-    { field: "visible", headerName: "Visible", width: 90, editable: true, },
-    { field: "level", headerName: "Level", width: 90, editable: true, },
+    { field: "id", headerName: "ID", width: 90, editable: false },
+    { field: "name", headerName: "Name", width: 120, editable: true },
+    { field: "visible", headerName: "Visible", width: 90, editable: true },
+    { field: "level", headerName: "Level", width: 90, editable: true },
   ];
 
-  let display = []
+  let display = [];
   for (let i = 0; i < orderStatusStore.allOrderStatuses.length; i++) {
     display.push({
       id: orderStatusStore.allOrderStatuses[i].id,
@@ -56,7 +54,7 @@ const StatusesDataDataGrid = () => {
   // ]
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={display}
         columns={columns}
@@ -68,6 +66,6 @@ const StatusesDataDataGrid = () => {
       />
     </Box>
   );
-}
+};
 
 export default observer(StatusesDataDataGrid);

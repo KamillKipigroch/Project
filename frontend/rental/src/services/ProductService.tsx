@@ -6,12 +6,12 @@ import { axiosConfig } from "./AxiosConfiguration";
 const baseUrl = Constants.API_URL + "/api/product/";
 
 export const getProducts = async (): Promise<IProduct[]> => {
-  const response = await axios.get(baseUrl + "get-all", axiosConfig);
+  const response = await axios.get(baseUrl + "get-all");
   return response.data;
 };
 
 export const getProductById = async (productId: number): Promise<IProduct> => {
-  const response = await axios.get(baseUrl + `find${productId}`, axiosConfig);
+  const response = await axios.get(baseUrl + `find${productId}`);
   return response.data;
 };
 

@@ -10,42 +10,51 @@ const getUniqueNames = (names: string[]) => {
     return names.indexOf(element) === index;
   });
   return uniqueNames;
-}
+};
 
 const SubCategoriesDataGrid = () => {
-
   //get order status
   const { subCategoryStore } = useStores();
   useEffect(() => {
-    subCategoryStore.fetchSubCategories()
-      .then(() => console.log(toJS(subCategoryStore.allSubCategories)));
+    subCategoryStore.fetchSubCategories();
   }, [subCategoryStore]);
 
   //get order status
   const { categoryStore } = useStores();
   useEffect(() => {
-    categoryStore.fetchCategories()
-      .then(() => console.log(toJS(categoryStore.allCategories)));
+    categoryStore.fetchCategories();
   }, [categoryStore]);
 
   //get unique category names
-  let categoryNames: string[] = []
+  let categoryNames: string[] = [];
   for (let i = 0; i < categoryStore.allCategories.length; i++) {
-    categoryNames.push(categoryStore.allCategories[i].code)
+    categoryNames.push(categoryStore.allCategories[i].code);
   }
   //uncomment
   let uniqueCategoryNames = getUniqueNames(categoryNames);
   //let uniqueCategoryNames = ["category1", "category2"]
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', editable: false, flex: 1 },
-    { field: "name", headerName: "Name", editable: true, flex: 1, },
-    { field: "category", headerName: "Category", type: "singleSelect", flex: 1,  editable: true, valueOptions: uniqueCategoryNames, },
-    { field: "description", headerName: "Description", editable: true, flex: 10 },
+    { field: "id", headerName: "ID", editable: false, flex: 1 },
+    { field: "name", headerName: "Name", editable: true, flex: 1 },
+    {
+      field: "category",
+      headerName: "Category",
+      type: "singleSelect",
+      flex: 1,
+      editable: true,
+      valueOptions: uniqueCategoryNames,
+    },
+    {
+      field: "description",
+      headerName: "Description",
+      editable: true,
+      flex: 10,
+    },
     { field: "visible", headerName: "Visible", editable: true, flex: 1 },
   ];
 
-  let display = []
+  let display = [];
   for (let i = 0; i < subCategoryStore.allSubCategories.length; i++) {
     display.push({
       id: subCategoryStore.allSubCategories[i].id,
@@ -74,7 +83,7 @@ const SubCategoriesDataGrid = () => {
   // ]
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={display}
         columns={columns}
@@ -86,6 +95,6 @@ const SubCategoriesDataGrid = () => {
       />
     </Box>
   );
-}
+};
 
 export default observer(SubCategoriesDataGrid);

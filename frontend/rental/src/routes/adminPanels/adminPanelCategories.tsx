@@ -23,11 +23,7 @@ export default function AdminPanelCategories() {
             <Div>
                 <ElementsButtonGroup />
             </Div>
-            {/* <Div>
-                <PopupCategory />
-            </Div> */}
             <Div>
-                {/* <ButtonGroup /> */}
                 <PopupCategory />
             </Div>
             <Div>

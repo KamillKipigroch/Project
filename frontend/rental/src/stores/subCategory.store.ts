@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import { IAddSubCategory, ISubCategory } from "../models/SubCategoryModel";
 import {
   addSubCategory,
@@ -70,6 +71,8 @@ export class SubCategoryStore {
 
       const response = await addSubCategory(subCategoryData);
       this.subCategories = [...this.subCategories, response];
+
+      toast.success("Successfully added new sub-category!")
 
       this.loading = false;
       return response;

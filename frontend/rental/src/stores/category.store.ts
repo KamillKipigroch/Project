@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import { IAddCategory, ICategory } from "../models/CategoryModel";
 import {
   addCategory,
@@ -69,6 +70,8 @@ export class CategoryStore {
 
       const response = await addCategory(categoryData);
       this.categories = [...this.categories, response];
+
+      toast.success("Successfully added new category!");
 
       this.loading = false;
       return response;

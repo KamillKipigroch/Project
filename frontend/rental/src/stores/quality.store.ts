@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import { IAddQuality, IQuality } from "../models/QualityModel";
 import {
   addQuality,
@@ -70,6 +71,8 @@ export class QualityStore {
 
       const response = await addQuality(qualityData);
       this.qualities = [...this.qualities, response];
+
+      toast.success("Successfully added new quality!");
 
       this.loading = false;
       return response;

@@ -9,6 +9,7 @@ import { AxiosInterceptors } from "./services/AxiosInterceptors";
 import MainRoutes from "./components/ProtectedRoutes/MainRoutes";
 import { useEffect } from "react";
 import { authStore } from "./stores/auth.store";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 AxiosInterceptors();
 

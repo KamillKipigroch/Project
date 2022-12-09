@@ -1,17 +1,10 @@
-import { getProducts } from "../services/data";
-import { Link, Outlet } from "react-router-dom";
-import BoxComponent from '../components/productBox';
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Maleficent from "../assets/maleficent.webp";
 import SpiderMan from "../assets/spiderMan.jpeg";
 import FilterComponent from '../components/filterComponent';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-import { useStores } from "../stores/root.store";
-import { useEffect } from "react";
-import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
-
 const Container = styled.div`
   display: flex;
   flex-direction: row;

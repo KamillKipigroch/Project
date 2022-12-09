@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import { IAddCondition, ICondition } from "../models/ConditionModel";
 import {
   addCondition,
@@ -71,6 +72,8 @@ export class ConditionStore {
       const response = await addCondition(conditionData);
       this.conditions = [...this.conditions, response];
       
+      toast.success("Successfully added new condition!");
+
       this.loading = false;
       return response;
     } catch (error) {

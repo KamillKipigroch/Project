@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ButtonGroup from "../../components/adminPanel/ButtonGroup";
 import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
 import OrderStatusDataGrid from "../../components/adminPanel/dataGrids/orderStatusesDataGrid";
 import Popup from "../../components/adminPanel/popups/PopupOrderStatus";
@@ -23,7 +22,6 @@ export default function AdminPanelOrderStatuses() {
                 <ElementsButtonGroup />
             </Div>
             <Div>
-                {/* <ButtonGroup /> */}
                 <Popup />
             </Div>
             <Div>

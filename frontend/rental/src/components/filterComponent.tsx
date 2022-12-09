@@ -1,9 +1,5 @@
-import { getProducts } from "../services/data";
-import { Link, Outlet } from "react-router-dom";
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Slider, SliderThumb, SliderValueLabelProps, Tooltip, Typography } from "@mui/material";
-import BoxComponent from '../components/productBox';
+import { Typography } from "@mui/material";
 import styled from "styled-components";
-import Maleficent from "../assets/maleficent.webp";
 import RangeSlider from "../components/rangeSlider";
 import Checkbox from '@mui/material/Checkbox';
 import MultipleSelectCheckmarks from "../components/multipleSelectCheckmarks";

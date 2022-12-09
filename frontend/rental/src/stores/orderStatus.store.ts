@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import { IAddOrderStatus, IOrderStatus } from "../models/OrderStatusModel";
 import {
   addOrderStatus,
@@ -70,6 +71,8 @@ export class OrderStatusStore {
 
       const response = await addOrderStatus(orderStatusData);
       this.orderStatuses = [...this.orderStatuses, response];
+
+      toast.success("Successfully added new order status!")
 
       this.loading = false;
       return response;

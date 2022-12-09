@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ButtonGroup from "../../components/adminPanel/ButtonGroup";
 import ConditionsDataGrid from "../../components/adminPanel/dataGrids/conditionsDataGrid";
 import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
 import Popup from "../../components/adminPanel/popups/PopupCondition";

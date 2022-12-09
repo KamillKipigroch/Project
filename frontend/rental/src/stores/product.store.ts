@@ -5,6 +5,7 @@ import {
   observable,
   runInAction,
 } from "mobx";
+import { toast } from "react-toastify";
 import { IAddProduct, IProduct } from "../models/ProductModel";
 import {
   addProduct,
@@ -70,6 +71,8 @@ export class ProductStore {
 
       const response = await addProduct(productData);
       this.products = [...this.products, response];
+
+      toast.success("Successfully added new product!");
 
       this.loading = false;
       return response;

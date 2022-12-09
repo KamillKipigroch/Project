@@ -4,18 +4,15 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import { useNavigate, Link } from "react-router-dom";
 import SearchBar from "./searchBar";
 import Logo from "../assets/logo.png";
 import { observer } from "mobx-react-lite";
 import { authStore } from "../stores/auth.store";
 import { UserRole } from "../models/Enums";
-import { useEffect } from "react";
 
 const pages = ["Movies", "Games", "Anime", "Other"];
 const adminPages = ["AdminPanel"];
@@ -44,10 +41,6 @@ function ResponsiveAppBar() {
   };
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(authStore.rol);
-  }, []);
 
   return (
     <AppBar position="static" style={{ background: "#DD5353" }}>

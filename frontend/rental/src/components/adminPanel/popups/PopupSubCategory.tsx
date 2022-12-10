@@ -4,10 +4,8 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled from "styled-components";
-import Checkbox from "@mui/material/Checkbox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { observer } from "mobx-react-lite";
 import { IAddSubCategory } from "../../../models/SubCategoryModel";
@@ -47,19 +45,18 @@ const Popup = () => {
 
   const { subCategoryStore, categoryStore } = useStores();
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddSubCategory> = async (data) => {
-    await subCategoryStore.addSubCategory(data);
-    handleClose();
+    if (subCategoryStore.editMode) {
+      if (subCategoryStore.editedSubCategory) {
+        subCategoryStore.editedSubCategory.code = data.code;
+
+        await subCategoryStore.updateSubCategory(subCategoryStore.editedSubCategory);
+      }
+    } else {
+      await subCategoryStore.addSubCategory(data);
+    }
+
+    subCategoryStore.closePopup()
   };
 
   return (
@@ -68,15 +65,15 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => subCategoryStore.closePopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={subCategoryStore.isPopupOpen} onClose={subCategoryStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add sub category</DialogTitle>
+          <DialogTitle>{subCategoryStore.editMode ? <>Edit sub-category</> : <>Add sub-category</>}</DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -141,7 +138,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={subCategoryStore.closePopup}>Cancel</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

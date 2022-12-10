@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -43,19 +42,18 @@ const Popup = () => {
 
   const { qualityStore } = useStores();
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddQuality> = async (data) => {
-    await qualityStore.addQuality(data);
-    handleClose();
+    if (qualityStore.editMode) {
+      if (qualityStore.editedQuality) {
+        qualityStore.editedQuality.code = data.code;
+
+        await qualityStore.updateQuality(qualityStore.editedQuality);
+      }
+    } else {
+      await qualityStore.addQuality(data);
+    }
+
+    qualityStore.closePopup();
   };
 
   return (
@@ -64,15 +62,15 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => qualityStore.closePopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={qualityStore.isPopupOpen} onClose={qualityStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add quality</DialogTitle>
+          <DialogTitle>{qualityStore.editMode ? <>Edit quality</> : <>Add quality</>}</DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -91,7 +89,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={qualityStore.closePopup}>Cancel</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

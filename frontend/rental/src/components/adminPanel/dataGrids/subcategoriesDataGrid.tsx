@@ -1,11 +1,12 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from "@mui/icons-material/Edit";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -58,13 +59,13 @@ const SubCategoriesDataGrid = () => {
       field: "actions",
       headerName: "Actions",
       flex: 1,
-      renderCell: ({ row: { id, visible } }) => {
+      renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            {visible ? (
+            {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
                 <IconButton
-                  onClick={() => subCategoryStore.disableVisibility(id)}
+                  onClick={() => subCategoryStore.disableVisibility(params.row.id)}
                 >
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
@@ -76,6 +77,13 @@ const SubCategoriesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
+            <Tooltip title="Edit" arrow={true}>
+              <IconButton
+                onClick={() => subCategoryStore.openPopup(params.row.id)}
+              >
+                <EditIcon sx={{ color: "#4f70e8" }} />
+              </IconButton>
+            </Tooltip>
           </Box>
         );
       },

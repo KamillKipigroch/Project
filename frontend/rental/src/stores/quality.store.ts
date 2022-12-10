@@ -23,6 +23,10 @@ export class QualityStore {
   @observable qualities: IQuality[] = [];
   @observable loading: boolean = false;
 
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedQuality: IQuality | undefined;
+
   @computed get allQualities() {
     return this.qualities;
   }
@@ -34,6 +38,21 @@ export class QualityStore {
   @computed get notVisibleQualities() {
     return this.qualities.filter((x) => x.visible === false);
   }
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.editedQuality = this.qualities.find((x) => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  };
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
+  };
 
   @action
   fetchQualities = async () => {
@@ -90,6 +109,8 @@ export class QualityStore {
       const response = await updateQuality(qualityData);
       const foundIndex = this.qualities.findIndex((x) => x.id === response.id);
       this.qualities[foundIndex] = response;
+
+      toast.success("Successfully updated quality!");
 
       this.loading = false;
       return response;

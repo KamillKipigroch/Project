@@ -1,18 +1,12 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
-import CheckIcon from '@mui/icons-material/Check';
-
-const getUniqueNames = (names: string[]) => {
-  let uniqueNames = names.filter((element, index) => {
-    return names.indexOf(element) === index;
-  });
-  return uniqueNames;
-};
+import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from "@mui/icons-material/Edit";
 
 const StatusesDataDataGrid = () => {
   //get order status
@@ -30,22 +24,33 @@ const StatusesDataDataGrid = () => {
       field: "actions",
       headerName: "Actions",
       flex: 1,
-      renderCell: ({ row: { id, visible } }) => {
+      renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            {visible ? (
+            {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
-                <IconButton onClick={() => orderStatusStore.disableVisibility(id)}>
+                <IconButton
+                  onClick={() =>
+                    orderStatusStore.disableVisibility(params.row.id)
+                  }
+                >
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
-                <IconButton >
+                <IconButton>
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>
             )}
+            <Tooltip title="Edit" arrow={true}>
+              <IconButton
+                onClick={() => orderStatusStore.openPopup(params.row.id)}
+              >
+                <EditIcon sx={{ color: "#4f70e8" }} />
+              </IconButton>
+            </Tooltip>
           </Box>
         );
       },

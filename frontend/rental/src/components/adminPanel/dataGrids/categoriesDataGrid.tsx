@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
@@ -7,8 +7,6 @@ import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
-import PopupCategory from "../popups/PopupCategory";
-import { Row } from "react-bootstrap";
 
 const CategoriesDataGrid = () => {
   //get categories
@@ -20,31 +18,33 @@ const CategoriesDataGrid = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", editable: false },
     { field: "visible", headerName: "Visible" },
-    { field: "name", headerName: "Name", editable: true },
+    { field: "code", headerName: "Name", editable: true },
     {
       field: "actions",
       headerName: "Actions",
       flex: 1,
-      renderCell: ({ row: { id, visible } }) => {
+      renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            {visible ? (
+            {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
-                <IconButton onClick={() => categoryStore.disableVisibility(id)}>
+                <IconButton onClick={() => categoryStore.disableVisibility(params.row.id)}>
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
                 <IconButton onClick={() => {
-                  // console.log(row);
+                  let rowData = params.row;
+                  rowData.visible = true;
+                  categoryStore.updateCategory(rowData);
                 }}>
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>
             )}
             <Tooltip title="Edit" arrow={true}>
-              <IconButton onClick={() => categoryStore.openPopup(id)}>
+              <IconButton onClick={() => categoryStore.openPopup(params.row.id)}>
                 <EditIcon sx={{ color: "#4f70e8" }} />
               </IconButton>
             </Tooltip>
@@ -59,7 +59,7 @@ const CategoriesDataGrid = () => {
     display.push({
       id: categoryStore.allCategories[i].id,
       visible: categoryStore.allCategories[i].visible,
-      name: categoryStore.allCategories[i].code,
+      code: categoryStore.allCategories[i].code,
     });
   }
 

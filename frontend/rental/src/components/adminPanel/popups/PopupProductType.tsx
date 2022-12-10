@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -43,19 +42,18 @@ const Popup = () => {
 
   const { productTypeStore } = useStores();
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddProductType> = async (data) => {
-    await productTypeStore.addProductType(data);
-    handleClose();
+    if (productTypeStore.editMode) {
+      if (productTypeStore.editedProductType) {
+        productTypeStore.editedProductType.code = data.code;
+
+        await productTypeStore.updateProductType(productTypeStore.editedProductType);
+      }
+    } else {
+      await productTypeStore.addProductType(data);
+    }
+
+    productTypeStore.closePopup();
   };
 
   return (
@@ -64,15 +62,15 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => productTypeStore.openPopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={productTypeStore.isPopupOpen} onClose={productTypeStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add product type</DialogTitle>
+          <DialogTitle>{productTypeStore.editMode ? <>Edit product type</> : <>Add product type</>}</DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -91,7 +89,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={productTypeStore.closePopup}>Cancel</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

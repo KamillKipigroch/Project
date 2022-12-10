@@ -23,6 +23,10 @@ export class ConditionStore {
   @observable conditions: ICondition[] = [];
   @observable loading: boolean = false;
 
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedCondition: ICondition | undefined;
+
   @computed get allConditions() {
     return this.conditions;
   }
@@ -34,6 +38,21 @@ export class ConditionStore {
   @computed get notVisibleConditions() {
     return this.conditions.filter((x) => x.visible === false);
   }
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.editedCondition = this.conditions.find((x) => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  };
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
+  };
 
   @action
   fetchConditions = async () => {
@@ -71,7 +90,7 @@ export class ConditionStore {
 
       const response = await addCondition(conditionData);
       this.conditions = [...this.conditions, response];
-      
+
       toast.success("Successfully added new condition!");
 
       this.loading = false;
@@ -90,6 +109,8 @@ export class ConditionStore {
       const response = await updateCondition(conditionData);
       const foundIndex = this.conditions.findIndex((x) => x.id === response.id);
       this.conditions[foundIndex] = response;
+
+      toast.success("Successfully updated condition!");
 
       this.loading = false;
       return response;

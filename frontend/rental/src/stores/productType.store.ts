@@ -23,6 +23,10 @@ export class ProductTypeStore {
   @observable productTypes: IProductType[] = [];
   @observable loading: boolean = false;
 
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedProductType: IProductType | undefined;
+
   @computed get allProductTypes() {
     return this.productTypes;
   }
@@ -34,6 +38,21 @@ export class ProductTypeStore {
   @computed get notVisibleProductTypes() {
     return this.productTypes.filter((x) => x.visible === false);
   }
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.editedProductType = this.productTypes.find((x) => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  };
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
+  };
 
   @action
   fetchProductTypes = async () => {
@@ -92,6 +111,8 @@ export class ProductTypeStore {
         (x) => x.id === response.id
       );
       this.productTypes[foundIndex] = response;
+
+      toast.success("Successfully updated product type!")
 
       this.loading = false;
       return response;

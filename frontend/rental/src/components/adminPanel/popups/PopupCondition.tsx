@@ -43,19 +43,19 @@ const Popup = () => {
 
   const { conditionStore } = useStores();
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddCondition> = async (data) => {
-    await conditionStore.addCondition(data);
-    handleClose();
+    if (conditionStore.editMode) {
+      if (conditionStore.editedCondition) {
+        conditionStore.editedCondition.code = data.code;
+        conditionStore.editedCondition.price = data.price;
+
+        await conditionStore.updateCondition(conditionStore.editedCondition);
+      }
+    } else {
+      await conditionStore.addCondition(data);
+    }
+
+    conditionStore.closePopup();
   };
 
   return (
@@ -64,15 +64,20 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => conditionStore.openPopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={conditionStore.isPopupOpen}
+        onClose={conditionStore.closePopup}
+      >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add condition</DialogTitle>
+          <DialogTitle>
+            {conditionStore.editMode ? <>Edit condition</> : <>Add condition</>}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -104,7 +109,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={conditionStore.closePopup}>Cancel</Button>
             <Button type="submit">OK</Button>
           </DialogActions>
         </form>

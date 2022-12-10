@@ -1,4 +1,3 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -10,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { IAddOrderStatus } from "../../../models/OrderStatusModel";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
+import { observer } from "mobx-react-lite";
 
 const theme = createTheme({
   palette: {
@@ -33,7 +33,7 @@ const Element = styled.div`
   margin: 10px;
 `;
 
-export default function Popup() {
+const Popup = () => {
   const {
     register,
     handleSubmit,
@@ -42,19 +42,19 @@ export default function Popup() {
 
   const { orderStatusStore } = useStores();
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddOrderStatus> = async (data) => {
-    await orderStatusStore.addOrderStatus(data);
-    handleClose();
+    if (orderStatusStore.editMode) {
+      if (orderStatusStore.editedOrderStatus) {
+        orderStatusStore.editedOrderStatus.code = data.code;
+        orderStatusStore.editedOrderStatus.level = data.level;
+
+        await orderStatusStore.updateOrderStatus(orderStatusStore.editedOrderStatus);
+      }
+    } else {
+      await orderStatusStore.addOrderStatus(data);
+    }
+
+    orderStatusStore.closePopup();
   };
 
   return (
@@ -63,15 +63,15 @@ export default function Popup() {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => orderStatusStore.openPopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={orderStatusStore.isPopupOpen} onClose={orderStatusStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add order statuses</DialogTitle>
+          <DialogTitle>{orderStatusStore.editMode ? <>Edit order status</> : <>Add order status</>}</DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -103,7 +103,7 @@ export default function Popup() {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={orderStatusStore.closePopup}>Cancel</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>
@@ -111,3 +111,5 @@ export default function Popup() {
     </div>
   );
 }
+
+export default observer(Popup);

@@ -1,18 +1,12 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from '@mui/icons-material/Check';
-
-const getUniqueNames = (names: string[]) => {
-  let uniqueNames = names.filter((element, index) => {
-    return names.indexOf(element) === index;
-  });
-  return uniqueNames;
-};
+import EditIcon from "@mui/icons-material/Edit";
 
 const QualitiesDataGrid = () => {
   //get order status
@@ -29,12 +23,12 @@ const QualitiesDataGrid = () => {
       field: "actions",
       headerName: "Actions",
       flex: 1,
-      renderCell: ({ row: { id, visible } }) => {
+      renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            {visible ? (
+            {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
-                <IconButton onClick={() => qualityStore.disableVisibility(id)}>
+                <IconButton onClick={() => qualityStore.disableVisibility(params.row.id)}>
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
@@ -45,6 +39,13 @@ const QualitiesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
+            <Tooltip title="Edit" arrow={true}>
+              <IconButton
+                onClick={() => qualityStore.openPopup(params.row.id)}
+              >
+                <EditIcon sx={{ color: "#4f70e8" }} />
+              </IconButton>
+            </Tooltip>
           </Box>
         );
       },

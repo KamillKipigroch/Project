@@ -23,6 +23,10 @@ export class SubCategoryStore {
   @observable subCategories: ISubCategory[] = [];
   @observable loading: boolean = false;
 
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedSubCategory: ISubCategory | undefined;
+
   @computed get allSubCategories() {
     return this.subCategories;
   }
@@ -34,6 +38,21 @@ export class SubCategoryStore {
   @computed get notVisibleSubCategories() {
     return this.subCategories.filter((x) => x.visible === false);
   }
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.editedSubCategory = this.subCategories.find((x) => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  };
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
+  };
 
   @action
   fetchSubCategories = async () => {
@@ -72,7 +91,7 @@ export class SubCategoryStore {
       const response = await addSubCategory(subCategoryData);
       this.subCategories = [...this.subCategories, response];
 
-      toast.success("Successfully added new sub-category!")
+      toast.success("Successfully added new sub-category!");
 
       this.loading = false;
       return response;
@@ -92,6 +111,8 @@ export class SubCategoryStore {
         (x) => x.id === response.id
       );
       this.subCategories[foundIndex] = response;
+
+      toast.success("Successfully updated sub-category!");
 
       this.loading = false;
       return response;

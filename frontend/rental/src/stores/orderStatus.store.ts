@@ -23,6 +23,10 @@ export class OrderStatusStore {
   @observable orderStatuses: IOrderStatus[] = [];
   @observable loading: boolean = false;
 
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedOrderStatus: IOrderStatus | undefined;
+
   @computed get allOrderStatuses() {
     return this.orderStatuses;
   }
@@ -34,6 +38,21 @@ export class OrderStatusStore {
   @computed get notVisibleOrderStatuses() {
     return this.orderStatuses.filter((x) => x.visible === false);
   }
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.editedOrderStatus = this.orderStatuses.find((x) => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  };
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
+  };
 
   @action
   fetchOrderStatuses = async () => {
@@ -72,7 +91,7 @@ export class OrderStatusStore {
       const response = await addOrderStatus(orderStatusData);
       this.orderStatuses = [...this.orderStatuses, response];
 
-      toast.success("Successfully added new order status!")
+      toast.success("Successfully added new order status!");
 
       this.loading = false;
       return response;
@@ -92,6 +111,8 @@ export class OrderStatusStore {
         (x) => x.id === response.id
       );
       this.orderStatuses[foundIndex] = response;
+
+      toast.success("Successfully updated order status!");
 
       this.loading = false;
       return response;

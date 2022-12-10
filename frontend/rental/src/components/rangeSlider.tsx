@@ -1,7 +1,8 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../stores/root.store';
 
 const theme = createTheme({
     palette: {
@@ -15,22 +16,18 @@ function valuetext(value: number) {
   return `${value}°C`;
 }
 
-export default function RangeSlider() {
-  const [value, setValue] = React.useState<number[]>([0, 500]);
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-  };
+const RangeSlider = () => {
+  const { productStore } = useStores();
 
   return (
     <Box sx={{ width: 200 }}>
         <ThemeProvider theme={theme}>
             <Slider
-                min={0}
-                max={500}
+                min={productStore.priceMin}
+                max={productStore.maxPriceValue}
                 getAriaLabel={() => 'Temperature range'}
-                value={value}
-                onChange={handleChange}
+                value={productStore.priceValue}
+                onChange={productStore.handlePriceRangeFilterChange}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
                 color="secondary"
@@ -39,3 +36,5 @@ export default function RangeSlider() {
     </Box>
   );
 }
+
+export default observer(RangeSlider);

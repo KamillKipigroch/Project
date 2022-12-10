@@ -2,6 +2,8 @@
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../stores/root.store';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -42,15 +44,20 @@ const Search = styled('div')(({ theme }) => ({
       },
     },
   }));
-export default function SearchBar() {
+const SearchBar = () => {
+  const { productStore } = useStores();
+
     return (
         <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
+            onChange={(e) => productStore.setSearchFilter(e.target.value)}
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}/>
         </Search>
     );
 }
+
+export default observer(SearchBar);

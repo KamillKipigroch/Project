@@ -8,7 +8,7 @@ import { ProductTypeStore } from "./productType.store";
 import { QualityStore } from "./quality.store";
 import { SubCategoryStore } from "./subCategory.store";
 
-class RootStore {
+export class RootStore {
   conditionStore: ConditionStore;
   categoryStore: CategoryStore;
   opinionStore: OpinionStore;

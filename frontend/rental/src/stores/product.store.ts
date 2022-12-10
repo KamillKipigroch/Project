@@ -1,9 +1,11 @@
+import { SelectChangeEvent } from "@mui/material";
 import {
   action,
   computed,
   makeObservable,
   observable,
   runInAction,
+  toJS,
 } from "mobx";
 import { toast } from "react-toastify";
 import { IAddProduct, IProduct } from "../models/ProductModel";
@@ -14,9 +16,13 @@ import {
   getProducts,
   updateProduct,
 } from "../services/ProductService";
+import { RootStore } from "./root.store";
 
 export class ProductStore {
-  constructor(context: any) {
+  rootStore: RootStore;
+
+  constructor(context: RootStore) {
+    this.rootStore = context;
     makeObservable(this);
   }
 
@@ -33,6 +39,10 @@ export class ProductStore {
 
   @computed get notVisibleProducts() {
     return this.products.filter((x) => x.visible === false);
+  }
+
+  @computed get countVisibleProducts() {
+    return this.visibleProducts2.length;
   }
 
   @action
@@ -115,5 +125,106 @@ export class ProductStore {
       this.loading = false;
       throw error;
     }
+  };
+
+  // FILTERS
+  @observable searchFilter: string = "";
+  @observable qualityFilter: string[] = [];
+  @observable conditionFilter: string[] = [];
+  @observable categoryFilter: string[] = [];
+
+  @observable priceMin: number = 0;
+  @observable priceValue: number[] = [this.priceMin, this.priceMin];
+
+  @computed get maxPriceValue() {
+    return Math.max(...this.visibleProducts.map((product) => product.price), 0);
+  }
+
+  @computed get visibleProducts2() {
+    let products = this.products.filter((x) => x.visible === true);
+
+    // Search bar
+    products = products.filter((x) =>
+      x.code.toLowerCase().includes(this.searchFilter)
+    );
+
+    // Quality filters
+    if (this.qualityFilter.length) {
+      products = products.filter((x) =>
+        this.qualityFilter.includes(x.quality.code)
+      );
+    }
+
+    // Condition filters
+    if (this.conditionFilter.length) {
+      products = products.filter((x) =>
+        this.conditionFilter.includes(x.condition.code)
+      );
+    }
+
+    // Price filter
+    if (
+      this.priceValue[0] !== this.priceMin ||
+      this.priceValue[1] !== this.priceMin
+    ) {
+      products = products.filter(
+        (x) => x.price > this.priceValue[0] && x.price < this.priceValue[1]
+      );
+    }
+
+    // Category filter
+    if (this.categoryFilter.length) {
+      products = products.filter((x) =>
+        this.categoryFilter.includes(x.subcategory.category.code)
+      );
+    }
+
+    return products;
+  }
+
+  @action
+  setSearchFilter = (value: string) => {
+    this.searchFilter = value;
+  };
+
+  @action
+  handleQualityFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      this.qualityFilter.push(e.target.value);
+    } else {
+      this.qualityFilter = this.qualityFilter.filter(
+        (x) => x !== e.target.value
+      );
+    }
+  };
+
+  @action
+  handleConditionFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      this.conditionFilter.push(e.target.value);
+    } else {
+      this.conditionFilter = this.conditionFilter.filter(
+        (x) => x !== e.target.value
+      );
+    }
+  };
+
+  @action
+  handlePriceRangeFilterChange = (
+    event: Event,
+    newValue: number | number[]
+  ) => {
+    this.priceValue = newValue as number[];
+  };
+
+  @action
+  handleCategoryFilterChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+
+    this.categoryFilter = typeof value === "string" ? value.split(",") : value;
+
+    console.log(toJS(this.categoryFilter));
   };
 }

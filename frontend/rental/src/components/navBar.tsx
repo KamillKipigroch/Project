@@ -14,30 +14,16 @@ import { observer } from "mobx-react-lite";
 import { authStore } from "../stores/auth.store";
 import { UserRole } from "../models/Enums";
 
-const pages = ["Movies", "Games", "Anime", "Other"];
+const pages = ["Costumes"];
 const adminPages = ["AdminPanel"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const navigate = useNavigate();
@@ -46,7 +32,7 @@ function ResponsiveAppBar() {
     <AppBar position="static" style={{ background: "#DD5353" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={Logo} width="8%" height="100%" />
+          <img alt="" src={Logo} width="8%" height="100%" />
           <Typography
             variant="h6"
             noWrap

@@ -33,7 +33,7 @@ const PriceContainer = styled.div`
   alignItems: 'flex-end',
 `;
 
-const Movies = () => {
+const Costumes = () => {
   const { productStore } = useStores();
 
   useEffect(() => {
@@ -86,6 +86,7 @@ const Movies = () => {
                 }}
               >
                 <img
+                  alt={product.code}
                   src={getRandomElement()}
                   width="250"
                   sizes="max-"
@@ -113,4 +114,4 @@ const Movies = () => {
   );
 };
 
-export default observer(Movies);
+export default observer(Costumes);

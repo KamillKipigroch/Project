@@ -1,10 +1,12 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
 import moment from "moment";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckIcon from "@mui/icons-material/Check";
+import { IconButton, Tooltip } from "@mui/material";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -139,10 +141,38 @@ const ProductsDataGrid = () => {
       editable: true,
       valueOptions: uniqueSubcategoryNames,
     },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <Box>
+            {params.row.visible ? (
+              <Tooltip title="Hide" arrow={true}>
+                <IconButton
+                  onClick={() =>
+                    productStore.disableVisibility(params.row.id)
+                  }
+                >
+                  <CheckIcon sx={{ color: "green" }} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Make visible" arrow={true}>
+                <IconButton>
+                  <BlockIcon sx={{ color: "red" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
+        );
+      },
+    },
     //TODO opinions form
-    { field: "opinions", headerName: "Opinions", width: 110, editable: true },
+    // { field: "opinions", headerName: "Opinions", width: 110, editable: true },
     //TODO make a button which opens image, can swithc it from your pc photo
-    { field: "image", headerName: "Image", width: 110, editable: true },
+    // { field: "image", headerName: "Image", width: 110, editable: true },
   ];
 
   let display = [];

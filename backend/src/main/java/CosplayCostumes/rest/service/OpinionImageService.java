@@ -16,7 +16,6 @@ public class OpinionImageService {
     private final static String OPINION_IMAGE_NO_FOUND = "Failed to find opinion image ";
     private final static String OPINION_IMAGE_EXIST = "Opinion image with this name with this name is exist ";
     private final OpinionImageRepository opinionImageRepository;
-    private final CloudinaryService cloudinaryService;
 
     public List<OpinionImage> findAllOpinionImage() {
         return opinionImageRepository.findAll();
@@ -29,7 +28,7 @@ public class OpinionImageService {
         return opinionImageRepository.findByCode(code).orElseThrow(() -> new Exception(OPINION_IMAGE_NO_FOUND + code));
     }
 
-    public OpinionImage addOpinionImage(Opinion opinion, String code) {
+    public OpinionImage addOpinionImage(String code, Opinion opinion) {
         if (opinionImageRepository.findByCode(code).isPresent())
             throw new FindException(OPINION_IMAGE_EXIST + code);
 

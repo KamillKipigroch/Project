@@ -55,10 +55,6 @@ public class OpinionController {
         Product product = productService.findProductById(opinionDTO.getProductID());
 
         Opinion opinion = opinionService.addOpinion(opinionDTO, user, product);
-
-        opinionDTO.getOpinionImages().forEach(image -> {
-            opinionImageService.addOpinionImage(opinion, image.getFileUrl());
-        });
         Opinion response = opinionService.findOpinionById(opinion.getId());
 
         return new ResponseEntity<>(response, HttpStatus.OK);

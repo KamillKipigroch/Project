@@ -30,11 +30,12 @@ public class ProductImageService {
         return productImageRepository.findByCode(code).orElseThrow( () -> new FindException(PRODUCT_IMAGE_NO_FOUND + code));
     }
 
-    public ProductImage addProductImage( String code) {
+    public ProductImage addProductImage( String code, Product product) {
         if (productImageRepository.findByCode(code).isPresent())
             throw new FindException(PRODUCT_IMAGE_EXIST + code);
 
-        ProductImage newProductImage = new ProductImage(code, null);
+        ProductImage newProductImage = new ProductImage(code, product);
+
 
         return productImageRepository.save(newProductImage);
     }

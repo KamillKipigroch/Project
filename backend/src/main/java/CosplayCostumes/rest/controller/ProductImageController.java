@@ -2,19 +2,23 @@ package CosplayCostumes.rest.controller;
 
 import CosplayCostumes.rest.model.ProductImage;
 import CosplayCostumes.rest.model.dto.ModelDTO;
-import CosplayCostumes.rest.model.dto.productImage.ProductImageDTO;
 import CosplayCostumes.rest.service.ProductImageService;
 import CosplayCostumes.rest.service.ProductService;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 
 import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @AllArgsConstructor
@@ -22,32 +26,14 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 public class ProductImageController {
     private final ProductImageService productImageService;
     private final ProductService productService;
-//    private final CloudinaryService cloudinaryService;
+    private final Cloudinary cloudinary;
 
-    @GetMapping("/get-all")
-    public ResponseEntity<List<ProductImage>> getAll() {
-        List<ProductImage> productImage = productImageService.findAllProductImage();
-//        List<ByteArrayResource> listImage = new ArrayList<>();
-//        productImage.forEach(image -> listImage.add(cloudinaryService.downloadImg(image.getCode(), 1024, 768, false)));
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        responseHeaders.add("content-disposition", "attachment; filename=image.jpg");
-//        responseHeaders.add("Content-Type", "image/jpeg");
+    @RequestMapping(path = "/add", method = POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<ProductImage> upload(@RequestPart("productId") String productId, @RequestPart("image") MultipartFile image) throws IOException {
+        var product = productService.findProductById(Long.parseLong(productId));
+        var uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
+        var productImage = productImageService.addProductImage(uploadResult.get("url").toString(),product);
 
-//        return ResponseEntity.ok().headers(responseHeaders).contentLength(listImage.stream().mapToLong(ByteArrayResource::contentLength).sum()).body(listImage);
-        return new ResponseEntity<>(productImage, HttpStatus.OK);
-    }
-
-    @PostMapping("/add")
-    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
-    public ResponseEntity<ProductImage> addProductImage(@RequestBody ProductImageDTO productImageDTO) {
-        ProductImage productImage;
-        try {
-//            String code = cloudinaryService.upload(productImageDTO.getFile());
-            productImage = productImageService.addProductImage(productImageDTO.getFileUrl());
-            productService.addImageToProduct(productImage, productImageDTO.getProductID());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         return new ResponseEntity<>(productImage, HttpStatus.OK);
     }
 

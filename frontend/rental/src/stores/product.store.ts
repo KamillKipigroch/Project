@@ -5,7 +5,6 @@ import {
   makeObservable,
   observable,
   runInAction,
-  toJS,
 } from "mobx";
 import { toast } from "react-toastify";
 import { IAddProduct, IProduct } from "../models/ProductModel";
@@ -28,6 +27,11 @@ export class ProductStore {
 
   @observable products: IProduct[] = [];
   @observable loading: boolean = false;
+
+  @observable isDetailsPopupOpen: boolean = false;
+  @observable detailedProduct: IProduct | undefined;
+
+  @observable isDetailsAreYouSurePopup: boolean = false;
 
   @computed get allProducts() {
     return this.products;
@@ -224,7 +228,27 @@ export class ProductStore {
     } = event;
 
     this.categoryFilter = typeof value === "string" ? value.split(",") : value;
+  };
 
-    console.log(toJS(this.categoryFilter));
+  // DETAILS POPUP
+  @action
+  openDetailsPopup = (id: number) => {
+    this.detailedProduct = this.products.find((x) => x.id === id);
+    this.isDetailsPopupOpen = true;
+  };
+
+  @action
+  closeDetailsPopup = () => {
+    this.isDetailsPopupOpen = false;
+  };
+
+  @action
+  openDetailsAreYouSurePopup = () => {
+    this.isDetailsAreYouSurePopup = true;
+  };
+
+  @action
+  closeDetailsAreYouSurePopup = () => {
+    this.isDetailsAreYouSurePopup = false;
   };
 }

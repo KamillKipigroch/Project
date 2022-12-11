@@ -15,6 +15,7 @@ import AdminPanelQualities from "../../routes/adminPanels/adminPanelQualities";
 import AdminPanelSubCategories from "../../routes/adminPanels/adminPanelSubCategories";
 import AdminPanel from "../../routes/adminPanels/adminPanel";
 import ProtectedRoutes from "./ProtectedRoutes";
+import AdminPanelOrders from "../../routes/adminPanels/AdminPanelOrders";
 
 const MainRoutes = () => (
   <Routes>
@@ -50,6 +51,7 @@ const MainRoutes = () => (
         path="/adminPanelSubCategories"
         element={<AdminPanelSubCategories />}
       />
+      <Route path="/adminPanelOrders" element={<AdminPanelOrders />} />
     </Route>
   </Routes>
 );

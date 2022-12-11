@@ -6,6 +6,7 @@ import {
   runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
+import { OrderStatus } from "../models/Enums";
 import { IAddOrderStatus, IOrderStatus } from "../models/OrderStatusModel";
 import {
   addOrderStatus,
@@ -139,4 +140,10 @@ export class OrderStatusStore {
       throw error;
     }
   };
+
+  @action
+  getProperOrderStatusId = (status: OrderStatus) => {
+    const properStatus = this.visibleOrderStatuses.find(x => x.code === status);
+    return properStatus?.id;
+  }
 }

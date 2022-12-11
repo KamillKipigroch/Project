@@ -1,0 +1,34 @@
+import styled from "styled-components";
+import OrdersDataGrid from "../../components/adminPanel/dataGrids/OrdersDataGrid";
+import ElementsButtonGroup from "../../components/adminPanel/elementsButtonGroup";
+import Popup from "../../components/adminPanel/popups/PopupOrderStatus";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 15px;
+  margin: 10px;
+`;
+
+const AdminPanelOrders = () => {
+  return (
+    <Container>
+      <Div>
+        <ElementsButtonGroup />
+      </Div>
+      <Div>
+        <Popup />
+      </Div>
+      <Div>
+        <OrdersDataGrid />
+      </Div>
+    </Container>
+  );
+};
+
+export default AdminPanelOrders;

@@ -1,9 +1,7 @@
-import * as React from 'react';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import { purple } from '@mui/material/colors';
 
 const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -35,6 +33,7 @@ export default function ElementsButtonGroup() {
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelproducttypes">Product types</ColorButton>
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelqualities">Qualities</ColorButton>
         <ColorButton variant="contained" href="http://localhost:3000/adminpanelsubcategories">Subcategory</ColorButton>
+        <ColorButton variant="contained" href="http://localhost:3000/adminPanelOrders">Orders</ColorButton>
       </ButtonGroup>
     </Box>
   );

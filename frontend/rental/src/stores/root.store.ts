@@ -2,6 +2,7 @@ import React from "react";
 import { CategoryStore } from "./category.store";
 import { ConditionStore } from "./condition.store";
 import { OpinionStore } from "./opinion.store";
+import { OrderStore } from "./order.store";
 import { OrderStatusStore } from "./orderStatus.store";
 import { ProductStore } from "./product.store";
 import { ProductTypeStore } from "./productType.store";
@@ -17,6 +18,7 @@ export class RootStore {
   qualityStore: QualityStore;
   subCategoryStore: SubCategoryStore;
   productStore: ProductStore;
+  orderStore: OrderStore;
 
   constructor() {
     this.conditionStore = new ConditionStore(this);
@@ -27,6 +29,7 @@ export class RootStore {
     this.qualityStore = new QualityStore(this);
     this.subCategoryStore = new SubCategoryStore(this);
     this.productStore = new ProductStore(this);
+    this.orderStore = new OrderStore(this);
   }
 }
 

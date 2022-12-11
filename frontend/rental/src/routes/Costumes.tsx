@@ -10,6 +10,8 @@ import { Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../stores/root.store";
 import { useEffect } from "react";
+import CostumesDetailsPopup from "../components/Popup/CostumesDetailsPopup";
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -68,8 +70,10 @@ const Costumes = () => {
             {productStore.visibleProducts2.map((product) => (
               <Box
                 key={product.id}
+                onClick={() => productStore.openDetailsPopup(product.id)}
                 component="span"
                 sx={{
+                  cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -110,6 +114,7 @@ const Costumes = () => {
         </ProductSection>
       </Container>
       <Outlet />
+      <CostumesDetailsPopup />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { action, computed, makeObservable, observable, runInAction } from "mobx"
 import { toast } from "react-toastify";
 import { IOrder } from "../models/OrderModel";
 import { addOrder, getOrders, updateOrderStatus } from "../services/OrderService";
+import { authStore } from "./auth.store";
 
 export class OrderStore {
   constructor(context: any) {
@@ -13,6 +14,10 @@ export class OrderStore {
 
   @computed get allOrders() {
     return this.orders;
+  }
+
+  @computed get ordersCount() {
+    return this.orders.length;
   }
 
   @action
@@ -65,4 +70,10 @@ export class OrderStore {
       throw error;
     }
   };
+
+  @action
+  getUserOrders = async () => {
+    await this.fetchOrders();
+    this.orders = this.orders.filter(x => x.userName === authStore.name)
+  }
 }

@@ -16,6 +16,8 @@ import AdminPanelSubCategories from "../../routes/adminPanels/adminPanelSubCateg
 import AdminPanel from "../../routes/adminPanels/adminPanel";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AdminPanelOrders from "../../routes/adminPanels/AdminPanelOrders";
+import { UserRole } from "../../models/Enums";
+import UserOrders from "../../routes/UserOrders";
 
 const MainRoutes = () => (
   <Routes>
@@ -30,6 +32,11 @@ const MainRoutes = () => (
       <Route path=":productId" element={<Product />} />
     </Route>
     <Route path="*" element={<PageNotFound />} />
+
+    {/* Protected routes - only auth, no roles required */}
+    <Route element={<ProtectedRoutes allowedRoles={[UserRole.Admin, UserRole.User]} />}>
+      <Route path="/userOrders" element={<UserOrders />} />
+    </Route>
 
     {/* Protected routes with admin role */}
     <Route element={<ProtectedRoutes allowedRoles={["Admin"]} />}>

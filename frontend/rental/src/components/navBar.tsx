@@ -90,6 +90,14 @@ function ResponsiveAppBar() {
                 {page}
               </Button>
             ))}
+            {authStore.isAuth ? (
+              <Button
+                onClick={() => navigate("/userOrders")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                My orders
+              </Button>
+            ) : null}
             {authStore.rol?.find((role) => role === UserRole.Admin)
               ? adminPages.map((page) => {
                   return (

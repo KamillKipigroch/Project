@@ -31,7 +31,7 @@ const CostumesDetailsPopup = () => {
       onClose={productStore.closeDetailsPopup}
       maxWidth="lg"
     >
-      <DialogTitle>Hello world!</DialogTitle>
+      <DialogTitle>Order details page</DialogTitle>
       <DialogContent>
         <Grid container spacing={2} minWidth="650px" maxWidth="650px">
           <Grid item xs={6}>
@@ -91,7 +91,7 @@ const CostumesDetailsPopup = () => {
       <DialogActions>
         <Button onClick={() => productStore.closeDetailsPopup()}>Cancel</Button>
         <Button onClick={() => productStore.openDetailsAreYouSurePopup()}>
-          OK
+          Order
         </Button>
       </DialogActions>
       <AreYouSurePopup

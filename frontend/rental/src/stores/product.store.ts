@@ -7,6 +7,7 @@ import {
   runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
+import { IAddOrder } from "../models/OrderModel";
 import { IAddProduct, IProduct } from "../models/ProductModel";
 import {
   addProduct,
@@ -251,4 +252,28 @@ export class ProductStore {
   closeDetailsAreYouSurePopup = () => {
     this.isDetailsAreYouSurePopup = false;
   };
+
+  @action
+  createUserOrder = async () => {
+    try {
+      if (this.detailedProduct) {
+        const order: IAddOrder = {
+          productID: this.detailedProduct.id,
+          userID: 1,
+        };
+        
+        console.log(order);
+        await this.rootStore.orderStore.addOrder(order);
+        await this.fetchProducts();
+        toast.success("You've added your order!");
+      } else {
+        toast.error("An error occurred! Can't make an order!");
+      }
+  
+      this.closeDetailsAreYouSurePopup();
+      this.closeDetailsPopup();
+    } catch (error) {
+      throw error;
+    }
+  }
 }

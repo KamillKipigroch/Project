@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { toast } from "react-toastify";
-import { IOrder } from "../models/OrderModel";
+import { IAddOrder, IOrder } from "../models/OrderModel";
 import { addOrder, getOrders, updateOrderStatus } from "../services/OrderService";
 import { authStore } from "./auth.store";
 
@@ -37,12 +37,11 @@ export class OrderStore {
   };
 
   @action
-  addOrder = async (orderData: IOrder) => {
+  addOrder = async (orderData: IAddOrder) => {
     try {
       this.loading = true;
 
       const response = await addOrder(orderData);
-      this.fetchOrders();
       toast.success("Successfully added new order!");
 
       this.loading = false;

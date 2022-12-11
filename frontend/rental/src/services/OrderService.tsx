@@ -1,7 +1,6 @@
 import axios from "axios";
 import Constants from "../constants/Constants";
-import { IUpdateOpinion } from "../models/OpinionModel";
-import { IOrder } from "../models/OrderModel";
+import { IAddOrder, IOrder } from "../models/OrderModel";
 import { axiosConfig } from "./AxiosConfiguration";
 
 const baseUrl = Constants.API_URL + "/api/order/";
@@ -11,7 +10,8 @@ export const getOrders = async (): Promise<IOrder[]> => {
   return response.data;
 };
 
-export const addOrder = async (data: IOrder): Promise<any> => {
+export const addOrder = async (data: IAddOrder): Promise<any> => {
+  debugger
   const response = await axios.post(baseUrl + "add-object", data, axiosConfig);
   return response.data;
 };

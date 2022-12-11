@@ -8,7 +8,7 @@ export interface IOrder {
   userName: string;
 }
 
-export interface IUpdateOrder {
-  id: number;
-  statusId: number;
+export interface IAddOrder {
+  productID: number;
+  userID: number;
 }

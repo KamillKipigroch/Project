@@ -98,6 +98,7 @@ const CostumesDetailsPopup = () => {
         title={"Do you want to order this item?"}
         isOpen={productStore.isDetailsAreYouSurePopup}
         functionToClose={productStore.closeDetailsAreYouSurePopup}
+        functionToExecute={() => productStore.createUserOrder()}
       />
     </Dialog>
   );

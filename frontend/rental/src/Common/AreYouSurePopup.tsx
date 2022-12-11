@@ -9,6 +9,7 @@ type Props = {
   title: string,
   isOpen: boolean,
   functionToClose: () => void,
+  functionToExecute: () => void,
 };
 
 const AreYouSurePopup = (props: Props) => {
@@ -23,7 +24,7 @@ const AreYouSurePopup = (props: Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.functionToClose()}>No</Button>
-        <Button type="submit">Yes</Button>
+        <Button onClick={() => props.functionToExecute()}>Yes</Button>
       </DialogActions>
     </Dialog>
   );

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 
@@ -20,6 +21,7 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 @RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;
+    private final OrderService orderService;
     private final ProductImageController productImageController;
     private final ProductTypeService productTypeService;
     private final ConditionService conditionService;
@@ -27,12 +29,25 @@ public class ProductController {
     private final SubCategoryService subCategoryService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Product>> getAllQualities() {
+    public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> allProduct = productService.findAllProduct();
         allProduct.forEach(product ->
                 product.setPrice(
                         (product.getPrice() * product.getCondition().getPrice()) / 100
                 ));
+        return new ResponseEntity<>(allProduct, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-filtered")
+    public ResponseEntity<List<Product>> getAllProductsFiltered() {
+        List<Product> allProduct = productService.findAllProduct();
+        allProduct.forEach(product ->
+                product.setPrice(
+                        (product.getPrice() * product.getCondition().getPrice()) / 100
+                ));
+
+        var notAvailable = orderService.findAllOrder().stream().filter(order -> order.getOrderStatus().getId() == 2).map(Order::getProduct).collect(Collectors.toSet());
+        var response = allProduct.removeIf(notAvailable::contains);
         return new ResponseEntity<>(allProduct, HttpStatus.OK);
     }
 

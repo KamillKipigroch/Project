@@ -32,8 +32,9 @@ public class OrderService {
         return orderRepository.findOrderByUserAndProduct(user, product).orElseThrow(() -> new Exception(ORDER_NO_FOUND + user.getEmail() + product.getBusinessKey()));
     }
 
-    public Order addOrder(Product product, User user) {
+    public Order addOrder(Product product, User user, OrderStatus status) {
         Order order = new Order(product, user);
+        order.setOrderStatus(status);
         return orderRepository.save(order);
     }
 

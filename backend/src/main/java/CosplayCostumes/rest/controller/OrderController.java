@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +49,8 @@ public class OrderController {
     public ResponseEntity<Order> addOrder(@RequestBody OrderDTO orderDTO) {
         Product product = productService.findProductById(orderDTO.getProductID());
         User user = userService.findUserById(orderDTO.getUserID());
-
-        Order newOrder = orderService.addOrder(product, user);
+        var status = orderStatusService.findAllOrderStatus().stream().findFirst().orElseThrow(()-> new FindException("Cannot find status"));
+        Order newOrder = orderService.addOrder(product, user,status);
 
         return new ResponseEntity<>(newOrder, HttpStatus.OK);
     }

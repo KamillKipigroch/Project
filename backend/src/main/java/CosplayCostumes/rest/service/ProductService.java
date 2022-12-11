@@ -45,42 +45,16 @@ public class ProductService {
     public Product updateProduct(Product product) {
         var updateProduct = productRepository.findById(product.getId()).orElseThrow(() ->
                 new FindException(PRODUCT_ID_NO_FOUND + product.getId()));
-        if (product.getProductType() != null)
-            updateProduct.setProductType(product.getProductType());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setHero(product.getHero());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setCode(product.getCode());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setCondition(product.getCondition());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setDescription(product.getDescription());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setImages(product.getImages());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setPrice(product.getPrice());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setVisible(product.getVisible());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
-        if (product.getProductType() != null)
-            updateProduct.setQuality(product.getQuality());
-        else
-            throw new IllegalArgumentException("Cunt save null value !");
+
+        updateProduct.setProductType(product.getProductType());
+        updateProduct.setHero(product.getHero());
+        updateProduct.setCode(product.getCode());
+        updateProduct.setCondition(product.getCondition());
+        updateProduct.setDescription(product.getDescription());
+        updateProduct.setImages(product.getImages());
+        updateProduct.setPrice(product.getPrice());
+        updateProduct.setVisible(product.getVisible());
+        updateProduct.setQuality(product.getQuality());
 
 
         return productRepository.save(updateProduct);

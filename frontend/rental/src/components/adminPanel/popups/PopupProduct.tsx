@@ -7,9 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled from "styled-components";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import dayjs, { Dayjs } from "dayjs";
 import { observer } from "mobx-react-lite";
-import Form from "react-bootstrap/Form";
 import {
   FormControl,
   FormHelperText,
@@ -21,6 +19,8 @@ import {
 import { IAddProduct } from "../../../models/ProductModel";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
+import { Form } from "react-bootstrap";
+import { IAddProductImage } from "../../../models/ProductImageModel";
 
 const theme = createTheme({
   palette: {
@@ -61,6 +61,7 @@ const Popup = () => {
   } = useStores();
 
   const [open, setOpen] = React.useState(false);
+  // const [photo, setPhoto] = React.useState<File>();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,14 +71,9 @@ const Popup = () => {
     setOpen(false);
   };
 
-  const [value, setValue] = React.useState<Dayjs | null>(
-    dayjs("2014-08-18T21:11:54")
-  );
-
   const onSubmit: SubmitHandler<IAddProduct> = async (data) => {
-    console.log(data);
-    // await productStore.addProduct(data);
-    // handleClose();
+    await productStore.addProduct(data);
+    handleClose();
   };
 
   return (
@@ -279,16 +275,16 @@ const Popup = () => {
                   </FormHelperText>
                 </FormControl>
               </Element>
-              <Element>
+              {/* <Element>
                 <Form.Group controlId="formFileMultiple" className="mb-3">
                   <Form.Label>Add product photos</Form.Label>
-                  <Form.Control type="file" multiple />
+                  <Form.Control
+                    type="file"
+                    accept="image/*"
+                    onChange={(e: any) => setPhoto(e.target.files[0])}
+                  />
                 </Form.Group>
-                {/* <Button variant="contained" component="label">
-                  Upload image
-                  <input hidden accept="image/*" multiple type="file" />
-                </Button> */}
-              </Element>
+              </Element> */}
             </Div>
           </DialogContent>
           <DialogActions>

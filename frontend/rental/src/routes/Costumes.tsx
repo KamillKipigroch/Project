@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Maleficent from "../assets/maleficent.webp";
 import SpiderMan from "../assets/spiderMan.jpeg";
-import test1 from "../assets/test1.jpg";
+import maleficent from "../assets/maleficent.webp";
 import test2 from "../assets/test2.png";
 import FilterComponent from "../components/filterComponent";
 import Box from "@mui/material/Box";
@@ -41,12 +41,6 @@ const Costumes = () => {
   useEffect(() => {
     productStore.fetchProducts();
   }, [productStore]);
-
-  const tempImages = [test1, test2, Maleficent, SpiderMan];
-
-  const getRandomElement = () => {
-    return tempImages[Math.floor(Math.random() * tempImages.length)];
-  };
 
   return (
     <div>
@@ -91,7 +85,7 @@ const Costumes = () => {
               >
                 <img
                   alt={product.code}
-                  src={getRandomElement()}
+                  src={product.images.length === 0 ? maleficent : product.images[0].code}
                   width="250"
                   sizes="max-"
                   style={{

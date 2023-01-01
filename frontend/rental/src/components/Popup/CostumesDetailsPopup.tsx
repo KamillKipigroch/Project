@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
-import test1 from "../../assets/test1.jpg";
+import maleficent from "../../assets/maleficent.webp";
 import { Grid, Typography } from "@mui/material";
 import AreYouSurePopup from "../../Common/AreYouSurePopup";
 
@@ -39,7 +39,12 @@ const CostumesDetailsPopup = () => {
               <Element>
                 <img
                   alt=""
-                  src={test1}
+                  // src={test1}
+                  src={
+                    productStore.detailedProduct?.images.length === 0
+                      ? maleficent
+                      : productStore.detailedProduct?.images[0].code
+                  }
                   width="250"
                   sizes="max-"
                   style={{
@@ -82,6 +87,9 @@ const CostumesDetailsPopup = () => {
                 <Typography>
                   <b>Product Description:</b>{" "}
                   {productStore.detailedProduct?.description}
+                </Typography>
+                <Typography>
+                  <b>Product PRICE:</b> {productStore.detailedProduct?.price}$
                 </Typography>
               </Element>
             </Div>

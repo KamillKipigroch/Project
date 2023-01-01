@@ -39,7 +39,13 @@ const StatusesDataDataGrid = () => {
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
-                <IconButton>
+                <IconButton
+                  onClick={() => {
+                    let rowData = params.row;
+                    rowData.visible = true;
+                    orderStatusStore.updateOrderStatus(rowData);
+                  }}
+                >
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>

@@ -14,3 +14,10 @@ export const axiosConfig = {
     "Content-Type": "application/json",
   },
 };
+
+export const axiosConfigUploadPhoto = {
+  headers: {
+    Authorization: `Bearer ${getToken()}`,
+    "Content-Type": "multipart/form-data",
+  },
+}

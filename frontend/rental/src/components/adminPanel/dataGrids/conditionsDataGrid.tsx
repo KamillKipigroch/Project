@@ -17,7 +17,7 @@ const ConditionsDataGrid = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "price", headerName: "Price", width: 90, editable: true },
+    { field: "price", headerName: "Multiplier", width: 90, editable: true },
     { field: "visible", headerName: "Visible", width: 90, editable: true },
     { field: "name", headerName: "Name", width: 150, editable: true },
     {
@@ -39,7 +39,13 @@ const ConditionsDataGrid = () => {
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
-                <IconButton>
+                <IconButton
+                  onClick={() => {
+                    let rowData = params.row;
+                    rowData.visible = true;
+                    conditionStore.updateCondition(rowData);
+                  }}
+                >
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>

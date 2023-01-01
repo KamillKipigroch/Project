@@ -7,6 +7,8 @@ import moment from "moment";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import { IconButton, Tooltip } from "@mui/material";
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
+import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -116,6 +118,7 @@ const ProductsDataGrid = () => {
       width: 120,
       editable: true,
       valueOptions: uniqueProductTypeNames,
+      valueGetter: (params) => params.row.productType.code,
     },
     {
       field: "quality",
@@ -124,6 +127,7 @@ const ProductsDataGrid = () => {
       width: 120,
       editable: true,
       valueOptions: uniqueQualityNames,
+      valueGetter: (params) => params.row.quality.code,
     },
     {
       field: "condition",
@@ -132,6 +136,7 @@ const ProductsDataGrid = () => {
       width: 120,
       editable: true,
       valueOptions: uniqueConditionNames,
+      valueGetter: (params) => params.row.condition.code,
     },
     {
       field: "subcategory",
@@ -140,6 +145,7 @@ const ProductsDataGrid = () => {
       width: 120,
       editable: true,
       valueOptions: uniqueSubcategoryNames,
+      valueGetter: (params) => params.row.subcategory.code,
     },
     {
       field: "actions",
@@ -151,17 +157,34 @@ const ProductsDataGrid = () => {
             {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
                 <IconButton
-                  onClick={() =>
-                    productStore.disableVisibility(params.row.id)
-                  }
+                  onClick={() => productStore.disableVisibility(params.row.id)}
                 >
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
-                <IconButton>
+                <IconButton
+                  onClick={() => {
+                    let rowData = params.row;
+                    rowData.visible = true;
+                    productStore.updateProduct(rowData);
+                  }}
+                >
                   <BlockIcon sx={{ color: "red" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+            {params.row?.images?.length === 0 ? (
+              <Tooltip title="Add photo" arrow={true}>
+                <IconButton>
+                  <AddAPhotoOutlinedIcon sx={{ color: "darkSlateBlue" }} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Photo" arrow={true}>
+                <IconButton onClick={() => console.log(params.row)}>
+                  <PhotoCameraOutlinedIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
             )}
@@ -235,7 +258,7 @@ const ProductsDataGrid = () => {
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={display}
+        rows={productStore.allProducts}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

@@ -34,6 +34,8 @@ export class ProductStore {
 
   @observable isDetailsAreYouSurePopup: boolean = false;
 
+  @observable isPhotoPopupOpen: boolean = false;
+
   @computed get allProducts() {
     return this.products;
   }
@@ -106,6 +108,8 @@ export class ProductStore {
       const foundIndex = this.products.findIndex((x) => x.id === response.id);
       this.products[foundIndex] = response;
 
+      toast.success("Successfully updated product!");
+
       this.loading = false;
       return response;
     } catch (error) {
@@ -173,7 +177,7 @@ export class ProductStore {
       this.priceValue[1] !== this.priceMin
     ) {
       products = products.filter(
-        (x) => x.price > this.priceValue[0] && x.price < this.priceValue[1]
+        (x) => x.price >= this.priceValue[0] && x.price <= this.priceValue[1]
       );
     }
 
@@ -261,7 +265,7 @@ export class ProductStore {
           productID: this.detailedProduct.id,
           userID: 1,
         };
-        
+
         console.log(order);
         await this.rootStore.orderStore.addOrder(order);
         await this.fetchProducts();
@@ -269,11 +273,17 @@ export class ProductStore {
       } else {
         toast.error("An error occurred! Can't make an order!");
       }
-  
+
       this.closeDetailsAreYouSurePopup();
       this.closeDetailsPopup();
     } catch (error) {
       throw error;
     }
-  }
+  };
+
+  @action
+  openPhotoPopup = (id: number) => {
+    this.detailedProduct = this.allProducts.find((x) => x.id == id);
+    this.isPhotoPopupOpen = true;
+  };
 }

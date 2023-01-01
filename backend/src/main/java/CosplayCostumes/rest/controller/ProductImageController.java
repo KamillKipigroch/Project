@@ -29,6 +29,7 @@ public class ProductImageController {
     private final Cloudinary cloudinary;
 
     @RequestMapping(path = "/add", method = POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<ProductImage> upload(@RequestPart("productId") String productId, @RequestPart("image") MultipartFile image) throws IOException {
         var product = productService.findProductById(Long.parseLong(productId));
         var uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());

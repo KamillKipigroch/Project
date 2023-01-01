@@ -1,4 +1,5 @@
 import { ICondition } from "./ConditionModel";
+import { IProductImage } from "./ProductImageModel";
 import { IProductType } from "./ProductTypeModel";
 import { IQuality } from "./QualityModel";
 import { ISubCategory } from "./SubCategoryModel";
@@ -13,7 +14,7 @@ export interface IProduct {
   createDate: Date;
   visible: boolean;
   productType: IProductType;
-  images: any[];
+  images: IProductImage[];
   subcategory: ISubCategory;
   condition: ICondition;
   quality: IQuality;

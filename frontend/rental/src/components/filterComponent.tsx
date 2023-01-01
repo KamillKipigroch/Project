@@ -10,6 +10,7 @@ import { useStores } from "../stores/root.store";
 const FilterContainer = styled.div`
   width: 20%;
   margin: 5px;
+  position: sticky;
 `;
 
 const Hr = styled.hr`

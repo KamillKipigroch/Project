@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 
 const QualitiesDataGrid = () => {
@@ -28,21 +28,27 @@ const QualitiesDataGrid = () => {
           <Box>
             {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
-                <IconButton onClick={() => qualityStore.disableVisibility(params.row.id)}>
+                <IconButton
+                  onClick={() => qualityStore.disableVisibility(params.row.id)}
+                >
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
             ) : (
               <Tooltip title="Make visible" arrow={true}>
-                <IconButton >
+                <IconButton
+                  onClick={() => {
+                    let rowData = params.row;
+                    rowData.visible = true;
+                    qualityStore.updateQuality(rowData);
+                  }}
+                >
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>
             )}
             <Tooltip title="Edit" arrow={true}>
-              <IconButton
-                onClick={() => qualityStore.openPopup(params.row.id)}
-              >
+              <IconButton onClick={() => qualityStore.openPopup(params.row.id)}>
                 <EditIcon sx={{ color: "#4f70e8" }} />
               </IconButton>
             </Tooltip>

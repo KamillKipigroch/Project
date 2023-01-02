@@ -39,7 +39,6 @@ const CostumesDetailsPopup = () => {
               <Element>
                 <img
                   alt=""
-                  // src={test1}
                   src={
                     productStore.detailedProduct?.images.length === 0
                       ? maleficent

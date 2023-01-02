@@ -6,5 +6,5 @@ export interface IProductImage {
 
 export interface IAddProductImage {
   productId: number;
-  photo: File;
+  photo: FileList;
 }

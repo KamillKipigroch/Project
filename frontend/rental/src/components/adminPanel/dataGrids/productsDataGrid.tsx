@@ -177,13 +177,21 @@ const ProductsDataGrid = () => {
             )}
             {params.row?.images?.length === 0 ? (
               <Tooltip title="Add photo" arrow={true}>
-                <IconButton>
+                <IconButton
+                  onClick={() => {
+                    productStore.openPhotoPopup(params.row.id);
+                  }}
+                >
                   <AddAPhotoOutlinedIcon sx={{ color: "darkSlateBlue" }} />
                 </IconButton>
               </Tooltip>
             ) : (
               <Tooltip title="Photo" arrow={true}>
-                <IconButton onClick={() => console.log(params.row)}>
+                <IconButton
+                  onClick={() => {
+                    productStore.openPhotoDetailsPopup(params.row.id);
+                  }}
+                >
                   <PhotoCameraOutlinedIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>

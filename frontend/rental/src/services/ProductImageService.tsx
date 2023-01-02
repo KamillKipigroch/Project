@@ -9,7 +9,7 @@ export const addProductImage = async (body: IAddProductImage): Promise<IProductI
   const formData = new FormData();
 
   formData.append("productId", body.productId.toString());
-  formData.append("photo", body.photo);
+  formData.append("image", body.photo[0]);
 
   const response = await axios.post(baseUrl + "add", formData, axiosConfigUploadPhoto);
   return response.data;

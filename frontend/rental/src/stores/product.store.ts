@@ -8,7 +8,9 @@ import {
 } from "mobx";
 import { toast } from "react-toastify";
 import { IAddOrder } from "../models/OrderModel";
+import { IAddProductImage } from "../models/ProductImageModel";
 import { IAddProduct, IProduct } from "../models/ProductModel";
+import { addProductImage } from "../services/ProductImageService";
 import {
   addProduct,
   disableVisibilityProduct,
@@ -35,6 +37,8 @@ export class ProductStore {
   @observable isDetailsAreYouSurePopup: boolean = false;
 
   @observable isPhotoPopupOpen: boolean = false;
+
+  @observable isPhotoDetailsPopupOpen: boolean = false;
 
   @computed get allProducts() {
     return this.products;
@@ -283,7 +287,33 @@ export class ProductStore {
 
   @action
   openPhotoPopup = (id: number) => {
-    this.detailedProduct = this.allProducts.find((x) => x.id == id);
+    this.detailedProduct = this.allProducts.find((x) => x.id === id);
     this.isPhotoPopupOpen = true;
   };
+
+  @action
+  addPhotoToProduct = async (photo: IAddProductImage) => {
+    if (this.detailedProduct) {
+      photo.productId = this.detailedProduct.id;
+      const response = await addProductImage(photo);
+      await this.fetchProducts();
+      toast.success("Successfully added photo!");
+    }
+  }
+
+  @action
+  closePhotoPopup = () => {
+    this.isPhotoPopupOpen = false;
+  }
+
+  @action
+  openPhotoDetailsPopup = (id: number) => {
+    this.detailedProduct = this.allProducts.find((x) => x.id === id);
+    this.isPhotoDetailsPopupOpen = true;
+  }
+
+  @action
+  closePhotoDetailsPopup = () => {
+    this.isPhotoDetailsPopupOpen = false;
+  }
 }

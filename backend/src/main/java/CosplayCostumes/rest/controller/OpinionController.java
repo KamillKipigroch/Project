@@ -35,15 +35,9 @@ public class OpinionController {
     private final ProductService productService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<OpinionResponse>> getAllOpinions() {
+    public ResponseEntity<List<Opinion>> getAllOpinions() {
         List<Opinion> opinions = opinionService.findAllOpinion();
-        List<OpinionResponse> opinionsResponse = new ArrayList<>();
-        opinions.forEach(opinion -> {
-            Set<OpinionImageDTO> images = new HashSet<>();
-            OpinionResponse opinionResponse = opinionMapper(opinion, images);
-            opinionsResponse.add(opinionResponse);
-        });
-        return new ResponseEntity<>(opinionsResponse, HttpStatus.OK);
+        return new ResponseEntity<>(opinions, HttpStatus.OK);
     }
 
     @PostMapping("/add-object")

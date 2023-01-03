@@ -34,6 +34,7 @@ public class OpinionImageService {
 
         OpinionImage newOpinionImage = new OpinionImage();
         newOpinionImage.setOpinion(opinion);
+        newOpinionImage.setCode(code);
         newOpinionImage.setVisible(true);
 
         return opinionImageRepository.save(newOpinionImage);

@@ -57,7 +57,6 @@ public class OpinionService {
 
     public void deleteOpinion(Long id) {
         Opinion opinion = opinionRepository.findById(id).orElseThrow(() -> new FindException(OPINION_NO_FOUND + id));
-        opinion.setVisible(false);
-        opinionRepository.save(opinion);
+        opinionRepository.delete(opinion);
     }
 }

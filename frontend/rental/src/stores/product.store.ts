@@ -18,6 +18,7 @@ import {
   getProducts,
   updateProduct,
 } from "../services/ProductService";
+import { authStore } from "./auth.store";
 import { RootStore } from "./root.store";
 
 export class ProductStore {
@@ -267,7 +268,7 @@ export class ProductStore {
       if (this.detailedProduct) {
         const order: IAddOrder = {
           productID: this.detailedProduct.id,
-          userID: 1,
+          userID: authStore.user_id!,
         };
 
         console.log(order);

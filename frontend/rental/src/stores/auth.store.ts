@@ -23,6 +23,7 @@ class AuthStore {
   @observable name: string | null = null;
   @observable preferred_username: string | null = null;
   @observable email: string | null = null;
+  @observable user_id: number | null = null;
 
   @observable loading: boolean = false;
 
@@ -99,6 +100,7 @@ class AuthStore {
     this.name = decodedToken.name;
     this.preferred_username = decodedToken.preferred_username;
     this.email = decodedToken.email;
+    this.user_id = decodedToken.user_id
   };
 
   @action
@@ -115,6 +117,7 @@ class AuthStore {
     this.name = null;
     this.preferred_username = null;
     this.email = null;
+    this.user_id = null;
   };
 }
 

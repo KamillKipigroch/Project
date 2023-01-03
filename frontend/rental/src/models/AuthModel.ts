@@ -19,4 +19,5 @@ export interface IDecodedToken {
   name: string;
   preferred_username: string;
   email: string;
+  user_id: number;
 }

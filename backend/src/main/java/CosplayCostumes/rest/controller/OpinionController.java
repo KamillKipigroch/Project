@@ -31,8 +31,6 @@ import static CosplayCostumes.config.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 @RequestMapping("/api/opinion")
 public class OpinionController {
     private final OpinionService opinionService;
-    private final OpinionImageService opinionImageService;
-
     private final UserService userService;
     private final ProductService productService;
 

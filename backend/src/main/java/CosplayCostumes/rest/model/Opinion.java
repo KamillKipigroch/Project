@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,7 +45,7 @@ public class Opinion implements Serializable {
 
     private String description;
 
-    @OneToMany(mappedBy = "opinion")
+    @OneToMany(mappedBy = "opinion", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"opinion"})
     private Set<OpinionImage> opinionImages;
 

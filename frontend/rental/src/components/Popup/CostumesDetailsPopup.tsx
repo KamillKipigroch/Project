@@ -7,8 +7,17 @@ import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
 import maleficent from "../../assets/maleficent.webp";
-import { Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Divider,
+  Grid,
+  Rating,
+  TextField,
+  Typography,
+} from "@mui/material";
 import AreYouSurePopup from "../../Common/AreYouSurePopup";
+import { Form } from "react-bootstrap";
 
 const Div = styled.div`
   display: flex;
@@ -93,7 +102,62 @@ const CostumesDetailsPopup = () => {
               </Element>
             </Div>
           </Grid>
-          <Grid></Grid>
+          <Grid item xs={12}>
+            <Divider>
+              <Chip label="Opinions" />
+            </Divider>
+            <Typography variant="h4">Opinions</Typography>
+            <Box>
+              <Box padding="10px">
+                <Box>
+                  <Rating name="simple-controlled" readOnly={true} value={4} />
+                  <Typography display="inline">Hello world!</Typography>
+                </Box>
+                <TextField
+                  margin="normal"
+                  disabled
+                  fullWidth
+                  value="Super produkt"
+                ></TextField>
+                <Box textAlign="center">
+                  <img
+                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                    alt=""
+                    width="250px"
+                    height="250px"
+                  />
+                </Box>
+              </Box>
+              <Divider>
+                <Chip label="Next" />
+              </Divider>
+            </Box>
+            <Box>
+              <Box padding="10px">
+                <Box>
+                  <Rating name="simple-controlled" readOnly={true} value={4} />
+                  <Typography display="inline">Hello world!</Typography>
+                </Box>
+                <TextField
+                  margin="normal"
+                  disabled
+                  fullWidth
+                  value="Super produkt"
+                ></TextField>
+                <Box textAlign="center">
+                  <img
+                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                    alt=""
+                    width="250px"
+                    height="250px"
+                  />
+                </Box>
+              </Box>
+              <Divider>
+                <Chip label="Next" />
+              </Divider>
+            </Box>
+          </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>

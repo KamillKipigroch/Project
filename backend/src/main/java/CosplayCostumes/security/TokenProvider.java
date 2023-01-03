@@ -1,7 +1,6 @@
 package CosplayCostumes.security;
 
 import CosplayCostumes.security.user.model.User;
-import CosplayCostumes.security.user.service.UserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
@@ -47,9 +46,9 @@ public class TokenProvider {
                 .setIssuer(TOKEN_ISSUER)
                 .setAudience(TOKEN_AUDIENCE)
                 .setSubject(user.getUsername())
+                .claim("user_id", user.getId())
                 .claim("rol", roles)
                 .claim("name", user.getFirstName()+" "+user.getLastName())
-                .claim("preferred_username", user.getUsername())
                 .claim("email", user.getEmail())
                 .compact();
     }

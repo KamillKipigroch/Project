@@ -48,7 +48,6 @@ public class LoginController {
 
     public String authenticateAndGetToken(String username, String password) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        System.out.println(authentication.toString());
         return tokenProvider.generate(authentication);
     }
 }

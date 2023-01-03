@@ -93,6 +93,7 @@ const CostumesDetailsPopup = () => {
               </Element>
             </Div>
           </Grid>
+          <Grid></Grid>
         </Grid>
       </DialogContent>
       <DialogActions>

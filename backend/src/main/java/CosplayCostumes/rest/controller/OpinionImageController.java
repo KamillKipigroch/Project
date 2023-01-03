@@ -32,6 +32,7 @@ public class OpinionImageController {
     private final Cloudinary cloudinary;
 
     @RequestMapping(path = "/add-object", method = POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<OpinionImage> upload(@RequestPart("opinionId") String opinionId, @RequestPart("image") MultipartFile image) throws IOException {
         var opinion = opinionService.findOpinionById(Long.parseLong(opinionId));
         var uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());

@@ -70,6 +70,7 @@ public class WebSecurityConfig {
             "?*/disable-visibility-object",
             "?*/update-status-object",
             "?*/find-object/?*",
+            "/api/opinion-image/add-object",
             "?*/get-all-objects"
     };
 

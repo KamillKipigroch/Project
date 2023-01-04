@@ -3,6 +3,8 @@ package CosplayCostumes.rest.model.dto.order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 public class OrderResponse {
@@ -13,4 +15,8 @@ public class OrderResponse {
     private String productName;
     private Long userID;
     private String userName;
+    private Boolean isFinished;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
+    private Double price;
 }

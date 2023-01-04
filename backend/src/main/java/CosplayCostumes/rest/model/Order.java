@@ -4,9 +4,12 @@ import CosplayCostumes.security.user.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.scheduling.quartz.LocalDataSourceJobStore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_t")
@@ -38,6 +41,13 @@ public class Order implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private LocalDate dateStart;
+
+    private LocalDate dateEnd;
+
+    private Boolean isFinished;
+
+    private Double price;
     private Boolean visible;
 
     public Order(Product product, User user) {

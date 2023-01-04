@@ -31,7 +31,7 @@ public class Opinion implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne( fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"id","opinions","userRole", "username", "authorities","accountNonExpired","credentialsNonExpired","accountNonLocked"})
     User user;
@@ -42,7 +42,7 @@ public class Opinion implements Serializable {
     Product product;
 
     private Double value;
-
+    @Column(length=1000)
     private String description;
 
     @OneToMany(mappedBy = "opinion", cascade = CascadeType.ALL)

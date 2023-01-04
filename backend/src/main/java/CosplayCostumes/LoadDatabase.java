@@ -258,9 +258,9 @@ public class LoadDatabase {
             }
 
             if (orderStatusRepository.findAll().isEmpty()) {
-                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("In realization", 1)));
-                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("Completed", 2)));
-                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("Cancelled", 3)));
+                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("Submitted", 1)));
+                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("In realization", 2)));
+                log.info("Preloading " + orderStatusRepository.save(new OrderStatus("Completed", 3)));
             }
         };
     }

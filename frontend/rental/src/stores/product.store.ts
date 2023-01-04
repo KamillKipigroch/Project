@@ -94,6 +94,8 @@ export class ProductStore {
       const response = await addProduct(productData);
       this.products = [...this.products, response];
 
+      await this.fetchProducts();
+
       toast.success("Successfully added new product!");
 
       this.loading = false;

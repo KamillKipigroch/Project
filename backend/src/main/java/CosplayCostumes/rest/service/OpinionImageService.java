@@ -50,7 +50,6 @@ public class OpinionImageService {
         if (opinionImageRepository.findByCode(opinionImage.getCode()).isEmpty())
             throw new FindException(OPINION_IMAGE_EXIST + opinionImage.getCode());
 
-        opinionImage.setVisible(false);
-        opinionImageRepository.save(opinionImage);
+        opinionImageRepository.delete(opinionImage);
     }
 }

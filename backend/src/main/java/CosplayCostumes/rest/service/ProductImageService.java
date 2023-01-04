@@ -47,7 +47,6 @@ public class ProductImageService {
     public void deleteProductImage(Long id) {
         var delete = productImageRepository.findById(id).orElseThrow( () ->
                 new FindException(PRODUCT_IMAGE_NO_FOUND_ID + id));
-        delete.setVisible(false);
-        productImageRepository.save(delete);
+        productImageRepository.delete(delete);
     }
 }

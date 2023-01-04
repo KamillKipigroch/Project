@@ -38,7 +38,7 @@ public class ProductImageController {
         return new ResponseEntity<>(productImage, HttpStatus.OK);
     }
 
-    @PutMapping("/disable-visibility")
+    @DeleteMapping("/disable-visibility")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<ProductImage> deleteProductImage(@RequestBody ModelDTO modelDTO) {
         productImageService.deleteProductImage(modelDTO.getId());

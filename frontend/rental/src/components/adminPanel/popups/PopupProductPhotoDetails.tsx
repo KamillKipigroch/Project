@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../../stores/root.store";
+import { Carousel } from "react-responsive-carousel";
+import { Box } from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -44,17 +46,33 @@ const PopupProductPhotoDetails = () => {
         <DialogContent>
           <Div>
             <Element>
-              <img
-                alt=""
-                src={productStore?.detailedProduct?.images[0]?.code}
-                width="250"
-                sizes="max-"
-                style={{
-                  width: "300px",
-                  height: "370px",
-                  objectFit: "cover",
-                }}
-              />
+              {productStore.detailedProduct?.images.length !== 0 ? (
+                <Carousel
+                  showStatus={false}
+                  showThumbs={false}
+                  infiniteLoop={true}
+                  width="400px"
+                  dynamicHeight={false}
+                >
+                  {productStore.detailedProduct?.images.map((photo) => (
+                    <Box key={photo.id} textAlign="center">
+                      <img
+                        src={photo.code}
+                        alt=""
+                        height="400px"
+                        style={{ objectFit: "cover" }}
+                      />
+                      <Button
+                        variant="text"
+                        className="legend myLegend"
+                        onClick={() => productStore.deletePhotoFromProduct(photo.id)}
+                      >
+                        Delete photo
+                      </Button>
+                    </Box>
+                  ))}
+                </Carousel>
+              ) : null}
             </Element>
           </Div>
         </DialogContent>

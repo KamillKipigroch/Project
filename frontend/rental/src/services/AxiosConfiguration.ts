@@ -1,7 +1,7 @@
 import { authStore } from "../stores/auth.store";
 
 
-const getToken = () => {
+export const getToken = () => {
   if (!authStore.accessToken) {
     authStore.autoLogin();
   }

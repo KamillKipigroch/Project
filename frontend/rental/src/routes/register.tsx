@@ -11,6 +11,7 @@ const Register = () => {
   const navigate = useNavigate();
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<IUserRegistrationForm>();
@@ -84,9 +85,32 @@ const Register = () => {
           style={{ marginBottom: "4px" }}
           {...register("password", {
             required: "Field required",
+            minLength: {
+              value: 6,
+              message: "Password too short",
+            },
           })}
           error={!!errors?.password}
           helperText={errors?.password ? errors.password.message : null}
+        />
+        <TextField
+          type="password"
+          label="Confirm Password"
+          margin="normal"
+          required
+          style={{ marginBottom: "4px" }}
+          {...register("confirmPassword", {
+            required: "Field required",
+            validate: (val: string) => {
+              if (watch("password") !== val) {
+                return "Passwords do not match";
+              }
+            },
+          })}
+          error={!!errors?.confirmPassword}
+          helperText={
+            errors?.confirmPassword ? errors.confirmPassword.message : null
+          }
         />
         <Box>
           <Button

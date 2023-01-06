@@ -6,17 +6,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
-import maleficent from "../../assets/maleficent.webp";
-import {
-  Box,
-  Chip,
-  Divider,
-  Grid,
-  Rating,
-  TextField,
-  Typography,
-  withStyles,
-} from "@mui/material";
+import noPhoto from "../../assets/no_photo.jpg";
+import { Box, Chip, Divider, Grid, Rating, Typography } from "@mui/material";
 import AreYouSurePopup from "../../Common/AreYouSurePopup";
 import moment from "moment";
 import { Carousel } from "react-responsive-carousel";
@@ -48,51 +39,73 @@ const CostumesDetailsPopup = () => {
           <Grid item xs={6}>
             <Div>
               <Element>
-                <img
-                  alt=""
-                  src={
-                    productStore.detailedProduct?.images.length === 0
-                      ? maleficent
-                      : productStore.detailedProduct?.images[0].code
-                  }
-                  width="250"
-                  sizes="max-"
-                  style={{
-                    width: "300px",
-                    height: "370px",
-                    objectFit: "cover",
-                  }}
-                ></img>
+                {productStore.detailedProduct?.images.length !== 0 ? (
+                  <Carousel
+                    showStatus={false}
+                    showThumbs={false}
+                    infiniteLoop={true}
+                    dynamicHeight={false}
+                  >
+                    {productStore.detailedProduct?.images.map(
+                      (photo, index) => (
+                        <Box key={index} textAlign="center">
+                          <img
+                            alt=""
+                            src={photo.code}
+                            width="250"
+                            sizes="max-"
+                            style={{
+                              width: "300px",
+                              height: "370px",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </Box>
+                      )
+                    )}
+                  </Carousel>
+                ) : (
+                  <img
+                    alt=""
+                    src={noPhoto}
+                    width="250"
+                    sizes="max-"
+                    style={{
+                      width: "300px",
+                      height: "370px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
               </Element>
             </Div>
           </Grid>
           <Grid item xs={6}>
             <Div>
               <Element>
-                <Typography>
-                  {`${productStore.detailedProduct?.code} - ${productStore.detailedProduct?.hero}`}
+                <Typography variant="h6" textAlign="center">
+                  {productStore.detailedProduct?.code} - {productStore.detailedProduct?.price}$
                 </Typography>
                 <Typography>
-                  <b>Hero name:</b> {productStore.detailedProduct?.hero}
+                  <b>Hero:</b> {productStore.detailedProduct?.hero}
                 </Typography>
                 <Typography>
-                  <b>Product type:</b>{" "}
-                  {productStore.detailedProduct?.productType.code}
-                </Typography>
-                <Typography>
-                  <b>Sub-category:</b>{" "}
-                  {productStore.detailedProduct?.subcategory.code}
+                  <b>Type:</b> {productStore.detailedProduct?.productType.code}
                 </Typography>
                 <Typography>
                   <b>Category:</b>{" "}
                   {productStore.detailedProduct?.subcategory.category.code}
                 </Typography>
                 <Typography>
-                  <b>Product Description:</b>{" "}
+                  <b>Description:</b>{" "}
                   {productStore.detailedProduct?.description}
                 </Typography>
                 <Typography>
                   <b>Product PRICE:</b> {productStore.detailedProduct?.price}$
+                </Typography>
+                <Typography>
+                  <b>Subcategory:</b>{" "}
+                  {productStore.detailedProduct?.subcategory.code}
                 </Typography>
                 <Typography>
                   <b>Sub-category Description:</b>{" "}

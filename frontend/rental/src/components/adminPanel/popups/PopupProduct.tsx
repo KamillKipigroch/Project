@@ -60,20 +60,25 @@ const Popup = () => {
     qualityStore,
   } = useStores();
 
-  const [open, setOpen] = React.useState(false);
-  // const [photo, setPhoto] = React.useState<File>();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit: SubmitHandler<IAddProduct> = async (data) => {
-    await productStore.addProduct(data);
-    handleClose();
+    if (productStore.editMode) {
+      if (productStore.detailedProduct) {
+        productStore.detailedProduct.code = data.code;
+        productStore.detailedProduct.description = data.description;
+        productStore.detailedProduct.price = data.price;
+        productStore.detailedProduct.hero = data.hero;
+        productStore.detailedProduct.productType.id = data.productTypeID;
+        productStore.detailedProduct.subcategory.id = data.subCategoryID;
+        productStore.detailedProduct.condition.id = data.conditionID;
+        productStore.detailedProduct.quality.id = data.qualityID;
+
+        await productStore.updateProduct(productStore.detailedProduct);
+      }
+    } else {
+      await productStore.addProduct(data);
+    }
+
+    productStore.closePopup();
   };
 
   return (
@@ -82,15 +87,17 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={() => productStore.openPopup()}
           sx={{ ml: 1 }}
         >
           New element
         </Button>
       </ThemeProvider>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={productStore.isPopupOpen} onClose={productStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>Add product</DialogTitle>
+          <DialogTitle>
+            {productStore.editMode ? <>Edit product</> : <>Add product</>}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -275,20 +282,10 @@ const Popup = () => {
                   </FormHelperText>
                 </FormControl>
               </Element>
-              {/* <Element>
-                <Form.Group controlId="formFileMultiple" className="mb-3">
-                  <Form.Label>Add product photos</Form.Label>
-                  <Form.Control
-                    type="file"
-                    accept="image/*"
-                    onChange={(e: any) => setPhoto(e.target.files[0])}
-                  />
-                </Form.Group>
-              </Element> */}
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={() => productStore.closePopup()}>Cancel</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

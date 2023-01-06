@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.myLegend {
+  background-color: rgb(235, 66, 66) !important;
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+  width: 30% !important;
+}

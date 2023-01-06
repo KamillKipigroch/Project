@@ -88,8 +88,7 @@ const ProductsDataGrid = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "visible", headerName: "Visible", width: 90, editable: true },
-    { field: "name", headerName: "Name", width: 150, editable: true },
+    { field: "code", headerName: "Name", width: 150, editable: true },
     {
       field: "createDate",
       headerName: "Create Date",
@@ -156,9 +155,7 @@ const ProductsDataGrid = () => {
         return (
           <Box>
             <Tooltip title="Edit" arrow={true}>
-              <IconButton
-                onClick={() => console.log()}
-              >
+              <IconButton onClick={() => productStore.openPopup(params.row.id)}>
                 <EditIcon sx={{ color: "#4f70e8" }} />
               </IconButton>
             </Tooltip>
@@ -183,16 +180,17 @@ const ProductsDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
+            <Tooltip title="Add photo" arrow={true}>
+              <IconButton
+                onClick={() => {
+                  productStore.openPhotoPopup(params.row.id);
+                }}
+              >
+                <AddAPhotoOutlinedIcon sx={{ color: "darkSlateBlue" }} />
+              </IconButton>
+            </Tooltip>
             {params.row?.images?.length === 0 ? (
-              <Tooltip title="Add photo" arrow={true}>
-                <IconButton
-                  onClick={() => {
-                    productStore.openPhotoPopup(params.row.id);
-                  }}
-                >
-                  <AddAPhotoOutlinedIcon sx={{ color: "darkSlateBlue" }} />
-                </IconButton>
-              </Tooltip>
+              <></>
             ) : (
               <Tooltip title="Photo" arrow={true}>
                 <IconButton
@@ -214,26 +212,26 @@ const ProductsDataGrid = () => {
     // { field: "image", headerName: "Image", width: 110, editable: true },
   ];
 
-  let display = [];
-  for (let i = 0; i < productStore.allProducts.length; i++) {
-    display.push({
-      id: productStore.allProducts[i].id,
-      businessKey: productStore.allProducts[i].businessKey,
-      visible: productStore.allProducts[i].visible,
-      name: productStore.allProducts[i].code,
-      createDate: productStore.allProducts[i].createDate,
-      description: productStore.allProducts[i].description,
-      price: productStore.allProducts[i].price.toFixed(2),
-      hero: productStore.allProducts[i].hero,
-      productType: productStore.allProducts[i].productType.code,
-      quality: productStore.allProducts[i].quality.code,
-      condition: productStore.allProducts[i].condition.code,
-      subcategory: productStore.allProducts[i].subcategory.code,
-      // TODO opinions
-      opinions: "",
-      image: "",
-    });
-  }
+  // let display = [];
+  // for (let i = 0; i < productStore.allProducts.length; i++) {
+  //   display.push({
+  //     id: productStore.allProducts[i].id,
+  //     businessKey: productStore.allProducts[i].businessKey,
+  //     visible: productStore.allProducts[i].visible,
+  //     name: productStore.allProducts[i].code,
+  //     createDate: productStore.allProducts[i].createDate,
+  //     description: productStore.allProducts[i].description,
+  //     price: productStore.allProducts[i].price.toFixed(2),
+  //     hero: productStore.allProducts[i].hero,
+  //     productType: productStore.allProducts[i].productType.code,
+  //     quality: productStore.allProducts[i].quality.code,
+  //     condition: productStore.allProducts[i].condition.code,
+  //     subcategory: productStore.allProducts[i].subcategory.code,
+  //     // TODO opinions
+  //     opinions: "",
+  //     image: "",
+  //   });
+  // }
 
   // let display = [
   //   {

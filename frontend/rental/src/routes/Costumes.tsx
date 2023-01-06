@@ -1,9 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import Maleficent from "../assets/maleficent.webp";
-import SpiderMan from "../assets/spiderMan.jpeg";
 import maleficent from "../assets/maleficent.webp";
-import test2 from "../assets/test2.png";
+import noPhoto from "../assets/no_photo.jpg";
 import FilterComponent from "../components/filterComponent";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
@@ -85,7 +83,7 @@ const Costumes = () => {
               >
                 <img
                   alt={product.code}
-                  src={product.images.length === 0 ? maleficent : product.images[0].code}
+                  src={product.images.length === 0 ? noPhoto : product.images[0].code}
                   width="250"
                   sizes="max-"
                   style={{

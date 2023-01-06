@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { IAddOrder } from "../models/OrderModel";
 import { IAddProductImage } from "../models/ProductImageModel";
 import { IAddProduct, IProduct } from "../models/ProductModel";
-import { addProductImage } from "../services/ProductImageService";
+import { addProductImage, deleteProductImage } from "../services/ProductImageService";
 import {
   addProduct,
   disableVisibilityProduct,
@@ -41,7 +41,8 @@ export class ProductStore {
 
   @observable isPhotoDetailsPopupOpen: boolean = false;
 
-  @observable isEditPopupOpen: boolean = false;
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
 
   @computed get allProducts() {
     return this.products;
@@ -114,8 +115,8 @@ export class ProductStore {
       this.loading = true;
 
       const response = await updateProduct(productData);
-      const foundIndex = this.products.findIndex((x) => x.id === response.id);
-      this.products[foundIndex] = response;
+
+      await this.fetchProducts();
 
       toast.success("Successfully updated product!");
 
@@ -325,4 +326,29 @@ export class ProductStore {
   closePhotoDetailsPopup = () => {
     this.isPhotoDetailsPopupOpen = false;
   };
+
+  @action
+  openPopup = (id?: number) => {
+    if (id) {
+      this.detailedProduct = this.allProducts.find((x) => x.id === id);
+      this.editMode = true;
+    }
+    this.isPopupOpen = true;
+  }
+
+  @action
+  closePopup = () => {
+    this.editMode = false;
+    this.isPopupOpen = false;
+  }
+
+  @action
+  deletePhotoFromProduct = async (id: number) => {
+    if (this.detailedProduct) {
+      await deleteProductImage(id);
+      await this.fetchProducts();
+      this.detailedProduct = this.allProducts.find((x) => x.id === this.detailedProduct?.id);
+      toast.success("You've successfully deleted photo from product!");
+    }
+  }
 }

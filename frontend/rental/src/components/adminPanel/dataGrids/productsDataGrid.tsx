@@ -9,6 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { IconButton, Tooltip } from "@mui/material";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
+import EditIcon from "@mui/icons-material/Edit";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -154,6 +155,13 @@ const ProductsDataGrid = () => {
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
+            <Tooltip title="Edit" arrow={true}>
+              <IconButton
+                onClick={() => console.log()}
+              >
+                <EditIcon sx={{ color: "#4f70e8" }} />
+              </IconButton>
+            </Tooltip>
             {params.row.visible ? (
               <Tooltip title="Hide" arrow={true}>
                 <IconButton

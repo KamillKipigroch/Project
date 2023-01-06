@@ -18,15 +18,17 @@ export interface IProduct {
   subcategory: ISubCategory;
   condition: ICondition;
   quality: IQuality;
-  opinions: IProductOpinion;
+  opinions: IProductOpinion[];
 }
 
 export interface IProductOpinion {
   id: number;
   value: number;
   description: string;
-  createDate: Date;
+  createDate: string;
   visible: boolean;
+  opinionImages: IOpinionImages[];
+  user: IOpinionUser;
 }
 
 export interface IAddProduct {
@@ -44,4 +46,16 @@ export interface IAddProduct {
 export interface IAddProductProductImages {
   productID: number;
   fileUrl: string;
+}
+
+export interface IOpinionImages {
+  id: number;
+  code: string;
+  visible: boolean;
+}
+
+export interface IOpinionUser {
+  firstName: string;
+  lastName: string;
+  email: string;
 }

@@ -10,6 +10,7 @@ import MainRoutes from "./components/ProtectedRoutes/MainRoutes";
 import { useEffect } from "react";
 import { authStore } from "./stores/auth.store";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 AxiosInterceptors();
 

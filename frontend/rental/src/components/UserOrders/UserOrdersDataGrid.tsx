@@ -1,9 +1,10 @@
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
-import { Typography } from "@mui/material";
+import { IconButton, Tooltip, Typography } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 const UserOrdersDataGrid = () => {
   const { orderStore, orderStatusStore } = useStores();
@@ -39,6 +40,23 @@ const UserOrdersDataGrid = () => {
       editable: true,
       flex: 1,
     },
+    {
+      field: "actions",
+      headerName: "Actions",
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <Box>
+            <Tooltip title="Add opinion" arrow={true}>
+                <IconButton
+                  onClick={() => console.log()}
+                >
+                  <AddIcon sx={{ color: "green" }} />
+                </IconButton>
+              </Tooltip>
+          </Box>
+        )
+      }
+    }
   ];
 
   return (

@@ -41,6 +41,8 @@ export class ProductStore {
 
   @observable isPhotoDetailsPopupOpen: boolean = false;
 
+  @observable isEditPopupOpen: boolean = false;
+
   @computed get allProducts() {
     return this.products;
   }
@@ -246,6 +248,10 @@ export class ProductStore {
   @action
   openDetailsPopup = (id: number) => {
     this.detailedProduct = this.products.find((x) => x.id === id);
+    this.detailedProduct?.opinions.sort(
+      (a, b) =>
+        new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
+    );
     this.isDetailsPopupOpen = true;
   };
 
@@ -302,21 +308,21 @@ export class ProductStore {
       await this.fetchProducts();
       toast.success("Successfully added photo!");
     }
-  }
+  };
 
   @action
   closePhotoPopup = () => {
     this.isPhotoPopupOpen = false;
-  }
+  };
 
   @action
   openPhotoDetailsPopup = (id: number) => {
     this.detailedProduct = this.allProducts.find((x) => x.id === id);
     this.isPhotoDetailsPopupOpen = true;
-  }
+  };
 
   @action
   closePhotoDetailsPopup = () => {
     this.isPhotoDetailsPopupOpen = false;
-  }
+  };
 }

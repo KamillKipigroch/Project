@@ -15,9 +15,11 @@ import {
   Rating,
   TextField,
   Typography,
+  withStyles,
 } from "@mui/material";
 import AreYouSurePopup from "../../Common/AreYouSurePopup";
-import { Form } from "react-bootstrap";
+import moment from "moment";
+import { Carousel } from "react-responsive-carousel";
 
 const Div = styled.div`
   display: flex;
@@ -68,10 +70,7 @@ const CostumesDetailsPopup = () => {
             <Div>
               <Element>
                 <Typography>
-                  <b>Id:</b> {productStore.detailedProduct?.id}
-                </Typography>
-                <Typography>
-                  <b>Name:</b> {productStore.detailedProduct?.code}
+                  {`${productStore.detailedProduct?.code} - ${productStore.detailedProduct?.hero}`}
                 </Typography>
                 <Typography>
                   <b>Hero name:</b> {productStore.detailedProduct?.hero}
@@ -85,10 +84,6 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.subcategory.code}
                 </Typography>
                 <Typography>
-                  <b>Sub-category Description:</b>{" "}
-                  {productStore.detailedProduct?.subcategory.description}
-                </Typography>
-                <Typography>
                   <b>Category:</b>{" "}
                   {productStore.detailedProduct?.subcategory.category.code}
                 </Typography>
@@ -99,63 +94,74 @@ const CostumesDetailsPopup = () => {
                 <Typography>
                   <b>Product PRICE:</b> {productStore.detailedProduct?.price}$
                 </Typography>
+                <Typography>
+                  <b>Sub-category Description:</b>{" "}
+                  {productStore.detailedProduct?.subcategory.description}
+                </Typography>
               </Element>
             </Div>
           </Grid>
           <Grid item xs={12}>
-            <Divider>
-              <Chip label="Opinions" />
-            </Divider>
-            <Typography variant="h4">Opinions</Typography>
-            <Box>
-              <Box padding="10px">
-                <Box>
-                  <Rating name="simple-controlled" readOnly={true} value={4} />
-                  <Typography display="inline">Hello world!</Typography>
-                </Box>
-                <TextField
-                  margin="normal"
-                  disabled
-                  fullWidth
-                  value="Super produkt"
-                ></TextField>
-                <Box textAlign="center">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt=""
-                    width="250px"
-                    height="250px"
-                  />
-                </Box>
-              </Box>
+            <Box display="flex" flexDirection="column">
               <Divider>
-                <Chip label="Next" />
+                <Chip label="Opinions" />
               </Divider>
-            </Box>
-            <Box>
-              <Box padding="10px">
-                <Box>
-                  <Rating name="simple-controlled" readOnly={true} value={4} />
-                  <Typography display="inline">Hello world!</Typography>
+              {productStore.detailedProduct?.opinions.map((opinion, index) => (
+                <Box marginTop="15px" key={index}>
+                  <Box padding="10px">
+                    <Box display="flex">
+                      <Rating
+                        name="simple-controlled"
+                        readOnly={true}
+                        value={opinion.value}
+                      />
+                      <Typography
+                        sx={{ fontStyle: "italic" }}
+                        display="inline"
+                        marginLeft="5px"
+                      >
+                        {`${moment(opinion.createDate).format(
+                          "DD-MM-YYYY HH:mm"
+                        )} - ${opinion.user.firstName} ${
+                          opinion.user.lastName
+                        } (${opinion.user.email})`}
+                      </Typography>
+                    </Box>
+                    <Box marginTop="10px" marginBottom="10px">
+                      <Typography
+                        border="solid 1px grey"
+                        borderRadius="5px"
+                        padding="10px"
+                      >
+                        {opinion.description}
+                      </Typography>
+                    </Box>
+                    {opinion.opinionImages.length > 0 ? (
+                      <Box display="flex" justifyContent="center">
+                        <Carousel
+                          showStatus={false}
+                          showThumbs={false}
+                          infiniteLoop={true}
+                          width="250px"
+                          dynamicHeight={false}
+                        >
+                          {opinion.opinionImages.map((photo, index) => (
+                            <Box key={index} textAlign="center">
+                              <img src={photo.code} alt="" height="250px" />
+                            </Box>
+                          ))}
+                        </Carousel>
+                      </Box>
+                    ) : null}
+                  </Box>
+                  {productStore.detailedProduct?.opinions.length !==
+                  index + 1 ? (
+                    <Divider>
+                      <Chip label="Next" />
+                    </Divider>
+                  ) : null}
                 </Box>
-                <TextField
-                  margin="normal"
-                  disabled
-                  fullWidth
-                  value="Super produkt"
-                ></TextField>
-                <Box textAlign="center">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt=""
-                    width="250px"
-                    height="250px"
-                  />
-                </Box>
-              </Box>
-              <Divider>
-                <Chip label="Next" />
-              </Divider>
+              ))}
             </Box>
           </Grid>
         </Grid>

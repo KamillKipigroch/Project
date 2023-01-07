@@ -36,7 +36,7 @@ public class WebSecurityConfig {
             "/api/condition/get-all",
             "/api/opinion/get-all",
             "/api/opinion-image/get-all",
-            "/api/order/get-all",
+            "/api/order/get-all-objects",
             "/api/product/get-all",
             "/api/product-image/get-all",
             "/api/product-type/get-all",

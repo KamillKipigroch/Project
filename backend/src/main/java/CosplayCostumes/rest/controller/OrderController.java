@@ -37,7 +37,6 @@ public class OrderController {
     private final ProductService productService;
 
     @GetMapping("/get-all-objects")
-    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<List<OrderResponse>> getAllOrders() {
         List<Order> orders = orderService.findAllOrder();
         List<OrderResponse> response = new ArrayList<>();

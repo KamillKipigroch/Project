@@ -6,7 +6,6 @@ import { useStores } from "../../stores/root.store";
 import { IconButton, Tooltip, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CreateOpinionPopup from "./Popup/CreateOpinionPopup";
-import EditIcon from "@mui/icons-material/Edit";
 
 const UserOrdersDataGrid = () => {
   const { orderStore, orderStatusStore, opinionStore, productStore } =
@@ -71,9 +70,9 @@ const UserOrdersDataGrid = () => {
         height: 400,
         width: "100%",
         "& .--Completed": {
-          bgcolor: "#dcf2bc" + "!important",
+          bgcolor: "#dcf2bc !important",
           "&:hover": {
-            bgcolor: "#D6ECB6" + "!important",
+            bgcolor: "#D6ECB6 !important",
           },
         },
       }}

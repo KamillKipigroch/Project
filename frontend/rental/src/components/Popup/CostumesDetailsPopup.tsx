@@ -84,7 +84,8 @@ const CostumesDetailsPopup = () => {
             <Div>
               <Element>
                 <Typography variant="h6" textAlign="center">
-                  {productStore.detailedProduct?.code} - {productStore.detailedProduct?.price}$
+                  {productStore.detailedProduct?.code} -{" "}
+                  {productStore.detailedProduct?.price}$
                 </Typography>
                 <Typography>
                   <b>Hero:</b> {productStore.detailedProduct?.hero}
@@ -155,12 +156,17 @@ const CostumesDetailsPopup = () => {
                           showStatus={false}
                           showThumbs={false}
                           infiniteLoop={true}
-                          width="250px"
-                          dynamicHeight={false}
+                          width="200px"
+                          // dynamicHeight={false}
                         >
                           {opinion.opinionImages.map((photo, index) => (
                             <Box key={index} textAlign="center">
-                              <img src={photo.code} alt="" height="250px" />
+                              <img
+                                src={photo.code}
+                                alt=""
+                                height="225px"
+                                style={{ objectFit: "cover" }}
+                              />
                             </Box>
                           ))}
                         </Carousel>

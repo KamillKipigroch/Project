@@ -97,9 +97,9 @@ const OrdersDataGrid = () => {
         height: 400,
         width: "100%",
         "& .--Completed": {
-          bgcolor: "#dcf2bc" + "!important",
+          bgcolor: "#dcf2bc !important",
           "&:hover": {
-            bgcolor: "#D6ECB6" + "!important",
+            bgcolor: "#D6ECB6 !important",
           },
         },
       }}

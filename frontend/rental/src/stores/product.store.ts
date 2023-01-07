@@ -317,7 +317,7 @@ export class ProductStore {
   addPhotoToProduct = async (photo: IAddProductImage) => {
     if (this.detailedProduct) {
       photo.productId = this.detailedProduct.id;
-      const response = await addProductImage(photo);
+      await addProductImage(photo);
       await this.fetchProducts();
       toast.success("Successfully added photo!");
     }

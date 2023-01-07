@@ -5,9 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled from "styled-components";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { IAddCategory } from "../../../models/CategoryModel";
+import { useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
 import { observer } from "mobx-react-lite";
 import { Box, Rating, Typography } from "@mui/material";
@@ -15,16 +13,6 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { Carousel } from "react-responsive-carousel";
 import { IAddOpinion } from "../../../models/OpinionModel";
-
-const theme = createTheme({
-  palette: {
-    secondary: {
-      main: "#DD5353",
-      dark: "#B73E3E",
-      contrastText: "white",
-    },
-  },
-});
 
 const Div = styled.div`
   display: flex;
@@ -42,7 +30,7 @@ const CreateOpinionPopup = () => {
   const { opinionStore } = useStores();
   const [value, setValue] = React.useState<number | null>(5);
 
-  const { register, handleSubmit, control } = useForm<IAddOpinion>();
+  const { register, handleSubmit } = useForm<IAddOpinion>();
 
   const onSubmit = async (data: IAddOpinion) => {
     if (value) {

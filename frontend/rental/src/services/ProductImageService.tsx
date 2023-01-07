@@ -22,7 +22,7 @@ export const addProductImage = async (
 };
 
 export const deleteProductImage = async (imageId: number): Promise<void> => {
-  const response = await axios.delete(baseUrl + `disable-visibility`, {
+  await axios.delete(baseUrl + `disable-visibility`, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
       "Content-Type": "application/json",

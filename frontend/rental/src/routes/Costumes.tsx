@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import maleficent from "../assets/maleficent.webp";
 import noPhoto from "../assets/no_photo.jpg";
 import FilterComponent from "../components/filterComponent";
 import Box from "@mui/material/Box";

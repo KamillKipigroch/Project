@@ -8,7 +8,6 @@ import {
 import { toast } from "react-toastify";
 import {
   IAddOpinion,
-  IAddOpinionImage,
   IOpinion,
   IUpdateOpinion,
 } from "../models/OpinionModel";

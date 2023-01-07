@@ -5,13 +5,24 @@ import {
   observable,
   runInAction,
 } from "mobx";
-import { IAddOpinion, IOpinion, IUpdateOpinion } from "../models/OpinionModel";
+import { toast } from "react-toastify";
+import {
+  IAddOpinion,
+  IAddOpinionImage,
+  IOpinion,
+  IUpdateOpinion,
+} from "../models/OpinionModel";
+import { IOrder } from "../models/OrderModel";
+import { IProduct } from "../models/ProductModel";
+import { addOpinionImage } from "../services/OpinionImageService";
 import {
   addOpinion,
   disableVisibilityOpinion,
   getOpinions,
   updateOpinion,
 } from "../services/OpinionService";
+import { getProductById } from "../services/ProductService";
+import { authStore } from "./auth.store";
 
 export class OpinionStore {
   constructor(context: any) {
@@ -21,18 +32,40 @@ export class OpinionStore {
   @observable opinions: IOpinion[] = [];
   @observable loading: boolean = false;
 
+  @observable isPopupOpen: boolean = false;
+  @observable editMode: boolean = false;
+  @observable editedOpinion: IOpinion | undefined;
+  @observable order: IOrder | undefined;
+  @observable product: IProduct | undefined;
+
   @computed get allOpinions() {
     return this.opinions;
   }
 
-  // There is no visible field - it will be uncommented in the future
-  // @computed get visibleOpinions() {
-  //   return this.opinions.filter((x) => x.visible === true);
-  // }
+  @computed get visibleOpinions() {
+    return this.opinions.filter((x) => x.visible === true);
+  }
 
-  // @computed get notVisibleOpinions() {
-  //   return this.opinions.filter((x) => x.visible === false);
-  // }
+  @computed get notVisibleOpinions() {
+    return this.opinions.filter((x) => x.visible === false);
+  }
+
+  @action
+  openPopup = async (selectedOrder: IOrder, id?: number) => {
+    this.order = selectedOrder;
+    this.product = await getProductById(this.order.productID);
+    
+    if (id) {
+      this.editMode = true;
+    }
+
+    this.isPopupOpen = true;
+  };
+
+  @action
+  closePopup = () => {
+    this.isPopupOpen = false;
+  };
 
   @action
   fetchOpinions = async () => {
@@ -51,15 +84,29 @@ export class OpinionStore {
   };
 
   @action
-  addOpinion = async (opinionData: IAddOpinion) => {
+  addOpinionByUser = async (opinionData: IAddOpinion) => {
     try {
       this.loading = true;
 
+      if (authStore.email && this.product) {
+        opinionData.emailUser = authStore.email;
+        opinionData.productID = this.product.id;
+      }
+
       const response = await addOpinion(opinionData);
+
+      for (let i = 0; i < opinionData.images.length; i++) {
+        let file = opinionData.images.item(i)
+        if (file) {
+          await addOpinionImage(response.id, file);
+        }
+      }
 
       if (response) {
         await this.fetchOpinions();
       }
+
+      toast.success("Successfully added opinion");
 
       this.loading = false;
       return response;

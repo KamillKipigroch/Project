@@ -1,16 +1,13 @@
+import { IOpinionImages, IOpinionUser } from "./ProductModel";
+
 export interface IOpinion {
   id: number;
-  productName: string;
   value: number;
   description: string;
-  opinionImages: IOpinionOpinionImage[];
-  productID: number;
-  userEmail: string;
-}
-
-export interface IOpinionOpinionImage {
-  opinionId: number;
-  fileUrl: string;
+  createDate: string;
+  visible: boolean;
+  opinionImages: IOpinionImages[];
+  user: IOpinionUser;
 }
 
 export interface IUpdateOpinion {
@@ -18,7 +15,7 @@ export interface IUpdateOpinion {
   userEmail: string;
   value: number;
   description: string;
-  opinionImages: IOpinionOpinionImage[];
+  opinionImages: IOpinionImages[];
   productID: number;
 }
 
@@ -26,8 +23,8 @@ export interface IAddOpinion {
   emailUser: string;
   value: number;
   description: string;
-  opinionImages: IOpinionOpinionImage[];
   productID: number;
+  images: FileList;
 }
 
 export interface IAddOpinionResponse {
@@ -36,4 +33,9 @@ export interface IAddOpinionResponse {
   description: number;
   createDate: number;
   visible: boolean;
+}
+
+export interface IAddOpinionImage {
+  opinionId: number;
+  images: FileList;
 }

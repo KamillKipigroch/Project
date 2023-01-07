@@ -11,7 +11,7 @@ export const getProducts = async (): Promise<IProduct[]> => {
 };
 
 export const getProductById = async (productId: number): Promise<IProduct> => {
-  const response = await axios.get(baseUrl + `find${productId}`);
+  const response = await axios.get(baseUrl + `find/${productId}`);
   return response.data;
 };
 

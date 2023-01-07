@@ -3,17 +3,8 @@ import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
 
-const getUniqueNames = (names: string[]) => {
-  let uniqueNames = names.filter((element, index) => {
-    return names.indexOf(element) === index;
-  });
-  return uniqueNames;
-};
-
-export default function OpinionsDataGrid() {
-  //get opinions
+const OpinionsDataGrid = () => {
   const { opinionStore } = useStores();
   useEffect(() => {
     opinionStore.fetchOpinions();
@@ -45,35 +36,10 @@ export default function OpinionsDataGrid() {
     { field: "userEmail", headerName: "UserEmail", width: 150, editable: true },
   ];
 
-  let display = [];
-  for (let i = 0; i < opinionStore.allOpinions.length; i++) {
-    display.push({
-      id: opinionStore.allOpinions[i].id,
-      productName: opinionStore.allOpinions[i].productName,
-      value: opinionStore.allOpinions[i].value,
-      description: opinionStore.allOpinions[i].description,
-      opinionImages: "",
-      productID: opinionStore.allOpinions[i].productID,
-      userEmail: opinionStore.allOpinions[i].userEmail,
-    });
-  }
-
-  // let display = [
-  //   {
-  //     id: 1,
-  //     productName: "test1",
-  //     value: 213,
-  //     description: "testowy description",
-  //     opinionImages: '',
-  //     productID: 12312,
-  //     userEmail: "aa@aa.pl"
-  //   }
-  // ]
-
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={display}
+        rows={opinionStore.allOpinions}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
@@ -84,3 +50,5 @@ export default function OpinionsDataGrid() {
     </Box>
   );
 }
+
+export default observer(OpinionsDataGrid);

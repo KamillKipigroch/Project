@@ -4,14 +4,18 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
 import { IconButton, Tooltip, Typography } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
+import CreateOpinionPopup from "./Popup/CreateOpinionPopup";
+import EditIcon from "@mui/icons-material/Edit";
 
 const UserOrdersDataGrid = () => {
-  const { orderStore, orderStatusStore } = useStores();
+  const { orderStore, orderStatusStore, opinionStore, productStore } =
+    useStores();
 
   useEffect(() => {
     orderStore.getUserOrders();
-  }, [orderStore, orderStatusStore]);
+    productStore.fetchProducts();
+  }, [orderStore, orderStatusStore, productStore]);
 
   const columns: GridColDef[] = [
     {
@@ -47,16 +51,14 @@ const UserOrdersDataGrid = () => {
         return (
           <Box>
             <Tooltip title="Add opinion" arrow={true}>
-                <IconButton
-                  onClick={() => console.log()}
-                >
-                  <AddIcon sx={{ color: "green" }} />
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={() => opinionStore.openPopup(params.row)}>
+                <AddIcon sx={{ color: "green" }} />
+              </IconButton>
+            </Tooltip>
           </Box>
-        )
-      }
-    }
+        );
+      },
+    },
   ];
 
   return (
@@ -72,7 +74,9 @@ const UserOrdersDataGrid = () => {
         },
       }}
     >
-      <Typography variant="h4" marginBottom="10px">Orders number: {orderStore.ordersCount}</Typography>
+      <Typography variant="h4" marginBottom="10px">
+        Orders number: {orderStore.ordersCount}
+      </Typography>
       <DataGrid
         getRowClassName={(params: any) => `--${params.row.statusCode}`}
         // rows={orderStore.allOrders}
@@ -85,6 +89,8 @@ const UserOrdersDataGrid = () => {
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
       />
+
+      <CreateOpinionPopup />
     </Box>
   );
 };

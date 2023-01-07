@@ -17,7 +17,8 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { useTheme } from "@mui/material";
 import { ColorModeContext, tokens } from "../theme";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import i18n from "i18next";
 
 const pages = ["Costumes"];
 const adminPages = ["AdminPanel"];
@@ -36,6 +37,11 @@ function ResponsiveAppBar() {
   };
 
   const navigate = useNavigate();
+  const [mode, setMode] = useState<string>("en");
+
+  useEffect(() => {
+    i18n.changeLanguage(mode);
+  }, [mode]);
 
   return (
     <AppBar position="static" style={{ background: "#DD5353" }}>
@@ -122,6 +128,14 @@ function ResponsiveAppBar() {
               : null}
           </Box>
           <SearchBar />
+          <Button
+            onClick={() => {
+              setMode((prev: string) => (prev === "pl" ? "en" : "pl"));
+            }}
+            sx={{ my: 2, color: "white", display: "block" }}
+          >
+            {mode}
+          </Button>
           <IconButton onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === "light" ? (
               <DarkModeOutlinedIcon />

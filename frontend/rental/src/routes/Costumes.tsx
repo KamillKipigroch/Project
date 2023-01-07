@@ -8,6 +8,7 @@ import { observer } from "mobx-react-lite";
 import { useStores } from "../stores/root.store";
 import { useEffect } from "react";
 import CostumesDetailsPopup from "../components/Popup/CostumesDetailsPopup";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +36,8 @@ const PriceContainer = styled.div`
 const Costumes = () => {
   const { productStore } = useStores();
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     productStore.fetchProducts();
   }, [productStore]);
@@ -53,7 +56,8 @@ const Costumes = () => {
               fontWeight: "bold",
             }}
           >
-            Number of products: {productStore.countVisibleProducts}
+            {/* Number of products: {productStore.countVisibleProducts} */}
+            {t("numberOfProduct")}: {productStore.countVisibleProducts}
           </div>
           <ProductsContainer>
             {/* dynamiczne wyświetlanie produktów */}

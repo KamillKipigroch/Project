@@ -68,7 +68,7 @@ const CreateOpinionPopup = () => {
                             src={photo.code}
                             alt=""
                             height="220px"
-                            style={{ objectFit: "cover" }}
+                            style={{ objectFit: "cover", borderRadius: "20px" }}
                           />
                         </Box>
                       ))}

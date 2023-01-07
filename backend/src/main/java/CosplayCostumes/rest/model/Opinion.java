@@ -1,7 +1,6 @@
 package CosplayCostumes.rest.model;
 
 import CosplayCostumes.security.user.model.User;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,29 +18,23 @@ import java.util.Set;
 @Setter
 public class Opinion implements Serializable {
     @Id
-    @SequenceGenerator(name = "s_opinion",
-            sequenceName = "s_opinion",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "s_opinion"
-    )
+    @SequenceGenerator(name = "s_opinion", sequenceName = "s_opinion", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_opinion")
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"id","opinions","userRole", "username", "authorities","accountNonExpired","credentialsNonExpired","accountNonLocked"})
+    @JsonIgnoreProperties({"opinions", "userRole", "username", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
     User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnoreProperties({"businessKey", "productType", "images", "subcategory", "condition", "quality", "opinions", "code", "description", "price", "hero", "createDate", "visible",})
     Product product;
 
     private Double value;
-    @Column(length=1000)
+    @Column(length = 1000)
     private String description;
 
     @OneToMany(mappedBy = "opinion", cascade = CascadeType.ALL)

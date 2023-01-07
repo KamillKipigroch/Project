@@ -26,22 +26,26 @@ const UserOrdersDataGrid = () => {
     {
       field: "statusCode",
       headerName: "Status",
-      width: 120,
-      editable: true,
       flex: 1,
     },
     {
       field: "productName",
       headerName: "Product name",
-      width: 90,
-      editable: true,
       flex: 1,
     },
     {
-      field: "userName",
-      headerName: "User name",
-      width: 90,
-      editable: true,
+      field: "dateStart",
+      headerName: "Date start",
+      flex: 1,
+    },
+    {
+      field: "dateEnd",
+      headerName: "Date end",
+      flex: 1,
+    },
+    {
+      field: "price",
+      headerName: "Price",
       flex: 1,
     },
     {

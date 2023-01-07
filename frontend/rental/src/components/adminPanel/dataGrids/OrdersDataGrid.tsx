@@ -17,26 +17,35 @@ const OrdersDataGrid = () => {
   }, [orderStore, orderStatusStore]);
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90, editable: false },
+    { field: "id", headerName: "ID" },
     {
       field: "statusCode",
       headerName: "Status",
-      width: 120,
-      editable: true,
       flex: 1,
     },
     {
       field: "productName",
       headerName: "Product name",
-      width: 90,
-      editable: true,
       flex: 1,
     },
     {
       field: "userName",
       headerName: "User name",
-      width: 90,
-      editable: true,
+      flex: 1,
+    },
+    {
+      field: "dateStart",
+      headerName: "Date start",
+      flex: 1,
+    },
+    {
+      field: "dateEnd",
+      headerName: "Date end",
+      flex: 1,
+    },
+    {
+      field: "price",
+      headerName: "Price",
       flex: 1,
     },
     {
@@ -48,22 +57,30 @@ const OrdersDataGrid = () => {
           <Box>
             {params.row.statusCode === OrderStatus.Submitted ? (
               <Tooltip title="Start realization" arrow={true}>
-                <IconButton onClick={() => {
-                  const order = params.row;
-                  order.statusId = orderStatusStore.getProperOrderStatusId(OrderStatus.InRealization);
-                  orderStore.updateOrderStatus(order);
-                }}>
+                <IconButton
+                  onClick={() => {
+                    const order = params.row;
+                    order.statusId = orderStatusStore.getProperOrderStatusId(
+                      OrderStatus.InRealization
+                    );
+                    orderStore.updateOrderStatus(order);
+                  }}
+                >
                   <ArrowForwardIcon sx={{ color: "blue" }} />
                 </IconButton>
               </Tooltip>
             ) : null}
             {params.row.statusCode === OrderStatus.InRealization ? (
               <Tooltip title="Realize" arrow={true}>
-                <IconButton onClick={() => {
-                  const order = params.row;
-                  order.statusId = orderStatusStore.getProperOrderStatusId(OrderStatus.Completed);
-                  orderStore.updateOrderStatus(order);
-                }}>
+                <IconButton
+                  onClick={() => {
+                    const order = params.row;
+                    order.statusId = orderStatusStore.getProperOrderStatusId(
+                      OrderStatus.Completed
+                    );
+                    orderStore.updateOrderStatus(order);
+                  }}
+                >
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>

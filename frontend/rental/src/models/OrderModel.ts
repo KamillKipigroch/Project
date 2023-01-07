@@ -6,6 +6,10 @@ export interface IOrder {
   productName: string;
   userID: number;
   userName: string;
+  isFinished: boolean;
+  dateStart: string;
+  dateEnd: string | null;
+  price: number | null;
 }
 
 export interface IAddOrder {

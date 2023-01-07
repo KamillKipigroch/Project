@@ -7,9 +7,10 @@ import {
   runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
-import { IAddOrder } from "../models/OrderModel";
+import { IAddOrder, IOrder } from "../models/OrderModel";
 import { IAddProductImage } from "../models/ProductImageModel";
 import { IAddProduct, IProduct } from "../models/ProductModel";
+import { getOrders } from "../services/OrderService";
 import { addProductImage, deleteProductImage } from "../services/ProductImageService";
 import {
   addProduct,
@@ -44,6 +45,8 @@ export class ProductStore {
   @observable isPopupOpen: boolean = false;
   @observable editMode: boolean = false;
 
+  @observable orders: IOrder[] = [];
+
   @computed get allProducts() {
     return this.products;
   }
@@ -65,8 +68,12 @@ export class ProductStore {
     try {
       this.loading = true;
       const response = await getProducts();
+      const res2 = await getOrders();
+
       runInAction(() => {
         this.products = response;
+        this.orders = res2;
+
         this.loading = false;
       });
       this.loading = false;
@@ -197,6 +204,11 @@ export class ProductStore {
         this.categoryFilter.includes(x.subcategory.category.code)
       );
     }
+
+    // Ordered products are not visable
+    const orderIds = this.orders.filter(x => x.isFinished === false).map(x => x.productID);
+    products = products.filter(x => !orderIds.includes(x.id));
+
 
     return products;
   }

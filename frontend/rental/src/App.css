@@ -6,6 +6,10 @@
   height: 40vmin;
   pointer-events: none;
 }
+.list-Box{
+  height: 480pt;
+  width: 100%;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

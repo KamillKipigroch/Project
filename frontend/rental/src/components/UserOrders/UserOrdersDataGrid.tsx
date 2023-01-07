@@ -7,6 +7,7 @@ import { IconButton, Tooltip, Typography, useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CreateOpinionPopup from "./Popup/CreateOpinionPopup";
 import { tokens } from "../../theme";
+import Constants from "../../constants/Constants";
 
 const UserOrdersDataGrid = () => {
   const { orderStore, orderStatusStore, opinionStore, productStore } =
@@ -71,9 +72,8 @@ const UserOrdersDataGrid = () => {
 
   return (
     <Box
+        className="list-Box"
       sx={{
-        height: 400,
-        width: "100%",
         "& .--Completed": {
           bgcolor: colors.realized[100] + "!important",
           "&:hover": {
@@ -91,8 +91,8 @@ const UserOrdersDataGrid = () => {
         rows={orderStore.allOrders.map((order, i) => ({ lp: i + 1, ...order }))}
         loading={orderStore.loading}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={Constants.PAGE_SIZE}
+        rowsPerPageOptions={[Constants.PAGE_SIZE]}
         checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}

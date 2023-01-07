@@ -8,6 +8,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { OrderStatus } from "../../../models/Enums";
 import CheckIcon from "@mui/icons-material/Check";
 import { tokens } from "../../../theme";
+import Constants from "../../../constants/Constants";
 
 const OrdersDataGrid = () => {
   const { orderStore, orderStatusStore } = useStores();
@@ -113,8 +114,8 @@ const OrdersDataGrid = () => {
         rows={orderStore.allOrders}
         loading={orderStore.loading}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={Constants.PAGE_SIZE}
+        rowsPerPageOptions={[Constants.PAGE_SIZE]}
         checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}

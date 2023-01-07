@@ -7,6 +7,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
+import Constants from "../../../constants/Constants";
 
 const CategoriesDataGrid = () => {
   //get categories
@@ -77,17 +78,12 @@ const CategoriesDataGrid = () => {
   // ]
 
   return (
-    <Box
-      sx={{
-        height: 400,
-        width: "100%",
-      }}
-    >
+    <Box className="list-Box">
       <DataGrid
         rows={display}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={Constants.PAGE_SIZE}
+        rowsPerPageOptions={[Constants.PAGE_SIZE]}
         checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}

@@ -10,6 +10,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
 import EditIcon from "@mui/icons-material/Edit";
+import Constants from "../../../constants/Constants";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -270,12 +271,12 @@ const ProductsDataGrid = () => {
   // ]
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box className="list-Box">
       <DataGrid
         rows={productStore.allProducts}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={Constants.PAGE_SIZE}
+        rowsPerPageOptions={[Constants.PAGE_SIZE]}
         checkboxSelection
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}

@@ -43,8 +43,7 @@ public class RegistrationService {
                         )
                 );
 
-        String link = "http://localhost:5000/api/v1/registration/confirm?token=" + token;
-        return token;
+       return token;
     }
 
     @Transactional

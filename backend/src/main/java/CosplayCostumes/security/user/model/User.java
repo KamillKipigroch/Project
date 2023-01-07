@@ -39,7 +39,6 @@ public class User implements UserDetails {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    @JsonIgnore
     private UserRole userRole;
 
     @OneToMany(mappedBy = "user")
@@ -58,10 +57,8 @@ public class User implements UserDetails {
     @JsonIgnore
     private String image;
 
-    @JsonIgnore
     private Boolean locked;
 
-    @JsonIgnore
     private Boolean enabled;
 
     public User(String firstName, String lastName, String email, String password, UserRole userRole) {

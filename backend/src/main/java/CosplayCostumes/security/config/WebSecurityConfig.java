@@ -61,7 +61,8 @@ public class WebSecurityConfig {
             "?*/add",
             "?*/update",
             "?*/api/order-status/get-all-object",
-            "?*/disable-visibility"
+            "?*/disable-visibility",
+            "/api/user/?*"
     };
 
     private static final String[] USER_AND_ADMINISTRATOR_WHITE_LIST = {

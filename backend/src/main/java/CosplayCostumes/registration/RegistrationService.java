@@ -3,7 +3,9 @@ package CosplayCostumes.registration;
 
 import CosplayCostumes.registration.token.ConfirmationToken;
 import CosplayCostumes.registration.token.ConfirmationTokenService;
+import CosplayCostumes.rest.model.dto.RegisterUserRequest;
 import CosplayCostumes.security.sender.EmailSender;
+import CosplayCostumes.security.user.model.LoginUser;
 import CosplayCostumes.security.user.model.User;
 import CosplayCostumes.security.user.model.UserRole;
 import CosplayCostumes.security.user.service.UserService;
@@ -13,10 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class RegistrationService {
+    private static final int GENERATED_PASSWORD_LENGTH = 7;
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
     private final static String EMAIL_NOT_VALID = "Email not valid !";
     private EmailValidator emailValidator;
@@ -41,7 +45,7 @@ public class RegistrationService {
                         )
                 );
 
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        String link = "http://localhost:5000/api/v1/registration/confirm?token=" + token;
         try{
             emailSender.send(
                     request.getEmail(),
@@ -110,5 +114,30 @@ public class RegistrationService {
                 "    </tbody>\n" +
                 "  </table>\n" +
                 "</div>\n";
+    }
+
+    public User registerUser(RegisterUserRequest request) {
+        boolean isValidEmail = emailValidator.test(request.getEmail());
+        if (!isValidEmail)
+            throw new IllegalStateException(EMAIL_NOT_VALID);
+        String password = "Password";
+
+        UserRole role =  UserRole.User;
+        userService.signUpUser(
+                new User(
+                        request.getFirstName(),
+                        request.getLastName(),
+                        request.getEmail(),
+                        password,
+                        role));
+
+        return userService.loginUser(new LoginUser(request.getEmail(),password));
+    }
+    private String renderPassword() {
+        UUID randomUUID = UUID.randomUUID();
+
+        var password = randomUUID.toString().replaceAll("_", "");
+
+        return password.substring(0, GENERATED_PASSWORD_LENGTH);
     }
 }

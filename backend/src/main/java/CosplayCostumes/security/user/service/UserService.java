@@ -2,8 +2,10 @@ package CosplayCostumes.security.user.service;
 
 import CosplayCostumes.registration.token.ConfirmationToken;
 import CosplayCostumes.registration.token.ConfirmationTokenService;
+import CosplayCostumes.rest.model.dto.RegisterUserRequest;
 import CosplayCostumes.security.user.model.LoginUser;
 import CosplayCostumes.security.user.model.User;
+import CosplayCostumes.security.user.model.UserRole;
 import CosplayCostumes.security.user.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -144,5 +146,21 @@ public class UserService implements UserDetailsService {
                 .claim("preferred_username", user.getUsername())
                 .claim("email", user.getEmail())
                 .compact();
+    }
+
+    public List<User> findAllUsers(){
+        return userRepository.findAll().stream().filter(it-> it.getUserRole()== UserRole.User).toList();
+    }
+
+    public User lockUser(RegisterUserRequest request) {
+        var user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(FindException::new);
+        user.setLocked(true);
+        return userRepository.save(user);
+    }
+    public User unlockUser(RegisterUserRequest request) {
+        var user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(FindException::new);
+
+        user.setLocked(false);
+        return userRepository.save(user);
     }
 }

@@ -1,12 +1,11 @@
 package CosplayCostumes.rest.model;
 
 import CosplayCostumes.security.user.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,7 +37,7 @@ public class Opinion implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonIgnore
+    @JsonIdentityReference(alwaysAsId = true)
     Product product;
 
     private Double value;

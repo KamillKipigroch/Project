@@ -47,7 +47,6 @@ const Costumes = () => {
         <ProductSection>
           <div
             style={{
-              color: "#333333",
               display: "flex",
               fontSize: "30px",
               margin: "20px",

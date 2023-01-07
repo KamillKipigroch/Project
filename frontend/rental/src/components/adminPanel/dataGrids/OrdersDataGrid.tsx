@@ -3,10 +3,11 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useStores } from "../../../stores/root.store";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip, useTheme } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { OrderStatus } from "../../../models/Enums";
 import CheckIcon from "@mui/icons-material/Check";
+import { tokens } from "../../../theme";
 
 const OrdersDataGrid = () => {
   const { orderStore, orderStatusStore } = useStores();
@@ -15,6 +16,9 @@ const OrdersDataGrid = () => {
     orderStore.fetchOrders();
     orderStatusStore.fetchOrderStatuses();
   }, [orderStore, orderStatusStore]);
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
@@ -97,9 +101,9 @@ const OrdersDataGrid = () => {
         height: 400,
         width: "100%",
         "& .--Completed": {
-          bgcolor: "#dcf2bc !important",
+          bgcolor: colors.realized[100] + "!important",
           "&:hover": {
-            bgcolor: "#D6ECB6 !important",
+            bgcolor: colors.realized[200] + "!important",
           },
         },
       }}

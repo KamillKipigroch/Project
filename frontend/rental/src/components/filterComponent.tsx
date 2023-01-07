@@ -45,7 +45,6 @@ const FilterComponent = () => {
       <div style={{ height: "100%" }}>
         <Typography
           variant="h5"
-          color="#333333"
           display="flex"
           justifyContent="center"
         >

@@ -3,9 +3,10 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
-import { IconButton, Tooltip, Typography } from "@mui/material";
+import { IconButton, Tooltip, Typography, useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CreateOpinionPopup from "./Popup/CreateOpinionPopup";
+import { tokens } from "../../theme";
 
 const UserOrdersDataGrid = () => {
   const { orderStore, orderStatusStore, opinionStore, productStore } =
@@ -15,6 +16,10 @@ const UserOrdersDataGrid = () => {
     orderStore.getUserOrders();
     productStore.fetchProducts();
   }, [orderStore, orderStatusStore, productStore]);
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
 
   const columns: GridColDef[] = [
     {
@@ -70,9 +75,9 @@ const UserOrdersDataGrid = () => {
         height: 400,
         width: "100%",
         "& .--Completed": {
-          bgcolor: "#dcf2bc !important",
+          bgcolor: colors.realized[100] + "!important",
           "&:hover": {
-            bgcolor: "#D6ECB6 !important",
+            bgcolor: colors.realized[200] + "!important",
           },
         },
       }}

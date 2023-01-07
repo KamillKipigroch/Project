@@ -9,8 +9,10 @@ import { AxiosInterceptors } from "./services/AxiosInterceptors";
 import MainRoutes from "./components/ProtectedRoutes/MainRoutes";
 import { useEffect } from "react";
 import { authStore } from "./stores/auth.store";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
 
 AxiosInterceptors();
 
@@ -19,12 +21,19 @@ function App() {
     authStore.autoLogin();
   }, []);
 
+  const [theme, colorMode] = useMode();
+
   return (
-    <div>
-      <MyToastComponent />
-      <NavBar />
-      <MainRoutes />
-    </div>
+    <ColorModeContext.Provider value={colorMode}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div>
+        <MyToastComponent />
+        <NavBar />
+        <MainRoutes />
+      </div>
+    </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 

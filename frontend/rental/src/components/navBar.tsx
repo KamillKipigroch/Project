@@ -13,11 +13,20 @@ import Logo from "../assets/logo.png";
 import { observer } from "mobx-react-lite";
 import { authStore } from "../stores/auth.store";
 import { UserRole } from "../models/Enums";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { useTheme } from "@mui/material";
+import { ColorModeContext, tokens } from "../theme";
+import { useContext } from "react";
 
 const pages = ["Costumes"];
 const adminPages = ["AdminPanel"];
 
 function ResponsiveAppBar() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -37,7 +46,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -113,6 +122,13 @@ function ResponsiveAppBar() {
               : null}
           </Box>
           <SearchBar />
+          <IconButton onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === "light" ? (
+              <DarkModeOutlinedIcon />
+            ) : (
+              <LightModeOutlinedIcon />
+            )}
+          </IconButton>
           {authStore.isAuth ? (
             <Button
               variant="text"

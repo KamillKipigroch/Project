@@ -8,6 +8,7 @@ import { ProductStore } from "./product.store";
 import { ProductTypeStore } from "./productType.store";
 import { QualityStore } from "./quality.store";
 import { SubCategoryStore } from "./subCategory.store";
+import { UserStore } from "./user.store";
 
 export class RootStore {
   conditionStore: ConditionStore;
@@ -19,6 +20,7 @@ export class RootStore {
   subCategoryStore: SubCategoryStore;
   productStore: ProductStore;
   orderStore: OrderStore;
+  userStore: UserStore;
 
   constructor() {
     this.conditionStore = new ConditionStore(this);
@@ -30,6 +32,7 @@ export class RootStore {
     this.subCategoryStore = new SubCategoryStore(this);
     this.productStore = new ProductStore(this);
     this.orderStore = new OrderStore(this);
+    this.userStore = new UserStore(this);
   }
 }
 

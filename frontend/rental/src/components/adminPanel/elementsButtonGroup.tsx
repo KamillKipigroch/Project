@@ -37,6 +37,7 @@ export default function ElementsButtonGroup() {
         <ColorButton variant="contained" onClick={() => navigate("/adminpanelqualities")}>{t("qualities")}</ColorButton>
         <ColorButton variant="contained" onClick={() => navigate("/adminpanelsubcategories")}>{t("subCategories")}</ColorButton>
         <ColorButton variant="contained" onClick={() => navigate("/adminPanelOrders")}>{t("orders")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminPanelUsers")}>{t("users")}</ColorButton>
       </ButtonGroup>
     </Box>
   );

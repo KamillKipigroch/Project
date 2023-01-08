@@ -106,4 +106,10 @@ export const TranslationsPl = {
   confirmPassword: "Potwierdź hasło",
   passwordTooShort: "Hasło jest za krótkie",
   passwordsDoNotMatch: "Hasła nie pasują",
+  users: "Użytkownicy",
+  userRole: "Rola użytkownika",
+  lock: "Zablokuj",
+  unlock: "Odblokuj",
+  userLockToast: "Pomyślnie zablokowano użytkownika!",
+  userUnlockToast: "Pomyślnie odblokowano użytkownika!",
 };

@@ -18,6 +18,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import AdminPanelOrders from "../../routes/adminPanels/AdminPanelOrders";
 import { UserRole } from "../../models/Enums";
 import UserOrders from "../../routes/UserOrders";
+import AdminPanelUsers from "../../routes/adminPanels/AdminPanelUsers";
 
 const MainRoutes = () => (
   <Routes>
@@ -59,6 +60,7 @@ const MainRoutes = () => (
         element={<AdminPanelSubCategories />}
       />
       <Route path="/adminPanelOrders" element={<AdminPanelOrders />} />
+      <Route path="/adminPanelUsers" element={<AdminPanelUsers />} />
     </Route>
   </Routes>
 );

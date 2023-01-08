@@ -106,4 +106,10 @@ export const TranslationsEn = {
   confirmPassword: "Confrim Password",
   passwordTooShort: "Password too short",
   passwordsDoNotMatch: "Passwords do not match",
+  users: "Users",
+  userRole: "User Role",
+  lock: "Lock",
+  unlock: "Unlock",
+  userLockToast: "Successfully locked user!",
+  userUnlockToast: "Successfully unlocked user!",
 };

@@ -10,6 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IAddCategory } from "../../../models/CategoryModel";
 import { useStores } from "../../../stores/root.store";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const Element = styled.div`
 
 const Popup = () => {
   const { categoryStore } = useStores();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -63,7 +65,7 @@ const Popup = () => {
           onClick={() => categoryStore.openPopup()}
           sx={{ ml: 1 }}
         >
-          New element
+          {t("newElement")}
         </Button>
       </ThemeProvider>
       <Dialog
@@ -72,7 +74,7 @@ const Popup = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <DialogTitle>
-            {categoryStore.editMode ? <>Edit category</> : <>Add category</>}
+            {categoryStore.editMode ? <>{t("editCategory")}</> : <>{t("addCategory")}</>}
           </DialogTitle>
           <DialogContent>
             <Div>
@@ -80,7 +82,7 @@ const Popup = () => {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label={t("name")}
                   type="text"
                   {...register("code", {
                     required: "Required field",
@@ -92,7 +94,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => categoryStore.closePopup()}>Cancel</Button>
+            <Button onClick={() => categoryStore.closePopup()}>{t("cancel")}</Button>
             <Button type="submit">OK</Button>
           </DialogActions>
         </form>

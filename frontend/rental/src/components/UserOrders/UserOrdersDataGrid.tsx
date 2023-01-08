@@ -8,10 +8,12 @@ import AddIcon from "@mui/icons-material/Add";
 import CreateOpinionPopup from "./Popup/CreateOpinionPopup";
 import { tokens } from "../../theme";
 import Constants from "../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const UserOrdersDataGrid = () => {
   const { orderStore, orderStatusStore, opinionStore, productStore } =
     useStores();
+  const { t } = useTranslation();
 
   useEffect(() => {
     orderStore.getUserOrders();
@@ -20,7 +22,6 @@ const UserOrdersDataGrid = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
 
   const columns: GridColDef[] = [
     {
@@ -35,31 +36,31 @@ const UserOrdersDataGrid = () => {
     },
     {
       field: "productName",
-      headerName: "Product name",
+      headerName: t("productName")!,
       flex: 1,
     },
     {
       field: "dateStart",
-      headerName: "Date start",
+      headerName: t("dateStart")!,
       flex: 1,
     },
     {
       field: "dateEnd",
-      headerName: "Date end",
+      headerName: t("dateEnd")!,
       flex: 1,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: t("price")!,
       flex: 1,
     },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            <Tooltip title="Add opinion" arrow={true}>
+            <Tooltip title={t("addOpinion")} arrow={true}>
               <IconButton onClick={() => opinionStore.openPopup(params.row)}>
                 <AddIcon sx={{ color: "green" }} />
               </IconButton>
@@ -72,7 +73,7 @@ const UserOrdersDataGrid = () => {
 
   return (
     <Box
-        className="list-Box"
+      className="list-Box"
       sx={{
         "& .--Completed": {
           bgcolor: colors.realized[100] + "!important",
@@ -83,7 +84,7 @@ const UserOrdersDataGrid = () => {
       }}
     >
       <Typography variant="h4" marginBottom="10px">
-        Orders number: {orderStore.ordersCount}
+        {t("ordersNumber")}: {orderStore.ordersCount}
       </Typography>
       <DataGrid
         getRowClassName={(params: any) => `--${params.row.statusCode}`}

@@ -11,6 +11,7 @@ import { observer } from "mobx-react-lite";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IAddCondition } from "../../../models/ConditionModel";
 import { useStores } from "../../../stores/root.store";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -42,6 +43,7 @@ const Popup = () => {
   } = useForm<IAddCondition>();
 
   const { conditionStore } = useStores();
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IAddCondition> = async (data) => {
     if (conditionStore.editMode) {
@@ -67,7 +69,7 @@ const Popup = () => {
           onClick={() => conditionStore.openPopup()}
           sx={{ ml: 1 }}
         >
-          New element
+          {t("newElement")}
         </Button>
       </ThemeProvider>
       <Dialog
@@ -76,7 +78,7 @@ const Popup = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <DialogTitle>
-            {conditionStore.editMode ? <>Edit condition</> : <>Add condition</>}
+            {conditionStore.editMode ? <>{t("editCondition")}</> : <>{t("addCondition")}</>}
           </DialogTitle>
           <DialogContent>
             <Div>
@@ -84,7 +86,7 @@ const Popup = () => {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label={t("name")}
                   type="text"
                   {...register("code", {
                     required: "Required field",
@@ -97,7 +99,7 @@ const Popup = () => {
                 <TextField
                   required
                   id="outlined-number"
-                  label="Price"
+                  label={t("price")}
                   type="number"
                   {...register("price", {
                     required: "Required field",
@@ -109,7 +111,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={conditionStore.closePopup}>Cancel</Button>
+            <Button onClick={conditionStore.closePopup}>{t("cancel")}</Button>
             <Button type="submit">OK</Button>
           </DialogActions>
         </form>

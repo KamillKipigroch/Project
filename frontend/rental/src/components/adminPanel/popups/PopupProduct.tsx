@@ -21,6 +21,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
 import { Form } from "react-bootstrap";
 import { IAddProductImage } from "../../../models/ProductImageModel";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -51,6 +52,8 @@ const Popup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IAddProduct>();
+
+  const { t } = useTranslation();
 
   const {
     productStore,
@@ -90,13 +93,13 @@ const Popup = () => {
           onClick={() => productStore.openPopup()}
           sx={{ ml: 1 }}
         >
-          New element
+          {t("newElement")}
         </Button>
       </ThemeProvider>
       <Dialog open={productStore.isPopupOpen} onClose={productStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <DialogTitle>
-            {productStore.editMode ? <>Edit product</> : <>Add product</>}
+            {productStore.editMode ? <>{t("editProduct")}</> : <>{t("addProduct")}</>}
           </DialogTitle>
           <DialogContent>
             <Div>
@@ -105,7 +108,7 @@ const Popup = () => {
                   fullWidth
                   required
                   id="outlined-required"
-                  label="Name"
+                  label={t("name")}
                   type="text"
                   {...register("code", {
                     required: "Required field",
@@ -119,7 +122,7 @@ const Popup = () => {
                   fullWidth
                   required
                   id="outlined-required"
-                  label="Description"
+                  label={t("description")}
                   type="text"
                   {...register("description", {
                     required: "Required field",
@@ -135,7 +138,7 @@ const Popup = () => {
                   fullWidth
                   required
                   id="outlined-number"
-                  label="Price"
+                  label={t("price")}
                   type="number"
                   {...register("price", {
                     required: "Required field",
@@ -149,7 +152,7 @@ const Popup = () => {
                   fullWidth
                   required
                   id="outlined-required"
-                  label="Hero"
+                  label={t("hero")}
                   type="text"
                   {...register("hero", {
                     required: "Required field",
@@ -161,14 +164,14 @@ const Popup = () => {
               {/* PRODUCT TYPE - SELECT */}
               <Element>
                 <FormControl error={!!errors?.productTypeID} fullWidth>
-                  <InputLabel id="productType">Product type</InputLabel>
+                  <InputLabel id="productType">{t("productType")}</InputLabel>
                   <Controller
                     render={({ field }) => (
                       <Select
                         {...field}
                         labelId="productType"
                         id="productTypeSelect"
-                        label="productType"
+                        label={t("productType")}
                       >
                         {productTypeStore.visibleProductTypes.map(
                           (type, index) => (
@@ -194,14 +197,14 @@ const Popup = () => {
               {/* SUB-CATEGORY SELECT */}
               <Element>
                 <FormControl error={!!errors?.subCategoryID} fullWidth>
-                  <InputLabel id="subCategory">Sub-category</InputLabel>
+                  <InputLabel id="subCategory">{t("subCategory")}</InputLabel>
                   <Controller
                     render={({ field }) => (
                       <Select
                         {...field}
                         labelId="subCategory"
                         id="subCategorySelect"
-                        label="subCategory"
+                        label={t("subCategory")}
                       >
                         {subCategoryStore.visibleSubCategories.map(
                           (type, index) => (
@@ -227,14 +230,14 @@ const Popup = () => {
               {/* CONDITION SELECT */}
               <Element>
                 <FormControl error={!!errors?.conditionID} fullWidth>
-                  <InputLabel id="condition">Condition</InputLabel>
+                  <InputLabel id="condition">{t("condition")}</InputLabel>
                   <Controller
                     render={({ field }) => (
                       <Select
                         {...field}
                         labelId="condition"
                         id="conditionSelect"
-                        label="condition"
+                        label={t("condition")}
                       >
                         {conditionStore.visibleConditions.map((type, index) => (
                           <MenuItem key={index} value={type.id}>
@@ -256,14 +259,14 @@ const Popup = () => {
               {/* QUALITY SELECT */}
               <Element>
                 <FormControl error={!!errors?.qualityID} fullWidth>
-                  <InputLabel id="quality">Quality</InputLabel>
+                  <InputLabel id="quality">{t("quality")}</InputLabel>
                   <Controller
                     render={({ field }) => (
                       <Select
                         {...field}
                         labelId="quality"
                         id="qualitySelect"
-                        label="quality"
+                        label={t("quality")}
                       >
                         {qualityStore.visibleQualities.map((type, index) => (
                           <MenuItem key={index} value={type.id}>
@@ -285,7 +288,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => productStore.closePopup()}>Cancel</Button>
+            <Button onClick={() => productStore.closePopup()}>{t("cancel")}</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

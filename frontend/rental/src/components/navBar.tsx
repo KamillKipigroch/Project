@@ -16,17 +16,17 @@ import { UserRole } from "../models/Enums";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { useTheme } from "@mui/material";
-import { ColorModeContext, tokens } from "../theme";
+import { ColorModeContext } from "../theme";
 import { useContext, useEffect, useState } from "react";
 import i18n from "i18next";
-
-const pages = ["Costumes"];
-const adminPages = ["AdminPanel"];
+import { useTranslation } from "react-i18next";
 
 function ResponsiveAppBar() {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const { t } = useTranslation();
+
+  const pages = [t("costumes")];
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -96,36 +96,28 @@ function ResponsiveAppBar() {
             HOME
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => navigate("/" + page)}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={() => navigate("/costumes")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {t("costumes")}
+            </Button>
             {authStore.isAuth ? (
               <Button
                 onClick={() => navigate("/userOrders")}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                My orders
+                {t("myOrders")}
               </Button>
             ) : null}
-            {authStore.rol?.find((role) => role === UserRole.Admin)
-              ? adminPages.map((page) => {
-                  return (
-                    <Button
-                      key={page}
-                      onClick={() => navigate("/" + page)}
-                      sx={{ my: 2, color: "white", display: "block" }}
-                    >
-                      {page}
-                    </Button>
-                  );
-                })
-              : null}
+            {authStore.rol?.find((role) => role === UserRole.Admin) ? (
+              <Button
+                onClick={() => navigate("/adminPanel")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {t("adminPanel")}
+              </Button>
+            ) : null}
           </Box>
           <SearchBar />
           <Button
@@ -152,11 +144,11 @@ function ResponsiveAppBar() {
               }}
               color="inherit"
             >
-              Logout
+              {t("logout")}
             </Button>
           ) : (
             <Button variant="text" component={Link} to="/login" color="inherit">
-              Sign in
+              {t("signIn")}
             </Button>
           )}
         </Toolbar>

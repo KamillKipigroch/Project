@@ -8,22 +8,30 @@ import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const ConditionsDataGrid = () => {
   //get conditions
   const { conditionStore } = useStores();
+  const { t } = useTranslation();
+
   useEffect(() => {
     conditionStore.fetchConditions();
   }, [conditionStore]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "price", headerName: "Multiplier", width: 90, editable: true },
-    { field: "visible", headerName: "Visible", width: 90, editable: true },
-    { field: "name", headerName: "Name", width: 150, editable: true },
+    { field: "price", headerName: t("multiplier")!, width: 90, editable: true },
+    {
+      field: "visible",
+      headerName: t("visibility")!,
+      width: 90,
+      editable: true,
+    },
+    { field: "name", headerName: t("name")!, width: 150, editable: true },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (

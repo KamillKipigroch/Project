@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { observer } from 'mobx-react-lite';
 import { useStores } from '../stores/root.store';
+import { useTranslation } from 'react-i18next';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -46,6 +47,7 @@ const Search = styled('div')(({ theme }) => ({
   }));
 const SearchBar = () => {
   const { productStore } = useStores();
+  const { t } = useTranslation();
 
     return (
         <Search>
@@ -54,7 +56,7 @@ const SearchBar = () => {
           </SearchIconWrapper>
           <StyledInputBase
             onChange={(e) => productStore.setSearchFilter(e.target.value)}
-            placeholder="Search…"
+            placeholder={`${t("search")!}...`}
             inputProps={{ 'aria-label': 'search' }}/>
         </Search>
     );

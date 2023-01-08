@@ -56,7 +56,6 @@ const Costumes = () => {
               fontWeight: "bold",
             }}
           >
-            {/* Number of products: {productStore.countVisibleProducts} */}
             {t("numberOfProduct")}: {productStore.countVisibleProducts}
           </div>
           <ProductsContainer>

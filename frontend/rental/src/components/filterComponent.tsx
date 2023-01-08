@@ -6,6 +6,7 @@ import MultipleSelectCheckmarks from "../components/multipleSelectCheckmarks";
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../stores/root.store";
+import { useTranslation } from "react-i18next";
 
 const FilterContainer = styled.div`
   width: 20%;
@@ -34,6 +35,7 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const FilterComponent = () => {
   const { productStore, qualityStore, conditionStore } = useStores();
+  const { t } = useTranslation();
 
   useEffect(() => {
     qualityStore.fetchQualities();
@@ -48,7 +50,7 @@ const FilterComponent = () => {
           display="flex"
           justifyContent="center"
         >
-          Shopping options
+          {t("shoppingOptions")}
         </Typography>
         <Hr />
         <div>
@@ -57,7 +59,7 @@ const FilterComponent = () => {
         <Hr />
         {/* PRICE */}
         <div>
-          <SectionTitle>PRICE</SectionTitle>
+          <SectionTitle>{t("price").toUpperCase()}</SectionTitle>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <RangeSlider />
           </div>
@@ -65,7 +67,7 @@ const FilterComponent = () => {
         <Hr />
         {/* QUALITY */}
         <div>
-          <SectionTitle>QUALITY</SectionTitle>
+          <SectionTitle>{t("quality").toUpperCase()}</SectionTitle>
           {qualityStore.visibleQualities.map((quality) => {
             return (
               <div
@@ -91,7 +93,7 @@ const FilterComponent = () => {
         <Hr />
         {/* CONDITION */}
         <div>
-          <SectionTitle>CONDITION</SectionTitle>
+          <SectionTitle>{t("condition").toUpperCase()}</SectionTitle>
           {conditionStore.visibleConditions.map((condition) => {
             return (
               <div

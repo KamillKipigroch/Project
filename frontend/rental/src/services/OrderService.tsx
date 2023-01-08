@@ -11,7 +11,6 @@ export const getOrders = async (): Promise<IOrder[]> => {
 };
 
 export const addOrder = async (data: IAddOrder): Promise<any> => {
-  debugger
   const response = await axios.post(baseUrl + "add-object", data, axiosConfig);
   return response.data;
 };

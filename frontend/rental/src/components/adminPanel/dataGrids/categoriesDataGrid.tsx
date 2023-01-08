@@ -8,44 +8,53 @@ import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const CategoriesDataGrid = () => {
   //get categories
   const { categoryStore } = useStores();
+  const { t } = useTranslation();
+
   useEffect(() => {
     categoryStore.fetchCategories();
   }, [categoryStore]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", editable: false },
-    { field: "visible", headerName: "Visible" },
-    { field: "code", headerName: "Name", editable: true },
+    { field: "visible", headerName: t("visibility")! },
+    { field: "code", headerName: t("name")!, editable: true },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
             {params.row.visible ? (
-              <Tooltip title="Hide" arrow={true}>
-                <IconButton onClick={() => categoryStore.disableVisibility(params.row.id)}>
+              <Tooltip title={t("hide")} arrow={true}>
+                <IconButton
+                  onClick={() => categoryStore.disableVisibility(params.row.id)}
+                >
                   <CheckIcon sx={{ color: "green" }} />
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Make visible" arrow={true}>
-                <IconButton onClick={() => {
-                  let rowData = params.row;
-                  rowData.visible = true;
-                  categoryStore.updateCategory(rowData);
-                }}>
+              <Tooltip title={t("makeVisible")} arrow={true}>
+                <IconButton
+                  onClick={() => {
+                    let rowData = params.row;
+                    rowData.visible = true;
+                    categoryStore.updateCategory(rowData);
+                  }}
+                >
                   <BlockIcon sx={{ color: "red" }} />
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Edit" arrow={true}>
-              <IconButton onClick={() => categoryStore.openPopup(params.row.id)}>
+            <Tooltip title={t("edit")} arrow={true}>
+              <IconButton
+                onClick={() => categoryStore.openPopup(params.row.id)}
+              >
                 <EditIcon sx={{ color: "#4f70e8" }} />
               </IconButton>
             </Tooltip>

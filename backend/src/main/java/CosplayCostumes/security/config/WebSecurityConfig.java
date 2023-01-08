@@ -30,6 +30,7 @@ public class WebSecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
+            "/.well-known/pki-validation/?*",
 
             "/api/sub-category/get-all",
             "/api/category/get-all",

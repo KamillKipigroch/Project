@@ -14,6 +14,7 @@ import {
   getCategoryById,
   updateCategory,
 } from "../services/CategoryService";
+import i18n from "i18next";
 
 export class CategoryStore {
   constructor(context: any) {
@@ -90,7 +91,7 @@ export class CategoryStore {
       const response = await addCategory(categoryData);
       this.categories = [...this.categories, response];
 
-      toast.success("Successfully added new category!");
+      toast.success(i18n.t("categoryAddToast"));
 
       this.loading = false;
       return response;
@@ -109,7 +110,7 @@ export class CategoryStore {
       const foundIndex = this.categories.findIndex((x) => x.id === response.id);
       this.categories[foundIndex] = response;
 
-      toast.success("Successfully updated category!");
+      toast.success(i18n.t("categoryUpdateToast"));
 
       this.loading = false;
       return response;
@@ -127,7 +128,7 @@ export class CategoryStore {
       runInAction(async () => {
         await this.fetchCategories();
         
-        toast.success("Successfully disabled visibility of a category!");
+        toast.success(i18n.t("categoryDisableToast"));
         
         this.loading = false;
       });

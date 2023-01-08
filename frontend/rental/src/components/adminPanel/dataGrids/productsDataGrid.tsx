@@ -11,6 +11,7 @@ import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -20,6 +21,8 @@ const getUniqueNames = (names: string[]) => {
 };
 
 const ProductsDataGrid = () => {
+  const { t } = useTranslation();
+
   //get productTypes
   const { productTypeStore } = useStores();
   useEffect(() => {
@@ -89,10 +92,10 @@ const ProductsDataGrid = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "code", headerName: "Name", width: 150, editable: true },
+    { field: "code", headerName: t("name")!, width: 150, editable: true },
     {
       field: "createDate",
-      headerName: "Create Date",
+      headerName: t("createDate")!,
       width: 150,
       editable: true,
       valueFormatter: (params) =>
@@ -100,21 +103,21 @@ const ProductsDataGrid = () => {
     },
     {
       field: "description",
-      headerName: "Description",
+      headerName: t("description")!,
       width: 150,
       editable: true,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: t("price")!,
       type: "number",
       width: 110,
       editable: true,
     },
-    { field: "hero", headerName: "Hero", width: 110, editable: true },
+    { field: "hero", headerName: t("hero")!, width: 110, editable: true },
     {
       field: "productType",
-      headerName: "Product Type",
+      headerName: t("productType")!,
       type: "singleSelect",
       width: 120,
       editable: true,
@@ -123,7 +126,7 @@ const ProductsDataGrid = () => {
     },
     {
       field: "quality",
-      headerName: "Quality",
+      headerName: t("quality")!,
       type: "singleSelect",
       width: 120,
       editable: true,
@@ -132,7 +135,7 @@ const ProductsDataGrid = () => {
     },
     {
       field: "condition",
-      headerName: "Condition",
+      headerName: t("condition")!,
       type: "singleSelect",
       width: 120,
       editable: true,
@@ -141,7 +144,7 @@ const ProductsDataGrid = () => {
     },
     {
       field: "subcategory",
-      headerName: "Subcategory",
+      headerName: t("subCategory")!,
       type: "singleSelect",
       width: 120,
       editable: true,
@@ -150,18 +153,18 @@ const ProductsDataGrid = () => {
     },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            <Tooltip title="Edit" arrow={true}>
+            <Tooltip title={t("edit")} arrow={true}>
               <IconButton onClick={() => productStore.openPopup(params.row.id)}>
                 <EditIcon sx={{ color: "#4f70e8" }} />
               </IconButton>
             </Tooltip>
             {params.row.visible ? (
-              <Tooltip title="Hide" arrow={true}>
+              <Tooltip title={t("hide")} arrow={true}>
                 <IconButton
                   onClick={() => productStore.disableVisibility(params.row.id)}
                 >
@@ -169,7 +172,7 @@ const ProductsDataGrid = () => {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Make visible" arrow={true}>
+              <Tooltip title={t("makeVisible")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     let rowData = params.row;
@@ -181,7 +184,7 @@ const ProductsDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Add photo" arrow={true}>
+            <Tooltip title={t("addPhoto")} arrow={true}>
               <IconButton
                 onClick={() => {
                   productStore.openPhotoPopup(params.row.id);
@@ -193,7 +196,7 @@ const ProductsDataGrid = () => {
             {params.row?.images?.length === 0 ? (
               <></>
             ) : (
-              <Tooltip title="Photo" arrow={true}>
+              <Tooltip title={t("photos")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     productStore.openPhotoDetailsPopup(params.row.id);

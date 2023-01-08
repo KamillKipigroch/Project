@@ -89,7 +89,7 @@ const Popup = () => {
                   label={t("name")}
                   type="text"
                   {...register("code", {
-                    required: "Required field",
+                    required: t("requiredField")!,
                   })}
                   error={!!errors?.code}
                   helperText={errors?.code ? errors.code.message : null}
@@ -102,7 +102,7 @@ const Popup = () => {
                   label={t("price")}
                   type="number"
                   {...register("price", {
-                    required: "Required field",
+                    required: t("requiredField")!,
                   })}
                   error={!!errors?.price}
                   helperText={errors?.price ? errors.price.message : null}

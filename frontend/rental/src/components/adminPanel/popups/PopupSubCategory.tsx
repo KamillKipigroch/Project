@@ -11,7 +11,15 @@ import { observer } from "mobx-react-lite";
 import { IAddSubCategory } from "../../../models/SubCategoryModel";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
-import { FormControl, FormHelperText, InputLabel, ListItemText, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -44,19 +52,22 @@ const Popup = () => {
   } = useForm<IAddSubCategory>();
 
   const { subCategoryStore, categoryStore } = useStores();
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IAddSubCategory> = async (data) => {
     if (subCategoryStore.editMode) {
       if (subCategoryStore.editedSubCategory) {
         subCategoryStore.editedSubCategory.code = data.code;
 
-        await subCategoryStore.updateSubCategory(subCategoryStore.editedSubCategory);
+        await subCategoryStore.updateSubCategory(
+          subCategoryStore.editedSubCategory
+        );
       }
     } else {
       await subCategoryStore.addSubCategory(data);
     }
 
-    subCategoryStore.closePopup()
+    subCategoryStore.closePopup();
   };
 
   return (
@@ -65,43 +76,49 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={() => subCategoryStore.closePopup()}
+          onClick={() => subCategoryStore.openPopup()}
           sx={{ ml: 1 }}
         >
-          New element
+          {t("newElement")}
         </Button>
       </ThemeProvider>
-      <Dialog open={subCategoryStore.isPopupOpen} onClose={subCategoryStore.closePopup}>
+      <Dialog
+        open={subCategoryStore.isPopupOpen}
+        onClose={subCategoryStore.closePopup}
+      >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>{subCategoryStore.editMode ? <>Edit sub-category</> : <>Add sub-category</>}</DialogTitle>
+          <DialogTitle>
+            {subCategoryStore.editMode ? (
+              <>{t("editSubCategory")}</>
+            ) : (
+              <>{t("addSubCategory")}</>
+            )}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
                 <TextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label={t("name")}
                   type="text"
                   {...register("code", {
-                    required: "Required field",
+                    required: t("requiredField")!,
                   })}
                   error={!!errors?.code}
                   helperText={errors?.code ? errors.code.message : null}
                 />
               </Element>
               <Element>
-                <FormControl
-                  error={!!errors?.categoryID}
-                  fullWidth
-                >
-                  <InputLabel id="category">Category</InputLabel>
+                <FormControl error={!!errors?.categoryID} fullWidth>
+                  <InputLabel id="category">{t("category")}</InputLabel>
                   <Controller
                     render={({ field }) => (
                       <Select
                         {...field}
                         labelId="category"
                         id="categorySelect"
-                        label="category"
+                        label={t("category")}
                       >
                         {categoryStore.visibleCategories.map((type, index) => (
                           <MenuItem key={index} value={type.id}>
@@ -124,10 +141,10 @@ const Popup = () => {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Description"
+                  label={t("description")}
                   type="text"
                   {...register("description", {
-                    required: "Required field",
+                    required: t("requiredField")!,
                   })}
                   error={!!errors?.description}
                   helperText={

@@ -14,6 +14,7 @@ import {
   getSubCategoryById,
   updateSubCategory,
 } from "../services/SubCategoryService";
+import i18n from "i18next";
 
 export class SubCategoryStore {
   constructor(context: any) {
@@ -91,7 +92,7 @@ export class SubCategoryStore {
       const response = await addSubCategory(subCategoryData);
       this.subCategories = [...this.subCategories, response];
 
-      toast.success("Successfully added new sub-category!");
+      toast.success(i18n.t("subCategoryAddToast"));
 
       this.loading = false;
       return response;
@@ -112,7 +113,7 @@ export class SubCategoryStore {
       );
       this.subCategories[foundIndex] = response;
 
-      toast.success("Successfully updated sub-category!");
+      toast.success(i18n.t("subCategoryUpdateToast"));
 
       this.loading = false;
       return response;
@@ -130,7 +131,7 @@ export class SubCategoryStore {
       runInAction(async () => {
         await this.fetchSubCategories();
 
-        toast.success("Successfully disabled visibility of a sub-category!");
+        toast.success(i18n.t("subCategoryDisabledToast"));
 
         this.loading = false;
       });

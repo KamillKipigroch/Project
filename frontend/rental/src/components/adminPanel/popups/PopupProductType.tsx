@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 import { IAddProductType } from "../../../models/ProductTypeModel";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -41,13 +42,16 @@ const Popup = () => {
   } = useForm<IAddProductType>();
 
   const { productTypeStore } = useStores();
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IAddProductType> = async (data) => {
     if (productTypeStore.editMode) {
       if (productTypeStore.editedProductType) {
         productTypeStore.editedProductType.code = data.code;
 
-        await productTypeStore.updateProductType(productTypeStore.editedProductType);
+        await productTypeStore.updateProductType(
+          productTypeStore.editedProductType
+        );
       }
     } else {
       await productTypeStore.addProductType(data);
@@ -65,22 +69,31 @@ const Popup = () => {
           onClick={() => productTypeStore.openPopup()}
           sx={{ ml: 1 }}
         >
-          New element
+          {t("newElement")}
         </Button>
       </ThemeProvider>
-      <Dialog open={productTypeStore.isPopupOpen} onClose={productTypeStore.closePopup}>
+      <Dialog
+        open={productTypeStore.isPopupOpen}
+        onClose={productTypeStore.closePopup}
+      >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>{productTypeStore.editMode ? <>Edit product type</> : <>Add product type</>}</DialogTitle>
+          <DialogTitle>
+            {productTypeStore.editMode ? (
+              <>{t("editProductType")}</>
+            ) : (
+              <>{t("addProductType")}</>
+            )}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
                 <TextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label={t("name")}
                   type="text"
                   {...register("code", {
-                    required: "Required field",
+                    required: t("requiredField")!,
                   })}
                   error={!!errors?.code}
                   helperText={errors?.code ? errors.code.message : null}
@@ -89,7 +102,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={productTypeStore.closePopup}>Cancel</Button>
+            <Button onClick={productTypeStore.closePopup}>{t("cancel")}</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

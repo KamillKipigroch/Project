@@ -6,9 +6,12 @@ import { IUserRegistrationForm } from "../models/AuthModel";
 import Constants from "../constants/Constants";
 import { LoadingButton } from "@mui/lab";
 import { authStore } from "../stores/auth.store";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const {
     register,
     watch,
@@ -38,27 +41,27 @@ const Register = () => {
         padding={3}
       >
         <Typography variant="h3" mb={2}>
-          Sign up
+          {t("signUp")}
         </Typography>
         <Divider sx={{ width: "100%" }} />
         <TextField
           type="firstName"
-          label="First Name"
+          label={t("firstName")}
           margin="normal"
           autoFocus
           {...register("firstName", {
-            required: "Field required",
+            required: t("requiredField")!,
           })}
           error={!!errors?.firstName}
           helperText={errors?.firstName ? errors.firstName.message : null}
         />
         <TextField
           type="lastName"
-          label="Last Name"
+          label={t("lastName")}
           margin="normal"
           autoFocus
           {...register("lastName", {
-            required: "Field required",
+            required: t("requiredField")!,
           })}
           error={!!errors?.lastName}
           helperText={errors?.lastName ? errors.lastName.message : null}
@@ -69,10 +72,10 @@ const Register = () => {
           margin="normal"
           autoFocus
           {...register("email", {
-            required: "Field required",
+            required: t("requiredField")!,
             pattern: {
               value: Constants.validEmailRegEx,
-              message: "Invalid email address",
+              message: t("invalidEmailAddress")!,
             },
           })}
           error={!!errors?.email}
@@ -80,14 +83,14 @@ const Register = () => {
         />
         <TextField
           type="password"
-          label="Password"
+          label={t("password")}
           margin="normal"
           style={{ marginBottom: "4px" }}
           {...register("password", {
-            required: "Field required",
+            required: t("requiredField")!,
             minLength: {
-              value: 6,
-              message: "Password too short",
+              value: 7,
+              message: t("passwordTooShort")!,
             },
           })}
           error={!!errors?.password}
@@ -95,15 +98,15 @@ const Register = () => {
         />
         <TextField
           type="password"
-          label="Confirm Password"
+          label={t("confirmPassword")}
           margin="normal"
           required
           style={{ marginBottom: "4px" }}
           {...register("confirmPassword", {
-            required: "Field required",
+            required: t("requiredField")!,
             validate: (val: string) => {
               if (watch("password") !== val) {
-                return "Passwords do not match";
+                return t("passwordsDoNotMatch")!;
               }
             },
           })}
@@ -119,7 +122,7 @@ const Register = () => {
             to="/login"
             style={{ padding: 0, fontSize: 9, marginLeft: "145px" }}
           >
-            Sign in <ArrowForwardIcon style={{ fontSize: 10 }} />
+            {t("signIn")} <ArrowForwardIcon style={{ fontSize: 10 }} />
           </Button>
         </Box>
         <LoadingButton
@@ -129,7 +132,7 @@ const Register = () => {
           type="submit"
           sx={{ marginTop: 2, bgcolor: "#DD5353" }}
         >
-          <Typography>Sign up</Typography>
+          <Typography>{t("signUp")}</Typography>
         </LoadingButton>
       </Box>
     </form>

@@ -13,6 +13,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { Carousel } from "react-responsive-carousel";
 import { IAddOpinion } from "../../../models/OpinionModel";
+import { useTranslation } from "react-i18next";
 
 const Div = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const Element = styled.div`
 
 const CreateOpinionPopup = () => {
   const { opinionStore } = useStores();
+  const { t } = useTranslation();
   const [value, setValue] = React.useState<number | null>(5);
 
   const { register, handleSubmit } = useForm<IAddOpinion>();
@@ -77,7 +79,7 @@ const CreateOpinionPopup = () => {
                 ) : null}
               </Element>
               <Element>
-                <Typography variant="h6">Rate product</Typography>
+                <Typography variant="h6">{t("rateProduct")}</Typography>
                 <Rating
                   name="simple-controlled"
                   value={value}
@@ -90,7 +92,7 @@ const CreateOpinionPopup = () => {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Leave your opinion here"
+                  label={t("leaveYourOpinionHere")}
                   type="text"
                   multiline
                   fullWidth
@@ -100,14 +102,14 @@ const CreateOpinionPopup = () => {
               {opinionStore.editMode ? (<h1>hello world!</h1>) : null}
               <Element>
                 <Form.Group controlId="formFileMultiple" className="mb-3">
-                  <Form.Label>Add some photos</Form.Label>
+                  <Form.Label>{t("addSomePhotos")}</Form.Label>
                   <Form.Control type="file" multiple {...register("images")} />
                 </Form.Group>
               </Element>
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => opinionStore.closePopup()}>Cancel</Button>
+            <Button onClick={() => opinionStore.closePopup()}>{t("cancel")}</Button>
             <Button type="submit">OK</Button>
           </DialogActions>
         </form>

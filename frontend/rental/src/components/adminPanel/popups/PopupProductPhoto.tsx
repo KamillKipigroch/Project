@@ -10,6 +10,7 @@ import { useStores } from "../../../stores/root.store";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { IAddProductImage } from "../../../models/ProductImageModel";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ const Element = styled.div`
 const PopupProductPhoto = () => {
   const { productStore } = useStores();
   const { register, handleSubmit } = useForm<IAddProductImage>();
+  const { t } = useTranslation();
 
   const onSubmit = async (data: IAddProductImage) => {
     await productStore.addPhotoToProduct(data);
@@ -51,13 +53,13 @@ const PopupProductPhoto = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <DialogTitle>
-            Add photo
+            {t("addPhoto")}
           </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
                 <Form.Group controlId="formFileMultiple" className="mb-3">
-                  <Form.Label>Add photo</Form.Label>
+                  <Form.Label>{t("addPhoto")}</Form.Label>
                   <Form.Control type="file" {...register("photo")} />
                 </Form.Group>
               </Element>
@@ -65,7 +67,7 @@ const PopupProductPhoto = () => {
           </DialogContent>
           <DialogActions>
             <Button type="submit">Ok</Button>
-            <Button onClick={productStore.closePhotoPopup}>Cancel</Button>
+            <Button onClick={productStore.closePhotoPopup}>{t("cancel")}</Button>
           </DialogActions>
         </form>
       </Dialog>

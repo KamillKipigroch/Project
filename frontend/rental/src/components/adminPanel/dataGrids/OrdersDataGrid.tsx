@@ -9,9 +9,11 @@ import { OrderStatus } from "../../../models/Enums";
 import CheckIcon from "@mui/icons-material/Check";
 import { tokens } from "../../../theme";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const OrdersDataGrid = () => {
   const { orderStore, orderStatusStore } = useStores();
+  const { t } = useTranslation();
 
   useEffect(() => {
     orderStore.fetchOrders();
@@ -25,43 +27,43 @@ const OrdersDataGrid = () => {
     { field: "id", headerName: "ID" },
     {
       field: "statusCode",
-      headerName: "Status",
+      headerName: t("status")!,
       flex: 1,
     },
     {
       field: "productName",
-      headerName: "Product name",
+      headerName: t("productName")!,
       flex: 1,
     },
     {
       field: "userName",
-      headerName: "User name",
+      headerName: t("userName")!,
       flex: 1,
     },
     {
       field: "dateStart",
-      headerName: "Date start",
+      headerName: t("dateStart")!,
       flex: 1,
     },
     {
       field: "dateEnd",
-      headerName: "Date end",
+      headerName: t("dateEnd")!,
       flex: 1,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: t("price")!,
       flex: 1,
     },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
             {params.row.statusCode === OrderStatus.Submitted ? (
-              <Tooltip title="Start realization" arrow={true}>
+              <Tooltip title={t("startRealization")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     const order = params.row;
@@ -76,7 +78,7 @@ const OrdersDataGrid = () => {
               </Tooltip>
             ) : null}
             {params.row.statusCode === OrderStatus.InRealization ? (
-              <Tooltip title="Realize" arrow={true}>
+              <Tooltip title={t("realize")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     const order = params.row;

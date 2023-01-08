@@ -8,27 +8,30 @@ import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const QualitiesDataGrid = () => {
   //get order status
   const { qualityStore } = useStores();
+  const { t } = useTranslation();
+
   useEffect(() => {
     qualityStore.fetchQualities();
   }, [qualityStore]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "name", headerName: "Name", width: 90, editable: true },
-    { field: "visible", headerName: "Visible", width: 90, editable: true },
+    { field: "name", headerName: t("name")!, width: 90, editable: true },
+    { field: "visible", headerName: t("visibility")!, width: 90, editable: true },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
             {params.row.visible ? (
-              <Tooltip title="Hide" arrow={true}>
+              <Tooltip title={t("hide")} arrow={true}>
                 <IconButton
                   onClick={() => qualityStore.disableVisibility(params.row.id)}
                 >
@@ -36,7 +39,7 @@ const QualitiesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Make visible" arrow={true}>
+              <Tooltip title={t("makeVisible")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     let rowData = params.row;
@@ -48,7 +51,7 @@ const QualitiesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Edit" arrow={true}>
+            <Tooltip title={t("edit")} arrow={true}>
               <IconButton onClick={() => qualityStore.openPopup(params.row.id)}>
                 <EditIcon sx={{ color: "#4f70e8" }} />
               </IconButton>

@@ -37,7 +37,7 @@ const ConditionsDataGrid = () => {
         return (
           <Box>
             {params.row.visible ? (
-              <Tooltip title="Hide" arrow={true}>
+              <Tooltip title={t("hide")} arrow={true}>
                 <IconButton
                   onClick={() =>
                     conditionStore.disableVisibility(params.row.id)
@@ -47,7 +47,7 @@ const ConditionsDataGrid = () => {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Make visible" arrow={true}>
+              <Tooltip title={t("makeVisible")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     let rowData = params.row;
@@ -59,7 +59,7 @@ const ConditionsDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Edit" arrow={true}>
+            <Tooltip title={t("edit")} arrow={true}>
               <IconButton
                 onClick={() => conditionStore.openPopup(params.row.id)}
               >

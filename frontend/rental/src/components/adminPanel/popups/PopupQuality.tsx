@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 import { IAddQuality } from "../../../models/QualityModel";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -41,6 +42,7 @@ const Popup = () => {
   } = useForm<IAddQuality>();
 
   const { qualityStore } = useStores();
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IAddQuality> = async (data) => {
     if (qualityStore.editMode) {
@@ -62,25 +64,31 @@ const Popup = () => {
         <Button
           color="secondary"
           variant="contained"
-          onClick={() => qualityStore.closePopup()}
+          onClick={() => qualityStore.openPopup()}
           sx={{ ml: 1 }}
         >
-          New element
+          {t("newElement")}
         </Button>
       </ThemeProvider>
       <Dialog open={qualityStore.isPopupOpen} onClose={qualityStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>{qualityStore.editMode ? <>Edit quality</> : <>Add quality</>}</DialogTitle>
+          <DialogTitle>
+            {qualityStore.editMode ? (
+              <>{t("editQuality")}</>
+            ) : (
+              <>{t("addQuality")}</>
+            )}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
                 <TextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label={t("name")}
                   type="text"
                   {...register("code", {
-                    required: "Required field",
+                    required: t("requiredField")!,
                   })}
                   error={!!errors?.code}
                   helperText={errors?.code ? errors.code.message : null}
@@ -89,7 +97,7 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={qualityStore.closePopup}>Cancel</Button>
+            <Button onClick={qualityStore.closePopup}>{t("cancel")}</Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

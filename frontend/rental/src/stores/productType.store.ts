@@ -14,6 +14,7 @@ import {
   getProductTypes,
   updateProductType,
 } from "../services/ProductTypeService";
+import i18n from "i18next";
 
 export class ProductTypeStore {
   constructor(context: any) {
@@ -91,7 +92,7 @@ export class ProductTypeStore {
       const response = await addProductType(productTypeData);
       this.productTypes = [...this.productTypes, response];
 
-      toast.success("Successfully added new product type!")
+      toast.success(i18n.t("productTypeAddToast"));
 
       this.loading = false;
       return response;
@@ -112,7 +113,7 @@ export class ProductTypeStore {
       );
       this.productTypes[foundIndex] = response;
 
-      toast.success("Successfully updated product type!")
+      toast.success(i18n.t("productTypeUpdateToast"));
 
       this.loading = false;
       return response;
@@ -130,7 +131,7 @@ export class ProductTypeStore {
       runInAction(async () => {
         await this.fetchProductTypes();
 
-        toast.success("Successfully disabled visibility of a product type!");
+        toast.success(i18n.t("productTypeDisableToast"));
 
         this.loading = false;
       });

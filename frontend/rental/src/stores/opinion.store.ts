@@ -22,6 +22,7 @@ import {
 } from "../services/OpinionService";
 import { getProductById } from "../services/ProductService";
 import { authStore } from "./auth.store";
+import i18n from "i18next";
 
 export class OpinionStore {
   constructor(context: any) {
@@ -105,7 +106,7 @@ export class OpinionStore {
         await this.fetchOpinions();
       }
 
-      toast.success("Successfully added opinion");
+      toast.success(i18n.t("opinionAddToast"));
 
       this.loading = false;
       return response;

@@ -21,6 +21,7 @@ import {
 } from "../services/ProductService";
 import { authStore } from "./auth.store";
 import { RootStore } from "./root.store";
+import i18n from "i18next";
 
 export class ProductStore {
   rootStore: RootStore;
@@ -106,7 +107,7 @@ export class ProductStore {
 
       await this.fetchProducts();
 
-      toast.success("Successfully added new product!");
+      toast.success(i18n.t("productAddToast"));
 
       this.loading = false;
       return response;
@@ -125,7 +126,7 @@ export class ProductStore {
 
       await this.fetchProducts();
 
-      toast.success("Successfully updated product!");
+      toast.success(i18n.t("productUpdateToast"));
 
       this.loading = false;
       return response;
@@ -143,7 +144,7 @@ export class ProductStore {
       runInAction(async () => {
         await this.fetchProducts();
 
-        toast.success("Successfully disabled visibility of a product!");
+        toast.success(i18n.t("productDisableToast"));
 
         this.loading = false;
       });
@@ -295,9 +296,9 @@ export class ProductStore {
         console.log(order);
         await this.rootStore.orderStore.addOrder(order);
         await this.fetchProducts();
-        toast.success("You've added your order!");
+        toast.success(i18n.t("productAddOrder"));
       } else {
-        toast.error("An error occurred! Can't make an order!");
+        toast.success(i18n.t("productCanNotAddOrder"));
       }
 
       this.closeDetailsAreYouSurePopup();
@@ -319,7 +320,7 @@ export class ProductStore {
       photo.productId = this.detailedProduct.id;
       await addProductImage(photo);
       await this.fetchProducts();
-      toast.success("Successfully added photo!");
+      toast.success(i18n.t("productAddPhoto"));
     }
   };
 
@@ -360,7 +361,7 @@ export class ProductStore {
       await deleteProductImage(id);
       await this.fetchProducts();
       this.detailedProduct = this.allProducts.find((x) => x.id === this.detailedProduct?.id);
-      toast.success("You've successfully deleted photo from product!");
+      toast.success(i18n.t("productDeletePhoto"));
     }
   }
 }

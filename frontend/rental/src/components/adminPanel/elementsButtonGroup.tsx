@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import Button, { ButtonProps } from "@mui/material/Button";
 import { purple } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
@@ -15,6 +16,7 @@ const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
 
 export default function ElementsButtonGroup() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -28,13 +30,13 @@ export default function ElementsButtonGroup() {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="outlined button group">
-        <ColorButton variant="contained" onClick={() => navigate("/adminpanelcategories")}>Categories</ColorButton>
-        <ColorButton variant="contained" onClick={() => navigate("/adminpanelconditions")}>Conditions</ColorButton>
-        <ColorButton variant="contained" onClick={() => navigate("/adminpanelproducts")}>Products</ColorButton>
-        <ColorButton variant="contained" onClick={() => navigate("/adminpanelproducttypes")}>Product types</ColorButton>
-        <ColorButton variant="contained" onClick={() => navigate("/adminpanelqualities")}>Qualities</ColorButton>
-        <ColorButton variant="contained" onClick={() => navigate("/adminpanelsubcategories")}>Subcategory</ColorButton>
-        <ColorButton variant="contained" onClick={() => navigate("/adminPanelOrders")}>Orders</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminpanelcategories")}>{t("categories")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminpanelconditions")}>{t("conditions")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminpanelproducts")}>{t("products")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminpanelproducttypes")}>{t("productTypes")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminpanelqualities")}>{t("qualities")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminpanelsubcategories")}>{t("subCategories")}</ColorButton>
+        <ColorButton variant="contained" onClick={() => navigate("/adminPanelOrders")}>{t("orders")}</ColorButton>
       </ButtonGroup>
     </Box>
   );

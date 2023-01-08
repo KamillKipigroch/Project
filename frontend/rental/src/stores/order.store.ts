@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { IAddOrder, IOrder } from "../models/OrderModel";
 import { addOrder, getOrders, updateOrderStatus } from "../services/OrderService";
 import { authStore } from "./auth.store";
+import i18n from "i18next";
 
 export class OrderStore {
   constructor(context: any) {
@@ -42,7 +43,7 @@ export class OrderStore {
       this.loading = true;
 
       const response = await addOrder(orderData);
-      toast.success("Successfully added new order!");
+      toast.success(i18n.t("orderAddToast"));
 
       this.loading = false;
       return response;
@@ -60,7 +61,7 @@ export class OrderStore {
       const response = await updateOrderStatus(orderData);
       this.fetchOrders();
 
-      toast.success("Successfully updated order status!");
+      toast.success(i18n.t("orderUpdateToast"));
 
       this.loading = false;
       return response;

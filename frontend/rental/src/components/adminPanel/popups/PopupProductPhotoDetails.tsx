@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import { useStores } from "../../../stores/root.store";
 import { Carousel } from "react-responsive-carousel";
 import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -34,6 +35,7 @@ const Element = styled.div`
 
 const PopupProductPhotoDetails = () => {
   const { productStore } = useStores();
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -42,7 +44,7 @@ const PopupProductPhotoDetails = () => {
         open={productStore.isPhotoDetailsPopupOpen}
         onClose={productStore.closePhotoDetailsPopup}
       >
-        <DialogTitle>Product photo</DialogTitle>
+        <DialogTitle>{t("productPhotos")}</DialogTitle>
         <DialogContent>
           <Div>
             <Element>
@@ -67,7 +69,7 @@ const PopupProductPhotoDetails = () => {
                         className="legend myLegend"
                         onClick={() => productStore.deletePhotoFromProduct(photo.id)}
                       >
-                        Delete photo
+                        {t("deletePhoto")}
                       </Button>
                     </Box>
                   ))}
@@ -77,7 +79,7 @@ const PopupProductPhotoDetails = () => {
           </Div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={productStore.closePhotoDetailsPopup}>Cancel</Button>
+          <Button onClick={productStore.closePhotoDetailsPopup}>{t("cancel")}</Button>
         </DialogActions>
       </Dialog>
     </div>

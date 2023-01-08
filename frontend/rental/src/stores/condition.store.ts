@@ -14,6 +14,7 @@ import {
   getConditions,
   updateCondition,
 } from "../services/ConditionService";
+import i18n from "i18next";
 
 export class ConditionStore {
   constructor(context: any) {
@@ -91,7 +92,7 @@ export class ConditionStore {
       const response = await addCondition(conditionData);
       this.conditions = [...this.conditions, response];
 
-      toast.success("Successfully added new condition!");
+      toast.success(i18n.t("conditionAddToast"));
 
       this.loading = false;
       return response;
@@ -110,7 +111,7 @@ export class ConditionStore {
       const foundIndex = this.conditions.findIndex((x) => x.id === response.id);
       this.conditions[foundIndex] = response;
 
-      toast.success("Successfully updated condition!");
+      toast.success(i18n.t("conditionUpdateToast"));
 
       this.loading = false;
       return response;
@@ -128,7 +129,7 @@ export class ConditionStore {
       runInAction(async () => {
         await this.fetchConditions();
 
-        toast.success("Successfully disabled visibility of a condition!");
+        toast.success(i18n.t("conditionDisableToast"));
 
         this.loading = false;
       });

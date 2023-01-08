@@ -8,6 +8,7 @@ import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -19,6 +20,8 @@ const getUniqueNames = (names: string[]) => {
 const SubCategoriesDataGrid = () => {
   //get order status
   const { subCategoryStore } = useStores();
+  const { t } = useTranslation();
+
   useEffect(() => {
     subCategoryStore.fetchSubCategories();
   }, [subCategoryStore]);
@@ -40,10 +43,10 @@ const SubCategoriesDataGrid = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", editable: false, flex: 1 },
-    { field: "name", headerName: "Name", editable: true, flex: 1 },
+    { field: "name", headerName: t("name")!, editable: true, flex: 1 },
     {
       field: "category",
-      headerName: "Category",
+      headerName: t("category")!,
       type: "singleSelect",
       flex: 1,
       editable: true,
@@ -51,20 +54,20 @@ const SubCategoriesDataGrid = () => {
     },
     {
       field: "description",
-      headerName: "Description",
+      headerName: t("description")!,
       editable: true,
       flex: 10,
     },
-    { field: "visible", headerName: "Visible", editable: true, flex: 1 },
+    { field: "visible", headerName: t("visibility")!, editable: true, flex: 1 },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
             {params.row.visible ? (
-              <Tooltip title="Hide" arrow={true}>
+              <Tooltip title={t("hide")} arrow={true}>
                 <IconButton
                   onClick={() => subCategoryStore.disableVisibility(params.row.id)}
                 >
@@ -72,7 +75,7 @@ const SubCategoriesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Make visible" arrow={true}>
+              <Tooltip title={t("makeVisible")} arrow={true}>
                 <IconButton onClick={() => {
                   let rowData = params.row;
                   rowData.visible = true;
@@ -82,7 +85,7 @@ const SubCategoriesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Edit" arrow={true}>
+            <Tooltip title={t("edit")} arrow={true}>
               <IconButton
                 onClick={() => subCategoryStore.openPopup(params.row.id)}
               >

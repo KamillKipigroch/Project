@@ -8,27 +8,30 @@ import BlockIcon from "@mui/icons-material/Block";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
+import { useTranslation } from "react-i18next";
 
 const ProductTypesDataGrid = () => {
   //get order status
   const { productTypeStore } = useStores();
+  const { t } = useTranslation();
+  
   useEffect(() => {
     productTypeStore.fetchProductTypes();
   }, [productTypeStore]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "name", headerName: "Name", width: 200, editable: true },
-    { field: "visible", headerName: "Visible", width: 90, editable: true },
+    { field: "name", headerName: t("name")!, width: 200, editable: true },
+    { field: "visible", headerName: t("visibility")!, width: 90, editable: true },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: t("actions")!,
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
             {params.row.visible ? (
-              <Tooltip title="Hide" arrow={true}>
+              <Tooltip title={t("hide")} arrow={true}>
                 <IconButton
                   onClick={() =>
                     productTypeStore.disableVisibility(params.row.id)
@@ -38,7 +41,7 @@ const ProductTypesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Make visible" arrow={true}>
+              <Tooltip title={t("makeVisible")} arrow={true}>
                 <IconButton
                   onClick={() => {
                     let rowData = params.row;
@@ -50,7 +53,7 @@ const ProductTypesDataGrid = () => {
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Edit" arrow={true}>
+            <Tooltip title={t("edit")} arrow={true}>
               <IconButton
                 onClick={() => productTypeStore.openPopup(params.row.id)}
               >

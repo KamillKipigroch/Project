@@ -14,6 +14,7 @@ import {
   getQualityById,
   updateQuality,
 } from "../services/QualityService";
+import i18n from "i18next";
 
 export class QualityStore {
   constructor(context: any) {
@@ -91,7 +92,7 @@ export class QualityStore {
       const response = await addQuality(qualityData);
       this.qualities = [...this.qualities, response];
 
-      toast.success("Successfully added new quality!");
+      toast.success(i18n.t("qualityAddToast"));
 
       this.loading = false;
       return response;
@@ -110,7 +111,7 @@ export class QualityStore {
       const foundIndex = this.qualities.findIndex((x) => x.id === response.id);
       this.qualities[foundIndex] = response;
 
-      toast.success("Successfully updated quality!");
+      toast.success(i18n.t("qualityUpdateToast"));
 
       this.loading = false;
       return response;
@@ -128,7 +129,7 @@ export class QualityStore {
       runInAction(async () => {
         await this.fetchQualities();
 
-        toast.success("Successfully disabled visibility of a quality!");
+        toast.success(i18n.t("qualityDisableToast"));
 
         this.loading = false;
       });

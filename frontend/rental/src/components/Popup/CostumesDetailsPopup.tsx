@@ -11,6 +11,7 @@ import { Box, Chip, Divider, Grid, Rating, Typography } from "@mui/material";
 import AreYouSurePopup from "../../Common/AreYouSurePopup";
 import moment from "moment";
 import { Carousel } from "react-responsive-carousel";
+import { useTranslation } from "react-i18next";
 
 const Div = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ const Element = styled.div`
 
 const CostumesDetailsPopup = () => {
   const { productStore } = useStores();
+  const { t } = useTranslation();
 
   return (
     <Dialog
@@ -33,7 +35,7 @@ const CostumesDetailsPopup = () => {
       onClose={productStore.closeDetailsPopup}
       maxWidth="lg"
     >
-      <DialogTitle>Order details page</DialogTitle>
+      <DialogTitle>{t("productDetails")}</DialogTitle>
       <DialogContent>
         <Grid container spacing={2} minWidth="650px" maxWidth="650px">
           <Grid item xs={6}>
@@ -88,28 +90,30 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.price}$
                 </Typography>
                 <Typography>
-                  <b>Hero:</b> {productStore.detailedProduct?.hero}
+                  <b>{t("hero")}:</b> {productStore.detailedProduct?.hero}
                 </Typography>
                 <Typography>
-                  <b>Type:</b> {productStore.detailedProduct?.productType.code}
+                  <b>{t("type")}:</b>{" "}
+                  {productStore.detailedProduct?.productType.code}
                 </Typography>
                 <Typography>
-                  <b>Category:</b>{" "}
+                  <b>{t("category")}:</b>{" "}
                   {productStore.detailedProduct?.subcategory.category.code}
                 </Typography>
                 <Typography>
-                  <b>Description:</b>{" "}
+                  <b>{t("description")}:</b>{" "}
                   {productStore.detailedProduct?.description}
                 </Typography>
                 <Typography>
-                  <b>Product PRICE:</b> {productStore.detailedProduct?.price}$
+                  <b>{t("productPrice")}:</b>{" "}
+                  {productStore.detailedProduct?.price}$
                 </Typography>
                 <Typography>
-                  <b>Subcategory:</b>{" "}
+                  <b>{t("subCategory")}:</b>{" "}
                   {productStore.detailedProduct?.subcategory.code}
                 </Typography>
                 <Typography>
-                  <b>Sub-category Description:</b>{" "}
+                  <b>{t("subCategoryDescription")}</b>{" "}
                   {productStore.detailedProduct?.subcategory.description}
                 </Typography>
               </Element>
@@ -118,7 +122,7 @@ const CostumesDetailsPopup = () => {
           <Grid item xs={12}>
             <Box display="flex" flexDirection="column">
               <Divider>
-                <Chip label="Opinions" />
+                <Chip label={t("opinions")} />
               </Divider>
               {productStore.detailedProduct?.opinions.map((opinion, index) => (
                 <Box marginTop="15px" key={index}>
@@ -176,7 +180,7 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.opinions.length !==
                   index + 1 ? (
                     <Divider>
-                      <Chip label="Next" />
+                      <Chip label={t("next")} />
                     </Divider>
                   ) : null}
                 </Box>
@@ -186,9 +190,11 @@ const CostumesDetailsPopup = () => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => productStore.closeDetailsPopup()}>Cancel</Button>
+        <Button onClick={() => productStore.closeDetailsPopup()}>
+          {t("cancel")}
+        </Button>
         <Button onClick={() => productStore.openDetailsAreYouSurePopup()}>
-          Order
+          {t("makeOrder")}
         </Button>
       </DialogActions>
       <AreYouSurePopup

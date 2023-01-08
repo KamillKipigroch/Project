@@ -48,7 +48,9 @@ const Popup = () => {
         orderStatusStore.editedOrderStatus.code = data.code;
         orderStatusStore.editedOrderStatus.level = data.level;
 
-        await orderStatusStore.updateOrderStatus(orderStatusStore.editedOrderStatus);
+        await orderStatusStore.updateOrderStatus(
+          orderStatusStore.editedOrderStatus
+        );
       }
     } else {
       await orderStatusStore.addOrderStatus(data);
@@ -59,19 +61,18 @@ const Popup = () => {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={() => orderStatusStore.openPopup()}
-          sx={{ ml: 1 }}
-        >
-          New element
-        </Button>
-      </ThemeProvider>
-      <Dialog open={orderStatusStore.isPopupOpen} onClose={orderStatusStore.closePopup}>
+      <Dialog
+        open={orderStatusStore.isPopupOpen}
+        onClose={orderStatusStore.closePopup}
+      >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <DialogTitle>{orderStatusStore.editMode ? <>Edit order status</> : <>Add order status</>}</DialogTitle>
+          <DialogTitle>
+            {orderStatusStore.editMode ? (
+              <>Edit order status</>
+            ) : (
+              <>Add order status</>
+            )}
+          </DialogTitle>
           <DialogContent>
             <Div>
               <Element>
@@ -110,6 +111,6 @@ const Popup = () => {
       </Dialog>
     </div>
   );
-}
+};
 
 export default observer(Popup);

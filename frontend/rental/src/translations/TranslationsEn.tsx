@@ -112,4 +112,8 @@ export const TranslationsEn = {
   unlock: "Unlock",
   userLockToast: "Successfully locked user!",
   userUnlockToast: "Successfully unlocked user!",
+  editOpinion: "Edit opinion",
+  delete: "Delete",
+  deletedPhotoToast: "Successfully deleted photo!",
+  updateOpinionToast: "Successfully updated opinion!",
 };

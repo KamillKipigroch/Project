@@ -8,7 +8,6 @@ import { observer } from "mobx-react-lite";
 import { useStores } from "../stores/root.store";
 import { useEffect } from "react";
 import CostumesDetailsPopup from "../components/Popup/CostumesDetailsPopup";
-import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -36,8 +35,6 @@ const PriceContainer = styled.div`
 const Costumes = () => {
   const { productStore } = useStores();
 
-  const { t } = useTranslation();
-
   useEffect(() => {
     productStore.fetchProducts();
   }, [productStore]);
@@ -48,18 +45,8 @@ const Costumes = () => {
         {/* filterComponent ( ´･･)ﾉ(._.`) */}
         <FilterComponent />
         <ProductSection>
-          <div
-            style={{
-              display: "flex",
-              fontSize: "30px",
-              margin: "20px",
-              fontWeight: "bold",
-            }}
-          >
-            {t("numberOfProduct")}: {productStore.countVisibleProducts}
-          </div>
           <ProductsContainer>
-            {/* dynamiczne wyświetlanie produktów */}
+            {/* dynamiczne wyświetlanie produktóws */}
             {productStore.visibleProducts2.map((product) => (
               <Box
                 key={product.id}
@@ -84,7 +71,11 @@ const Costumes = () => {
               >
                 <img
                   alt={product.code}
-                  src={product.images.length === 0 ? noPhoto : product.images[0].code}
+                  src={
+                    product.images.length === 0
+                      ? noPhoto
+                      : product.images[0].code
+                  }
                   width="250"
                   sizes="max-"
                   style={{

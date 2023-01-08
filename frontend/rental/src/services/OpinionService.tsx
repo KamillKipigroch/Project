@@ -1,6 +1,6 @@
 import axios from "axios";
 import Constants from "../constants/Constants";
-import { IAddOpinion, IAddOpinionResponse, IOpinion, IUpdateOpinion } from "../models/OpinionModel";
+import { IAddOpinion, IAddOpinionResponse, IOpinion } from "../models/OpinionModel";
 import { axiosConfig } from "./AxiosConfiguration";
 
 const baseUrl = Constants.API_URL + "/api/opinion/";
@@ -15,7 +15,7 @@ export const addOpinion = async (data: IAddOpinion): Promise<IAddOpinionResponse
   return response.data;
 };
 
-export const updateOpinion = async (data: IUpdateOpinion): Promise<IOpinion> => {
+export const updateOpinion = async (data: IAddOpinion): Promise<IOpinion> => {
   const response = await axios.put(baseUrl + "update-object", data, axiosConfig);
   return response.data;
 };

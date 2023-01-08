@@ -39,7 +39,14 @@ const CreateOpinionPopup = () => {
       data.value = value;
     }
 
-    await opinionStore.addOpinionByUser(data);
+    if (opinionStore.editMode) {
+      if (opinionStore.editedOpinion) {
+        await opinionStore.updateOpinion(data);
+      }
+    } else {
+      await opinionStore.addOpinionByUser(data);
+    }
+
     opinionStore.closePopup();
   };
 
@@ -99,7 +106,43 @@ const CreateOpinionPopup = () => {
                   {...register("description")}
                 />
               </Element>
-              {opinionStore.editMode ? (<h1>hello world!</h1>) : null}
+              {opinionStore.editMode ? (
+                <>
+                  {opinionStore.editedOpinion?.opinionImages.length !== 0 ? (
+                    <Box display="flex" justifyContent="center">
+                      <Carousel
+                        showStatus={false}
+                        showThumbs={false}
+                        infiniteLoop={true}
+                        width="300px"
+                        dynamicHeight={false}
+                      >
+                        {opinionStore.editedOpinion?.opinionImages.map(
+                          (photo) => (
+                            <Box key={photo.id} textAlign="center">
+                              <img
+                                src={photo.code}
+                                alt=""
+                                height="300px"
+                                style={{ objectFit: "cover" }}
+                              />
+                              <Button
+                                variant="text"
+                                className="legend myLegend"
+                                onClick={() =>
+                                  opinionStore.deletePhotoFromOpinion(photo.id)
+                                }
+                              >
+                                {t("delete")}
+                              </Button>
+                            </Box>
+                          )
+                        )}
+                      </Carousel>
+                    </Box>
+                  ) : null}
+                </>
+              ) : null}
               <Element>
                 <Form.Group controlId="formFileMultiple" className="mb-3">
                   <Form.Label>{t("addSomePhotos")}</Form.Label>
@@ -109,7 +152,9 @@ const CreateOpinionPopup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => opinionStore.closePopup()}>{t("cancel")}</Button>
+            <Button onClick={() => opinionStore.closePopup()}>
+              {t("cancel")}
+            </Button>
             <Button type="submit">OK</Button>
           </DialogActions>
         </form>

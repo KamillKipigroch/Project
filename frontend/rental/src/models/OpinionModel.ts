@@ -6,20 +6,22 @@ export interface IOpinion {
   description: string;
   createDate: string;
   visible: boolean;
+  product: IOpinionProduct;
   opinionImages: IOpinionImages[];
   user: IOpinionUser;
 }
 
 export interface IUpdateOpinion {
   id: number;
-  userEmail: string;
+  emailUser: string;
   value: number;
   description: string;
-  opinionImages: IOpinionImages[];
   productID: number;
+  images: FileList;
 }
 
 export interface IAddOpinion {
+  id: number;
   emailUser: string;
   value: number;
   description: string;
@@ -38,4 +40,8 @@ export interface IAddOpinionResponse {
 export interface IAddOpinionImage {
   opinionId: number;
   images: FileList;
+}
+
+export interface IOpinionProduct {
+  id: number;
 }

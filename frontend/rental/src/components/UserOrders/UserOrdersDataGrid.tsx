@@ -3,22 +3,24 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/root.store";
-import { IconButton, Tooltip, Typography, useTheme } from "@mui/material";
+import { IconButton, Tooltip, useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CreateOpinionPopup from "./Popup/CreateOpinionPopup";
 import { tokens } from "../../theme";
 import Constants from "../../constants/Constants";
 import { useTranslation } from "react-i18next";
+import EditIcon from "@mui/icons-material/Edit";
 
 const UserOrdersDataGrid = () => {
-  const { orderStore, orderStatusStore, opinionStore, productStore } =
+  const { orderStore, opinionStore, productStore } =
     useStores();
   const { t } = useTranslation();
 
   useEffect(() => {
     orderStore.getUserOrders();
     productStore.fetchProducts();
-  }, [orderStore, orderStatusStore, productStore]);
+    opinionStore.fetchOpinions();
+  }, [orderStore, productStore, opinionStore]);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -60,11 +62,19 @@ const UserOrdersDataGrid = () => {
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box>
-            <Tooltip title={t("addOpinion")} arrow={true}>
-              <IconButton onClick={() => opinionStore.openPopup(params.row)}>
-                <AddIcon sx={{ color: "green" }} />
-              </IconButton>
-            </Tooltip>
+            {opinionStore.checkIfOpinionCanBeAdded(params.row.productID) ? (
+              <Tooltip title={t("addOpinion")} arrow={true}>
+                <IconButton onClick={() => opinionStore.openPopup(params.row)}>
+                  <AddIcon sx={{ color: "green" }} />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title={t("editOpinion")} arrow={true}>
+                <IconButton onClick={() => opinionStore.openPopup(params.row, params.row.id)}>
+                  <EditIcon sx={{ color: "#4f70e8" }} />
+                </IconButton>
+              </Tooltip>
+            )}
           </Box>
         );
       },
@@ -83,9 +93,6 @@ const UserOrdersDataGrid = () => {
         },
       }}
     >
-      <Typography variant="h4" marginBottom="10px">
-        {t("ordersNumber")}: {orderStore.ordersCount}
-      </Typography>
       <DataGrid
         getRowClassName={(params: any) => `--${params.row.statusCode}`}
         // rows={orderStore.allOrders}

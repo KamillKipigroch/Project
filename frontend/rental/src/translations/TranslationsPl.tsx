@@ -112,4 +112,8 @@ export const TranslationsPl = {
   unlock: "Odblokuj",
   userLockToast: "Pomyślnie zablokowano użytkownika!",
   userUnlockToast: "Pomyślnie odblokowano użytkownika!",
+  editOpinion: "Edytuj opinię",
+  delete: "Usuń",
+  deletedPhotoToast: "Pomyślnie usunięto zdjęcie!",
+  updateOpinionToast: "Pomyślno zaktualizowano opinię!",
 };

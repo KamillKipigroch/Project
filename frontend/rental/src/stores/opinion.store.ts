@@ -6,14 +6,10 @@ import {
   runInAction,
 } from "mobx";
 import { toast } from "react-toastify";
-import {
-  IAddOpinion,
-  IOpinion,
-  IUpdateOpinion,
-} from "../models/OpinionModel";
+import { IAddOpinion, IOpinion } from "../models/OpinionModel";
 import { IOrder } from "../models/OrderModel";
 import { IProduct } from "../models/ProductModel";
-import { addOpinionImage } from "../services/OpinionImageService";
+import { addOpinionImage, deleteOpinionImage } from "../services/OpinionImageService";
 import {
   addOpinion,
   disableVisibilityOpinion,
@@ -23,9 +19,13 @@ import {
 import { getProductById } from "../services/ProductService";
 import { authStore } from "./auth.store";
 import i18n from "i18next";
+import { RootStore } from "./root.store";
 
 export class OpinionStore {
-  constructor(context: any) {
+  rootStore: RootStore;
+  
+  constructor(context: RootStore) {
+    this.rootStore = context;
     makeObservable(this);
   }
 
@@ -51,11 +51,12 @@ export class OpinionStore {
   }
 
   @action
-  openPopup = async (selectedOrder: IOrder, id?: number) => {
+  openPopup = async (selectedOrder: IOrder, edited?: boolean) => {
     this.order = selectedOrder;
     this.product = await getProductById(this.order.productID);
-    
-    if (id) {
+
+    if (edited) {
+      this.editedOpinion = this.getUserOpinions(authStore.email!).find(x => x.product.id === selectedOrder.productID);
       this.editMode = true;
     }
 
@@ -64,6 +65,8 @@ export class OpinionStore {
 
   @action
   closePopup = () => {
+    this.editMode = false;
+    this.editedOpinion = undefined;
     this.isPopupOpen = false;
   };
 
@@ -96,7 +99,7 @@ export class OpinionStore {
       const response = await addOpinion(opinionData);
 
       for (let i = 0; i < opinionData.images.length; i++) {
-        let file = opinionData.images.item(i)
+        let file = opinionData.images.item(i);
         if (file) {
           await addOpinionImage(response.id, file);
         }
@@ -104,6 +107,7 @@ export class OpinionStore {
 
       if (response) {
         await this.fetchOpinions();
+        await this.rootStore.orderStore.fetchOrders();
       }
 
       toast.success(i18n.t("opinionAddToast"));
@@ -117,13 +121,47 @@ export class OpinionStore {
   };
 
   @action
-  updateOpinion = async (opinionData: IUpdateOpinion) => {
+  updateOpinion = async (opinionData: IAddOpinion) => {
+    // try {
+    //   this.loading = true;
+
+    //   const response = await updateOpinion(opinionData);
+    //   const foundIndex = this.opinions.findIndex((x) => x.id === response.id);
+    //   this.opinions[foundIndex] = response;
+
+    //   this.loading = false;
+    //   return response;
+    // } catch (error) {
+    //   this.loading = false;
+    //   throw error;
+    // }
     try {
       this.loading = true;
 
+      if (authStore.email && this.product) {
+        opinionData.emailUser = authStore.email;
+        opinionData.productID = this.product.id;
+      }
+
+      if (this.editedOpinion) {
+        opinionData.id = this.editedOpinion?.id;
+      }
+
       const response = await updateOpinion(opinionData);
-      const foundIndex = this.opinions.findIndex((x) => x.id === response.id);
-      this.opinions[foundIndex] = response;
+
+      for (let i = 0; i < opinionData.images.length; i++) {
+        let file = opinionData.images.item(i);
+        if (file) {
+          await addOpinionImage(response.id, file);
+        }
+      }
+
+      if (response) {
+        await this.fetchOpinions();
+        await this.rootStore.orderStore.fetchOrders();
+      }
+
+      toast.success(i18n.t("updateOpinionToast"));
 
       this.loading = false;
       return response;
@@ -147,4 +185,28 @@ export class OpinionStore {
       throw error;
     }
   };
+
+  @action
+  getUserOpinions = (email: string) => {
+    return this.opinions.filter((x) => x.user.email === email);
+  };
+
+  @action
+  checkIfOpinionCanBeAdded = (productId: number) => {
+    const userOpinions = this.getUserOpinions(authStore.email!);
+
+    return userOpinions.find((x) => x.product.id === productId)
+      ? false
+      : true;
+  };
+
+  @action
+  deletePhotoFromOpinion = async (id: number) => {
+    if (this.editedOpinion) {
+      await deleteOpinionImage(id);
+      await this.fetchOpinions();
+      this.editedOpinion = this.opinions.find((x) => x.id === this.editedOpinion?.id);
+      toast.success(i18n.t("deletedPhotoToast"));
+    }
+  }
 }

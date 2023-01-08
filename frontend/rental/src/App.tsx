@@ -17,6 +17,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { TranslationsEn } from "./translations/TranslationsEn";
 import { TranslationsPl } from "./translations/TranslationsPl";
+import Footer from "./components/footer";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -45,7 +46,10 @@ function App() {
           <div>
             <MyToastComponent />
             <NavBar />
-            <MainRoutes />
+            <div style={{height:800}}>
+              <MainRoutes />
+            </div>
+            <Footer />
           </div>
         </ThemeProvider>
       </ColorModeContext.Provider>

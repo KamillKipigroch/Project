@@ -7,7 +7,7 @@ import headerImg from "../assets/header-img.svg";
 import 'animate.css';
 import projImg1 from "../assets/project-img1.png";
 import projImg2 from "../assets/project-img2.jpg";
-import projImg3 from "../assets/project-img3.jpeg";
+import projImg3 from "../assets/project-img3.jpg";
 import projImg5 from "../assets/project-img5.jpg";
 import projImg4 from "../assets/project-img4.jpg";
 import projImg6 from "../assets/project-img6.jpg";

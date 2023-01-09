@@ -33,11 +33,7 @@ const RangeSlider = () => {
                     onChange={productStore.handlePriceRangeFilterChange}
                     valueLabelDisplay="auto"
                     getAriaValueText={valuetext}
-                    color={theme.palette.mode === "light" ? (
-                        "secondary"
-                    ) : (
-                        "primary"
-                    )}
+                    color={theme.palette.mode === "light" ? ("secondary") : ("primary")}
                 />
             </ThemeProvider>
         </Box>

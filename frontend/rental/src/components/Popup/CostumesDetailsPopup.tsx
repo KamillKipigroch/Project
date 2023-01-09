@@ -86,8 +86,7 @@ const CostumesDetailsPopup = () => {
             <Div>
               <Element>
                 <Typography variant="h6" textAlign="center">
-                  {productStore.detailedProduct?.code} -{" "}
-                  {productStore.detailedProduct?.price}$
+                  {productStore.detailedProduct?.code}
                 </Typography>
                 <Typography>
                   <b>{t("hero")}:</b> {productStore.detailedProduct?.hero}
@@ -105,7 +104,7 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.description}
                 </Typography>
                 <Typography>
-                  <b>{t("productPrice")}:</b>{" "}
+                  <b>{t("productPrice")}</b>{" "}
                   {productStore.detailedProduct?.price}$
                 </Typography>
                 <Typography>
@@ -113,7 +112,7 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.subcategory.code}
                 </Typography>
                 <Typography>
-                  <b>{t("subCategoryDescription")}</b>{" "}
+                  <b>{t("subCategoryDescription")}</b><br/>{" "}
                   {productStore.detailedProduct?.subcategory.description}
                 </Typography>
               </Element>

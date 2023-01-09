@@ -9,9 +9,7 @@ import { useStores } from "../stores/root.store";
 import { useTranslation } from "react-i18next";
 
 const FilterContainer = styled.div`
-  width: 20%;
   margin: 5px;
-  position: sticky;
 `;
 
 const Hr = styled.hr`
@@ -115,6 +113,15 @@ const FilterComponent = () => {
               </div>
             );
           })}
+        </div>
+        <Hr />
+        {/* SHOW NOT AVAILABLE */}
+        <SectionTitle>{t("showOnlyAvailable").toUpperCase()}</SectionTitle>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Checkbox
+              onChange={(e) => productStore.changeOnlyAvailableVisible()}
+                    sx={{color: "#B73E3E", "&.Mui-checked": {color: "#B73E3E",},}}/>
+          <Text>{t(String(productStore.showOnlyVisible))}</Text>
         </div>
         <Hr />
       </div>

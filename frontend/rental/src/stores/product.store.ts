@@ -159,6 +159,7 @@ export class ProductStore {
   @observable qualityFilter: string[] = [];
   @observable conditionFilter: string[] = [];
   @observable categoryFilter: string[] = [];
+  @observable showOnlyVisible: boolean = false;
 
   @observable priceMin: number = 0;
   @observable priceValue: number[] = [this.priceMin, this.priceMin];
@@ -168,7 +169,20 @@ export class ProductStore {
   }
 
   @computed get visibleProducts2() {
-    let products = this.products.filter((x) => x.visible === true);
+    let products = this.products;
+
+    // Change product visibility if is ordered
+    const orderIds = this.orders.filter(x => !x.isFinished).map(x => x.productID);
+    products.forEach(product => {
+      if(orderIds.includes(product.id)) {
+        product.visible = false
+      }
+    });
+
+    // Visible filters
+    if(this.showOnlyVisible){
+      products = products.filter((x) => x.visible);
+    }
 
     // Search bar
     products = products.filter((x) =>
@@ -206,12 +220,7 @@ export class ProductStore {
       );
     }
 
-    // Ordered products are not visable
-    const orderIds = this.orders.filter(x => x.isFinished === false).map(x => x.productID);
-    products = products.filter(x => !orderIds.includes(x.id));
-
-
-    return products;
+     return products;
   }
 
   @action
@@ -293,7 +302,6 @@ export class ProductStore {
           userID: authStore.user_id!,
         };
 
-        console.log(order);
         await this.rootStore.orderStore.addOrder(order);
         await this.fetchProducts();
         toast.success(i18n.t("productAddOrder"));
@@ -363,5 +371,10 @@ export class ProductStore {
       this.detailedProduct = this.allProducts.find((x) => x.id === this.detailedProduct?.id);
       toast.success(i18n.t("productDeletePhoto"));
     }
+  }
+
+  @action
+  changeOnlyAvailableVisible = async () => {
+    this.showOnlyVisible = !this.showOnlyVisible;
   }
 }

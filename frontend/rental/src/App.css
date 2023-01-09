@@ -289,6 +289,22 @@
 .proj-imgbx:hover::before {
   height: 100%;
 }
+.hidden {
+  display: none;
+}
+.visible{
+  display: none;
+}
+.parent:hover .visible{
+  text-align: center;
+  position: absolute;
+  margin-top: 100pt;
+  color: red;
+  display: block;
+}
+.parent:hover .grayBox{
+  filter: grayscale(100%);
+}
 .proj-txtx {
   position: absolute;
   text-align: center;
@@ -314,4 +330,9 @@
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.8px;
+}
+@media screen and (max-width: 1024px) {
+  .filters {
+    display: none !important;
+  }
 }

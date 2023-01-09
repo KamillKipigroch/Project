@@ -105,7 +105,7 @@ const CostumesDetailsPopup = () => {
                 </Typography>
                 <Typography>
                   <b>{t("productPrice")}</b>{" "}
-                  {productStore.detailedProduct?.price}$
+                  {productStore.detailedProduct?.price}zł
                 </Typography>
                 <Typography>
                   <b>{t("subCategory")}:</b>{" "}

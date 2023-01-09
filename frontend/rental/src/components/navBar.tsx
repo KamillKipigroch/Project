@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { useNavigate, Link } from "react-router-dom";
@@ -15,26 +14,31 @@ import { authStore } from "../stores/auth.store";
 import { UserRole } from "../models/Enums";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { useTheme } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { ColorModeContext } from "../theme";
 import { useContext, useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import {useTheme} from "@mui/material";
 
 function ResponsiveAppBar() {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const { t } = useTranslation();
 
-  const pages = [t("costumes")];
-
+  const pages = [t("costumes"),  authStore.isAuth ? (t("myOrders")): null,  authStore.rol?.find((role) => role === UserRole.Admin) ? (t("adminPanel")) : null];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
 
   const navigate = useNavigate();
   const [mode, setMode] = useState<string>("en");
@@ -135,6 +139,36 @@ function ResponsiveAppBar() {
               <LightModeOutlinedIcon />
             )}
           </IconButton>
+            <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                    display: { xs: "block", md: "none" },
+                }}
+            >
+                {pages.filter(page => page!=null).map((page) => (
+                    <MenuItem
+                        key={page}
+                        onClick={() => {
+                            navigate("/" + page);
+                            handleCloseNavMenu();
+                        }}
+                    >
+                        <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                ))}
+            </Menu>
           {authStore.isAuth ? (
             <Button
               variant="text"

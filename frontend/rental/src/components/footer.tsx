@@ -6,7 +6,7 @@ import navIcon2 from "../assets/nav-icon2.svg";
 import navIcon3 from "../assets/nav-icon3.svg";
 function Footer() {
     return (
-        <footer className="footer" style={{bottom:0, position:"fixed",background: "#DD5353", width:"100%"}}>
+        <footer className="footer" style={{bottom:0 ,background: "#DD5353", width:"100%"}}>
             <Container>
                 <Row className="align-items-center text-white">
                     <Col size={12} sm={6}>

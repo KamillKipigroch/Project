@@ -46,7 +46,7 @@ function App() {
           <div>
             <MyToastComponent />
             <NavBar />
-            <div style={{height:900}}>
+            <div style={{minHeight:900}}>
               <MainRoutes />
             </div>
             <Footer />

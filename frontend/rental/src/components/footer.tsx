@@ -10,7 +10,7 @@ function Footer() {
             <Container>
                 <Row className="align-items-center text-white">
                     <Col size={12} sm={6}>
-                        <h3> CosCom </h3>
+                        <h3> Best Costumes </h3>
                     </Col>
                     <Col size={12} sm={6} className="text-center  text-sm-end">
                         <div className="social-icon">

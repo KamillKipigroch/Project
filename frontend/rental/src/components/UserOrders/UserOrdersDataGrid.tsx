@@ -77,7 +77,7 @@ function CustomNoRowsOverlay() {
             </g>
           </g>
         </svg>
-        <Box sx={{ mt: 1 }}>No Rows</Box>
+        <Box sx={{ mt: 1 }}>Order your first costume !</Box>
       </StyledGridOverlay>
   );
 }
@@ -169,7 +169,6 @@ const UserOrdersDataGrid = () => {
             NoRowsOverlay: CustomNoRowsOverlay,
           }}
         getRowClassName={(params: any) => `--${params.row.statusCode}`}
-        // rows={orderStore.allOrders}
         rows={orderStore.allOrders.map((order, i) => ({ lp: i + 1, ...order }))}
         loading={orderStore.loading}
         columns={columns}

@@ -7,6 +7,10 @@ import headerImg from "../assets/header-img.svg";
 import 'animate.css';
 import projImg1 from "../assets/project-img1.png";
 import projImg2 from "../assets/project-img2.jpg";
+import projImg3 from "../assets/project-img3.jpeg";
+import projImg5 from "../assets/project-img5.jpg";
+import projImg4 from "../assets/project-img4.jpg";
+import projImg6 from "../assets/project-img6.jpg";
 import {ProjectCard} from "../components/ProjectCard";
 
 const Home = () => {
@@ -16,38 +20,38 @@ const Home = () => {
     const [text, setText] = useState('');
     const [delta, setDelta] = useState(300 - Math.random() * 100);
     const [index, setIndex] = useState(1);
-    const toRotate = ["Anime", "Movie", "Serial", "Game"];
+    const toRotate = ["Anime costume", "Movie costume", "Series costume", "Game costume"];
     const period = 2000;
     const projects = [
         {
-            title: "Business Startup",
-            description: "Design & Development",
+            title: "Anime Cosplay",
+            description: "The outfits are cute and innocent",
             imgUrl: projImg1,
         },
         {
-            title: "Business Startup",
-            description: "Design & Development",
+            title: "Film Costume",
+            description: "Become your favorite hero",
             imgUrl: projImg2,
         },
         {
-            title: "Business Startup",
-            description: "Design & Development",
-            imgUrl: projImg2,
+            title: "Game Cosplay",
+            description: "Don't stop playing even for a moment",
+            imgUrl: projImg4,
         },
         {
-            title: "Business Startup",
-            description: "Design & Development",
-            imgUrl: projImg1,
+            title: "Serial Costume",
+            description: "Bring your friends into the series",
+            imgUrl: projImg3,
         },
         {
-            title: "Business Startup",
-            description: "Design & Development",
-            imgUrl: projImg2,
+            title: "Other Cosplay",
+            description: "I want something really interesting",
+            imgUrl: projImg5,
         },
         {
-            title: "Business Startup",
-            description: "Design & Development",
-            imgUrl: projImg2,
+            title: "Your own costume",
+            description: "I want to be unique",
+            imgUrl: projImg6,
         },
     ];
     useEffect(() => {
@@ -93,16 +97,23 @@ const Home = () => {
                             {({isVisible}) =>
                                 <div className={"animate__animated animate__fadeIn"}>
                                     <h2>Hello and welcome to our online store! <br/>Is there anything in particular you
-                                        are looking for today? <span className="txt-rotate"
-                                                                     data-rotate='[ "Anime", "Movie", "Serial", "Game" ]'><span
+                                        are looking for today? <span className="txt-rotate text-primary"
+                                                                     data-rotate='[ "Anime costume", "Movie costume", "Serial costume", "Game costume" ]'><span
                                             className="wrap">{text}</span></span></h2>
-                                    <p>Welcome to our costume rental service! We offer a wide variety of costumes for
-                                        all occasions. Whether you need a costume for a Halloween party, a themed event,
-                                        or a theater production, we have something for everyone. Our costumes range from
-                                        classic and timeless to modern and trendy, and we have sizes for adults,
-                                        children, and even pets. We also offer a selection of accessories to complete
-                                        your look. Visit us in store or browse our online catalog to see our full
-                                        selection and make your reservation today!</p>
+                                    <div style={{marginTop: 50}}>
+                                        <p>Welcome to our costume rental service! We offer a wide variety of costumes
+                                            for
+                                            all occasions. Whether you need a costume for a Halloween party, a themed
+                                            event,
+                                            or a theater production, we have something for everyone. Our costumes range
+                                            from
+                                            classic and timeless to modern and trendy, and we have sizes for adults,
+                                            children, and even pets. We also offer a selection of accessories to
+                                            complete
+                                            your look. <br/><br/>
+                                            Visit us in store or browse our online catalog to see our full
+                                            selection and make your reservation today!</p>
+                                    </div>
                                 </div>}
                         </TrackVisibility>
                     </Col>
@@ -110,7 +121,9 @@ const Home = () => {
                         <TrackVisibility>
                             {({isVisible}) =>
                                 <div className={"animate__animated animate__zoomIn"}>
-                                    <img src={headerImg} height={500} alt="Header Img"/>
+                                    <div className={"anime-image"}>
+                                        <img src={headerImg} height={500} alt="Header Img"/>
+                                    </div>
                                 </div>}
                         </TrackVisibility>
                     </Col>
@@ -118,30 +131,26 @@ const Home = () => {
             </Container>
             <Container className="project" id="project">
                 <Row>
-                    <Col size={12}>
+                    <Col size={12} >
                         <TrackVisibility>
-                            {({isVisible}) =>
-                                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                                    <Tab.Container id="projects-tabs" defaultActiveKey="first">
-                                        <Tab.Content id="slideInUp"
-                                                     className={isVisible ? "animate__animated animate__slideInUp" : ""}>
-                                            <Tab.Pane eventKey="first">
-                                                <Row>
-                                                    {
-                                                        projects.map((project, index) => {
-                                                            return (
-                                                                <ProjectCard
-                                                                    key={index}
-                                                                    {...project}
-                                                                />
-                                                            )
-                                                        })
-                                                    }
-                                                </Row>
-                                            </Tab.Pane>
-                                        </Tab.Content>
-                                    </Tab.Container>
-                                </div>}
+                            <Tab.Container id="projects-tabs" defaultActiveKey="first">
+                                <Tab.Content id="slideInUp">
+                                    <Tab.Pane eventKey="first">
+                                        <Row>
+                                            {
+                                                projects.map((project, index) => {
+                                                    return (
+                                                        <ProjectCard
+                                                            key={index}
+                                                            {...project}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </Row>
+                                    </Tab.Pane>
+                                </Tab.Content>
+                            </Tab.Container>
                         </TrackVisibility>
                     </Col>
                 </Row>

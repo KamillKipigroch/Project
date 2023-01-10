@@ -61,12 +61,15 @@ public class Product implements Serializable {
 
     private String hero;
 
+    private String size;
+
     private LocalDateTime createDate;
 
     private Boolean visible;
 
-    public Product(String businessKey, ProductType productType, Set<ProductImage> images, Subcategory subcategory, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
+    public Product(String size, String businessKey, ProductType productType, Set<ProductImage> images, Subcategory subcategory, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
         this.businessKey = businessKey;
+        this.size = size;
         this.productType = productType;
         this.images = images;
         this.subcategory = subcategory;

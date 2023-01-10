@@ -7,6 +7,7 @@ import CosplayCostumes.rest.model.dto.order.OrderDTO;
 import CosplayCostumes.rest.repostitory.OrderRepository;
 import CosplayCostumes.security.user.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import java.lang.module.FindException;
@@ -21,6 +22,9 @@ import java.util.List;
 public class OrderService {
     private final static String ORDER_NO_FOUND = "Failed to find order with name ";
     private final static String ORDER_ID_NO_FOUND = "Failed to find order with id ";
+    private final static String ORDERS_MAX_SIZE = "Failed ! You have reached your order limit ";
+
+    private final static long MAX_ORDERS = 5;
     private final OrderRepository orderRepository;
 
     public List<Order> findAllOrder() {
@@ -47,6 +51,12 @@ public class OrderService {
     }
 
     public Order addOrder(Product product, User user, OrderStatus status, OrderDTO orderDTO) {
+        var orders = orderRepository.findOrderByUser(user).orElseThrow(() -> new FindException(ORDER_NO_FOUND + product.getBusinessKey()))
+                .stream().filter(order -> !order.getIsFinished()).toList();
+
+        if(orders.size() >= MAX_ORDERS)
+            throw new FindException(ORDERS_MAX_SIZE);
+
         Order order = new Order(product, user);
         order.setOrderStatus(status);
         order.setDateStart(LocalDate.now());

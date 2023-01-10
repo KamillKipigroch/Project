@@ -31,10 +31,6 @@ public class ProductController {
     @GetMapping("/get-all")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> allProduct = productService.findAllProduct();
-        allProduct.forEach(product ->
-                product.setPrice(
-                        (product.getPrice() * product.getCondition().getPrice()) / 100
-                ));
         return new ResponseEntity<>(allProduct, HttpStatus.OK);
     }
 
@@ -54,9 +50,6 @@ public class ProductController {
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<Product> findProductId(@PathVariable Long id) {
         Product product = productService.findProductById(id);
-        product.setPrice(
-                (product.getPrice() * product.getCondition().getPrice()) / 100
-        );
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
@@ -69,16 +62,13 @@ public class ProductController {
         Quality quality = qualityService.findQualityById(productDTO.getQualityID());
         Condition condition = conditionService.findConditionByID(productDTO.getConditionID());
 
-        Product newProduct = productService.addProduct(productDTO, businessKey, productType, subcategory, quality, condition);
+        Product newProduct = productService.addProduct(productDTO, productDTO.getSize(), businessKey, productType, subcategory, quality, condition);
         return new ResponseEntity<>(newProduct, HttpStatus.OK);
     }
 
     @PutMapping("/update")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        product.setPrice(
-                (product.getPrice() *  100) / product.getCondition().getPrice()
-        );
         Product newQuality = productService.updateProduct(product);
         return new ResponseEntity<>(newQuality, HttpStatus.OK);
     }

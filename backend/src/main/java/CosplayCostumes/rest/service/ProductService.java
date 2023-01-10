@@ -35,9 +35,9 @@ public class ProductService {
         return productRepository.findByBusinessKey(businessKey).orElseThrow(() -> new FindException(PRODUCT_NO_FOUND + businessKey));
     }
 
-    public Product addProduct(ProductDTO product, String businessKey, ProductType productType, Subcategory subcategory, Quality quality, Condition condition) {
+    public Product addProduct(ProductDTO product, String size, String businessKey, ProductType productType, Subcategory subcategory, Quality quality, Condition condition) {
         LocalDateTime createDate = LocalDateTime.now();
-        Product newProduct = new Product(businessKey, productType, null, subcategory, condition, quality, null, null, product.getCode(), product.getDescription(), product.getPrice(), product.getHero(), createDate);
+        Product newProduct = new Product(size, businessKey, productType, null, subcategory, condition, quality, null, null, product.getCode(), product.getDescription(), product.getPrice(), product.getHero(), createDate);
 
         return productRepository.save(newProduct);
     }
@@ -49,6 +49,7 @@ public class ProductService {
         updateProduct.setProductType(product.getProductType());
         updateProduct.setHero(product.getHero());
         updateProduct.setCode(product.getCode());
+        updateProduct.setSize(product.getSize());
         updateProduct.setCondition(product.getCondition());
         updateProduct.setDescription(product.getDescription());
         updateProduct.setImages(product.getImages());

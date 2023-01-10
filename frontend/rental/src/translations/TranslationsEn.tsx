@@ -117,4 +117,6 @@ export const TranslationsEn = {
   delete: "Delete",
   deletedPhotoToast: "Successfully deleted photo!",
   updateOpinionToast: "Successfully updated opinion!",
+  deleteOpinion: "Delete opinion",
+  deleteOpinionToast: "Successfully deleted opinion!",
 };

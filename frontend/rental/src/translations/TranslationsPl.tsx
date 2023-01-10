@@ -119,4 +119,6 @@ export const TranslationsPl = {
   delete: "Usuń",
   deletedPhotoToast: "Pomyślnie usunięto zdjęcie!",
   updateOpinionToast: "Pomyślno zaktualizowano opinię!",
+  deleteOpinion: "Usuń opinię",
+  deleteOpinionToast: "Pomyślnie usunięto opinię!",
 };

@@ -107,7 +107,7 @@ export class OpinionStore {
 
       if (response) {
         await this.fetchOpinions();
-        await this.rootStore.orderStore.fetchOrders();
+        await this.rootStore.orderStore.getUserOrders();
       }
 
       toast.success(i18n.t("opinionAddToast"));
@@ -122,19 +122,6 @@ export class OpinionStore {
 
   @action
   updateOpinion = async (opinionData: IAddOpinion) => {
-    // try {
-    //   this.loading = true;
-
-    //   const response = await updateOpinion(opinionData);
-    //   const foundIndex = this.opinions.findIndex((x) => x.id === response.id);
-    //   this.opinions[foundIndex] = response;
-
-    //   this.loading = false;
-    //   return response;
-    // } catch (error) {
-    //   this.loading = false;
-    //   throw error;
-    // }
     try {
       this.loading = true;
 
@@ -172,12 +159,19 @@ export class OpinionStore {
   };
 
   @action
-  disableVisibility = async (opinionId: number) => {
+  disableVisibility = async (selectedOrder: IOrder) => {
     try {
       this.loading = true;
-      await disableVisibilityOpinion(opinionId);
+      const opinion = this.getUserOpinions(authStore.email!).find(x => x.product.id === selectedOrder.productID);
+      
+      if (opinion) {
+        await disableVisibilityOpinion(opinion.id);
+      }
+
       runInAction(async () => {
         await this.fetchOpinions();
+        await this.rootStore.orderStore.getUserOrders();
+        toast.success(i18n.t("deleteOpinionToast"))
         this.loading = false;
       });
     } catch (error) {

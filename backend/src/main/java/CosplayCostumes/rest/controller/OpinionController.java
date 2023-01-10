@@ -60,7 +60,7 @@ public class OpinionController {
         return new ResponseEntity<>(opinionMapper(opinion, new HashSet<>()), HttpStatus.OK);
     }
 
-    @PutMapping("/disable-visibility-object")
+    @DeleteMapping("/disable-visibility-object")
     @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     public ResponseEntity<HttpStatus> deleteOpinion(@RequestBody ModelDTO modelDTO) {
         opinionService.deleteOpinion(modelDTO.getId());

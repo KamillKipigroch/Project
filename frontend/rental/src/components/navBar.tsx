@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
   const colorMode = useContext(ColorModeContext);
   const { t } = useTranslation();
 
-  const pages = [t("costumes"),  authStore.isAuth ? (t("myOrders")): null,  authStore.rol?.find((role) => role === UserRole.Admin) ? (t("adminPanel")) : null];
+  const pages = ["costumes",  authStore.isAuth ? "userOrders": null,  authStore.rol?.find((role) => role === UserRole.Admin) ? "adminPanel" : null];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -159,13 +159,13 @@ function ResponsiveAppBar() {
             >
                 {pages.filter(page => page!=null).map((page) => (
                     <MenuItem
-                        key={page}
+                        key={t(page!)!}
                         onClick={() => {
                             navigate("/" + page);
                             handleCloseNavMenu();
                         }}
                     >
-                        <Typography textAlign="center">{page}</Typography>
+                        <Typography textAlign="center">{t(page!)!}</Typography>
                     </MenuItem>
                 ))}
             </Menu>

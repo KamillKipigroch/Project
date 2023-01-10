@@ -20,37 +20,37 @@ const Home = () => {
     const [text, setText] = useState('');
     const [delta, setDelta] = useState(300 - Math.random() * 100);
     const [index, setIndex] = useState(1);
-    const toRotate = ["Anime costume", "Movie costume", "Series costume", "Game costume"];
+    const toRotate = ["AnimeCostume", "MovieCostume", "SeriesCostume", "GameCostume"];
     const period = 2000;
     const projects = [
         {
-            title: "Anime Cosplay",
-            description: "The outfits are cute and innocent",
+            title: t("AnimeCostume"),
+            description: t("TheOutfitsAreCuteAndInnocent"),
             imgUrl: projImg1,
         },
         {
-            title: "Film Costume",
-            description: "Become your favorite hero",
+            title: t("MovieCostume"),
+            description: t("BecomeYourFavoriteHero"),
             imgUrl: projImg2,
         },
         {
-            title: "Game Cosplay",
-            description: "Don't stop playing even for a moment",
+            title: t("GameCostume"),
+            description: t("DontStopPlayingEvenForAMoment"),
             imgUrl: projImg4,
         },
         {
-            title: "Serial Costume",
-            description: "Bring your friends into the series",
+            title: t("SeriesCostume"),
+            description: t("BringYourFriendsIntoTheSeries"),
             imgUrl: projImg3,
         },
         {
-            title: "Other Cosplay",
-            description: "I want something really interesting",
+            title: t("OtherCosplay"),
+            description: t("IWantSomethingReallyInteresting"),
             imgUrl: projImg5,
         },
         {
-            title: "Your own costume",
-            description: "I want to be unique",
+            title: t("YourOwnCostume"),
+            description: t("IWantToBeUnique"),
             imgUrl: projImg6,
         },
     ];
@@ -65,7 +65,7 @@ const Home = () => {
     }, [text])
     const tick = () => {
         let i = loopNum % toRotate.length;
-        let fullText = toRotate[i];
+        let fullText = t(toRotate[i]);
         let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
 
         setText(updatedText);
@@ -96,23 +96,12 @@ const Home = () => {
                         <TrackVisibility>
                             {({isVisible}) =>
                                 <div className={"animate__animated animate__fadeIn"}>
-                                    <h2>Hello and welcome to our online store! <br/>Is there anything in particular you
-                                        are looking for today? <span className="txt-rotate text-primary"
-                                                                     data-rotate='[ "Anime costume", "Movie costume", "Serial costume", "Game costume" ]'><span
+                                    <h2>{t("helloAndWelcome")} <br/> {t("lookingToday")} <span className="txt-rotate text-primary"
+                                                                     data-rotate='[  ("AnimeCostume") , "MovieCostume", "SerialCostume", "GameCostume" ]'><span
                                             className="wrap">{text}</span></span></h2>
                                     <div style={{marginTop: 50}}>
-                                        <p>Welcome to our costume rental service! We offer a wide variety of costumes
-                                            for
-                                            all occasions. Whether you need a costume for a Halloween party, a themed
-                                            event,
-                                            or a theater production, we have something for everyone. Our costumes range
-                                            from
-                                            classic and timeless to modern and trendy, and we have sizes for adults,
-                                            children, and even pets. We also offer a selection of accessories to
-                                            complete
-                                            your look. <br/><br/>
-                                            Visit us in store or browse our online catalog to see our full
-                                            selection and make your reservation today!</p>
+                                        <p>{t("homeTextDescription")} <br/><br/>
+                                            {t("homeVisitUs")}</p>
                                     </div>
                                 </div>}
                         </TrackVisibility>

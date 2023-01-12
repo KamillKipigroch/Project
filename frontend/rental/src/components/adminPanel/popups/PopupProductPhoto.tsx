@@ -40,7 +40,7 @@ const PopupProductPhoto = () => {
   const { t } = useTranslation();
 
   const onSubmit = async (data: IAddProductImage) => {
-    await productStore.addPhotoToProduct(data);
+    productStore.addPhotoToProduct(data);
     productStore.closePhotoPopup();
   }
 

@@ -52,6 +52,7 @@ export class QualityStore {
   @action
   closePopup = () => {
     this.editMode = false;
+    this.editedQuality = undefined;
     this.isPopupOpen = false;
   };
 

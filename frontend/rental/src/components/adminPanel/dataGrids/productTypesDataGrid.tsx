@@ -21,7 +21,7 @@ const ProductTypesDataGrid = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "name", headerName: t("name")!, width: 200, editable: true },
+    { field: "code", headerName: t("name")!, width: 200, editable: true },
     { field: "visible", headerName: t("visibility")!, width: 90, editable: true },
     {
       field: "actions",
@@ -70,23 +70,10 @@ const ProductTypesDataGrid = () => {
   for (let i = 0; i < productTypeStore.allProductTypes.length; i++) {
     display.push({
       id: productTypeStore.allProductTypes[i].id,
-      name: productTypeStore.allProductTypes[i].code,
+      code: productTypeStore.allProductTypes[i].code,
       visible: productTypeStore.allProductTypes[i].visible,
     });
   }
-
-  // let display = [
-  //   {
-  //     id: 1,
-  //     name: "namesss",
-  //     visible: true
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "namesss",
-  //     visible: true
-  //   }
-  // ]
 
   return (
     <Box className="list-Box">

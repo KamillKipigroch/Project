@@ -52,6 +52,7 @@ export class SubCategoryStore {
   @action
   closePopup = () => {
     this.editMode = false;
+    this.editedSubCategory = undefined;
     this.isPopupOpen = false;
   };
 

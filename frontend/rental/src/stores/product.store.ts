@@ -360,6 +360,7 @@ export class ProductStore {
   @action
   closePopup = () => {
     this.editMode = false;
+    this.detailedProduct = undefined;
     this.isPopupOpen = false;
   }
 

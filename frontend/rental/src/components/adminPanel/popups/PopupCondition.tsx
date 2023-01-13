@@ -12,6 +12,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IAddCondition } from "../../../models/ConditionModel";
 import { useStores } from "../../../stores/root.store";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -40,10 +41,19 @@ const Popup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IAddCondition>();
 
   const { conditionStore } = useStores();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    reset();
+    let defaultValues: any = {};
+    defaultValues.code = conditionStore.editedCondition?.code;
+    defaultValues.price = conditionStore.editedCondition?.price;
+    reset({...defaultValues});
+  }, [conditionStore.editedCondition]);
 
   const onSubmit: SubmitHandler<IAddCondition> = async (data) => {
     if (conditionStore.editMode) {

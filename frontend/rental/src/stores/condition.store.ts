@@ -52,6 +52,7 @@ export class ConditionStore {
   @action
   closePopup = () => {
     this.editMode = false;
+    this.editedCondition = undefined;
     this.isPopupOpen = false;
   };
 

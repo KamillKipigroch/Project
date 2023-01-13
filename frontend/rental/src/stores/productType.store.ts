@@ -52,6 +52,7 @@ export class ProductTypeStore {
   @action
   closePopup = () => {
     this.editMode = false;
+    this.editedProductType = undefined;
     this.isPopupOpen = false;
   };
 

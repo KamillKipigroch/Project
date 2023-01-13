@@ -11,6 +11,7 @@ import { IAddProductType } from "../../../models/ProductTypeModel";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -39,10 +40,18 @@ const Popup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IAddProductType>();
 
   const { productTypeStore } = useStores();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    reset();
+    let defaultValues: any = {};
+    defaultValues.code = productTypeStore.editedProductType?.code;
+    reset({...defaultValues});
+  }, [productTypeStore.editedProductType]);
 
   const onSubmit: SubmitHandler<IAddProductType> = async (data) => {
     if (productTypeStore.editMode) {

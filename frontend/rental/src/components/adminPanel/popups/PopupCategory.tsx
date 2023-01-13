@@ -11,6 +11,7 @@ import { IAddCategory } from "../../../models/CategoryModel";
 import { useStores } from "../../../stores/root.store";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -42,7 +43,15 @@ const Popup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IAddCategory>();
+
+  useEffect(() => {
+    reset();
+    let defaultValues: any = {};
+    defaultValues.code = categoryStore.editedCategory?.code;
+    reset({...defaultValues});
+  }, [categoryStore.editedCategory]);
 
   const onSubmit: SubmitHandler<IAddCategory> = async (data) => {
     if (categoryStore.editMode) {

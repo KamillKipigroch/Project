@@ -28,7 +28,7 @@ const ConditionsDataGrid = () => {
       width: 90,
       editable: true,
     },
-    { field: "name", headerName: t("name")!, width: 150, editable: true },
+    { field: "code", headerName: t("name")!, width: 150, editable: true },
     {
       field: "actions",
       headerName: t("actions")!,
@@ -78,24 +78,9 @@ const ConditionsDataGrid = () => {
       id: conditionStore.allConditions[i].id,
       price: conditionStore.allConditions[i].price,
       visible: conditionStore.allConditions[i].visible,
-      name: conditionStore.allConditions[i].code,
+      code: conditionStore.allConditions[i].code,
     });
   }
-
-  // let display = [
-  //   {
-  //     id: 1,
-  //     price: 100,
-  //     visible: true,
-  //     name: "test1"
-  //   },
-  //   {
-  //     id: 2,
-  //     price: 100,
-  //     visible: true,
-  //     name: "test2"
-  //   }
-  // ]
 
   return (
     <Box className="list-Box">

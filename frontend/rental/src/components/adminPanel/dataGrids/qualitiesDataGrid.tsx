@@ -21,7 +21,7 @@ const QualitiesDataGrid = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, editable: false },
-    { field: "name", headerName: t("name")!, width: 90, editable: true },
+    { field: "code", headerName: t("name")!, width: 90, editable: true },
     { field: "visible", headerName: t("visibility")!, width: 90, editable: true },
     {
       field: "actions",
@@ -66,23 +66,10 @@ const QualitiesDataGrid = () => {
   for (let i = 0; i < qualityStore.allQualities.length; i++) {
     display.push({
       id: qualityStore.allQualities[i].id,
-      name: qualityStore.allQualities[i].code,
+      code: qualityStore.allQualities[i].code,
       visible: qualityStore.allQualities[i].visible,
     });
   }
-
-  // let display = [
-  //   {
-  //     id: 1,
-  //     name: "sdadasd",
-  //     visible: true
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "sdadasd",
-  //     visible: true
-  //   }
-  // ]
 
   return (
     <Box className="list-Box">

@@ -22,6 +22,7 @@ import { useStores } from "../../../stores/root.store";
 import { Form } from "react-bootstrap";
 import { IAddProductImage } from "../../../models/ProductImageModel";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -51,6 +52,7 @@ const Popup = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IAddProduct>();
 
   const { t } = useTranslation();
@@ -62,6 +64,20 @@ const Popup = () => {
     conditionStore,
     qualityStore,
   } = useStores();
+
+  useEffect(() => {
+    reset();
+    let defaultValues: any = {};
+    defaultValues.code = productStore.detailedProduct?.code;
+    defaultValues.description = productStore.detailedProduct?.description;
+    defaultValues.price = productStore.detailedProduct?.price;
+    defaultValues.hero = productStore.detailedProduct?.hero;
+    defaultValues.productTypeID = productStore.detailedProduct?.productType.id;
+    defaultValues.subCategoryID = productStore.detailedProduct?.subcategory.id;
+    defaultValues.conditionID = productStore.detailedProduct?.condition.id;
+    defaultValues.qualityID = productStore.detailedProduct?.quality.id;
+    reset({...defaultValues});
+  }, [productStore.detailedProduct]);
 
   const onSubmit: SubmitHandler<IAddProduct> = async (data) => {
     if (productStore.editMode) {

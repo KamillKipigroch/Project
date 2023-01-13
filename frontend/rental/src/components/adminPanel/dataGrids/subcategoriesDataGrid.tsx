@@ -9,6 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import Constants from "../../../constants/Constants";
 import { useTranslation } from "react-i18next";
+import { ISubCategory } from "../../../models/SubCategoryModel";
 
 const getUniqueNames = (names: string[]) => {
   let uniqueNames = names.filter((element, index) => {
@@ -32,33 +33,21 @@ const SubCategoriesDataGrid = () => {
     categoryStore.fetchCategories();
   }, [categoryStore]);
 
-  //get unique category names
-  let categoryNames: string[] = [];
-  for (let i = 0; i < categoryStore.allCategories.length; i++) {
-    categoryNames.push(categoryStore.allCategories[i].code);
-  }
-  //uncomment
-  let uniqueCategoryNames = getUniqueNames(categoryNames);
-  //let uniqueCategoryNames = ["category1", "category2"]
-
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", editable: false, flex: 1 },
-    { field: "name", headerName: t("name")!, editable: true, flex: 1 },
+    { field: "code", headerName: t("name")!, flex: 1 },
     {
       field: "category",
       headerName: t("category")!,
-      type: "singleSelect",
       flex: 1,
-      editable: true,
-      valueOptions: uniqueCategoryNames,
     },
     {
       field: "description",
       headerName: t("description")!,
-      editable: true,
+    
       flex: 10,
     },
-    { field: "visible", headerName: t("visibility")!, editable: true, flex: 1 },
+    { field: "visible", headerName: t("visibility")!, flex: 1 },
     {
       field: "actions",
       headerName: t("actions")!,
@@ -102,29 +91,12 @@ const SubCategoriesDataGrid = () => {
   for (let i = 0; i < subCategoryStore.allSubCategories.length; i++) {
     display.push({
       id: subCategoryStore.allSubCategories[i].id,
-      name: subCategoryStore.allSubCategories[i].code,
+      code: subCategoryStore.allSubCategories[i].code,
       category: subCategoryStore.allSubCategories[i].category.code,
       description: subCategoryStore.allSubCategories[i].description,
       visible: subCategoryStore.allSubCategories[i].visible,
     });
   }
-
-  // let display = [
-  //   {
-  //     id: 1,
-  //     name: "213131",
-  //     category: "category1",
-  //     description: "dadsdadas",
-  //     visible: true
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "222222131",
-  //     category: "category2",
-  //     description: "dadsdadas",
-  //     visible: true
-  //   }
-  // ]
 
   return (
     <Box className="list-Box">

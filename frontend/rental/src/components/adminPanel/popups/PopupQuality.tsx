@@ -11,6 +11,7 @@ import { IAddQuality } from "../../../models/QualityModel";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useStores } from "../../../stores/root.store";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -39,10 +40,18 @@ const Popup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IAddQuality>();
 
   const { qualityStore } = useStores();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    reset();
+    let defaultValues: any = {};
+    defaultValues.code = qualityStore.editedQuality?.code;
+    reset({...defaultValues});
+  }, [qualityStore.editedQuality]);
 
   const onSubmit: SubmitHandler<IAddQuality> = async (data) => {
     if (qualityStore.editMode) {

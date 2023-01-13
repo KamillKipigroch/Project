@@ -20,6 +20,7 @@ import {
   Select,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const theme = createTheme({
   palette: {
@@ -49,16 +50,28 @@ const Popup = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IAddSubCategory>();
 
   const { subCategoryStore, categoryStore } = useStores();
   const { t } = useTranslation();
 
+  useEffect(() => {
+    reset();
+    let defaultValues: any = {};
+    defaultValues.code = subCategoryStore.editedSubCategory?.code;
+    defaultValues.description = subCategoryStore.editedSubCategory?.description;
+    defaultValues.categoryID = subCategoryStore.editedSubCategory?.category.id;
+    reset({...defaultValues});
+  }, [subCategoryStore.editedSubCategory]);
+
   const onSubmit: SubmitHandler<IAddSubCategory> = async (data) => {
     if (subCategoryStore.editMode) {
       if (subCategoryStore.editedSubCategory) {
         subCategoryStore.editedSubCategory.code = data.code;
-
+        subCategoryStore.editedSubCategory.description = data.description;
+        subCategoryStore.editedSubCategory.category.id = data.categoryID;
+        
         await subCategoryStore.updateSubCategory(
           subCategoryStore.editedSubCategory
         );

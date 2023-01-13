@@ -303,14 +303,10 @@ export class ProductStore {
         };
 
         await this.rootStore.orderStore.addOrder(order);
+        this.closeDetailsAreYouSurePopup();
+        this.closeDetailsPopup();
         await this.fetchProducts();
-        toast.success(i18n.t("productAddOrder"));
-      } else {
-        toast.success(i18n.t("productCanNotAddOrder"));
       }
-
-      this.closeDetailsAreYouSurePopup();
-      this.closeDetailsPopup();
     } catch (error) {
       throw error;
     }
@@ -350,6 +346,7 @@ export class ProductStore {
 
   @action
   openPopup = (id?: number) => {
+    console.log(this.detailedProduct)
     if (id) {
       this.detailedProduct = this.allProducts.find((x) => x.id === id);
       this.editMode = true;
@@ -359,6 +356,8 @@ export class ProductStore {
 
   @action
   closePopup = () => {
+    this.detailedProduct = undefined;
+    console.log(this.detailedProduct)
     this.editMode = false;
     this.detailedProduct = undefined;
     this.isPopupOpen = false;

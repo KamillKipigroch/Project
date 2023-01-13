@@ -19,8 +19,3 @@ export const updateOrderStatus = async (data: IOrder): Promise<any> => {
   const response = await axios.put(baseUrl + "update-status-object", data, axiosConfig);
   return response.data;
 };
-
-export const disableVisibilityOrder = async (orderId: number): Promise<void> => {
-  const response = await axios.put(baseUrl + "disable-visibility-object", { id: orderId }, axiosConfig);
-  return response.data;
-};

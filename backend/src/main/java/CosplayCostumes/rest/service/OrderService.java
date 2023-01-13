@@ -7,14 +7,11 @@ import CosplayCostumes.rest.model.dto.order.OrderDTO;
 import CosplayCostumes.rest.repostitory.OrderRepository;
 import CosplayCostumes.security.user.model.User;
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import java.lang.module.FindException;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -82,8 +79,8 @@ public class OrderService {
                     (product.getPrice() * product.getCondition().getPrice()) / 100);
             var days = Math.abs( Duration.between( or.getDateEnd().atStartOfDay(),or.getDateStart().atStartOfDay()).toDays() - 1);
             or.setPrice(product.getPrice()*days);
+            or.setIsFinished(true);
         }
-        or.setIsFinished(isLast);
         or.setOrderStatus(orderStatus);
 
         return orderRepository.save(or);

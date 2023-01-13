@@ -82,16 +82,9 @@ public class UserService implements UserDetailsService {
 
         newUser.setPassword(encodedPassword);
 
-            userRepository.save(newUser);
+        var user = userRepository.save(newUser);
 
-        String token = generate(newUser);
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
-                newUser
-        );
-        return token;
+        return generate(user);
     }
 
     public User loginUser(LoginUser loginUser) {
@@ -141,9 +134,9 @@ public class UserService implements UserDetailsService {
                 .setIssuer(TOKEN_ISSUER)
                 .setAudience(TOKEN_AUDIENCE)
                 .setSubject(user.getUsername())
+                .claim("user_id", user.getId())
                 .claim("rol", roles)
                 .claim("name", user.getFirstName()+" "+user.getLastName())
-                .claim("preferred_username", user.getUsername())
                 .claim("email", user.getEmail())
                 .compact();
     }

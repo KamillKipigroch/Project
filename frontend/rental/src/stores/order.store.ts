@@ -59,7 +59,7 @@ export class OrderStore {
       this.loading = true;
 
       const response = await updateOrderStatus(orderData);
-      this.fetchOrders();
+      await this.fetchOrders();
 
       toast.success(i18n.t("orderUpdateToast"));
 

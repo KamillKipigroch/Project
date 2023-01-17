@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,7 +36,7 @@ public class Product implements Serializable {
     private ProductType productType;
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductImage> images = new HashSet<>();
+    private List<ProductImage> images;
 
     @ManyToOne
     @JoinColumn(name = "subcategory_id")
@@ -67,7 +68,7 @@ public class Product implements Serializable {
 
     private Boolean visible;
 
-    public Product(String size, String businessKey, ProductType productType, Set<ProductImage> images, Subcategory subcategory, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
+    public Product(String size, String businessKey, ProductType productType, List<ProductImage> images, Subcategory subcategory, Condition condition, Quality quality, Set<Opinion> opinions, Set<Order> orders, String code, String description, Double price, String hero, LocalDateTime createDate) {
         this.businessKey = businessKey;
         this.size = size;
         this.productType = productType;

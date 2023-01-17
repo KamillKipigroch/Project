@@ -30,7 +30,7 @@ public class Opinion implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonIgnoreProperties({"businessKey", "productType", "images", "subcategory", "condition", "quality", "opinions", "code", "description", "price", "hero", "createDate", "visible",})
+    @JsonIgnoreProperties({"businessKey", "size", "productType", "images", "subcategory", "condition", "quality", "opinions", "code", "description", "price", "hero", "createDate", "visible",})
     Product product;
 
     private Double value;

@@ -14,8 +14,8 @@ export enum Sizes {
   M = "M",
   L = "L",
   XL = "XL",
-  XLL = "XLL",
-  XLLL = "XLLL",
+  XXL = "XXL",
+  XXXL = "XXXL",
 }
 
 export const getEnumKeys = <T extends Object>(

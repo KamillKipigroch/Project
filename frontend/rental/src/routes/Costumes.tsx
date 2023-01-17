@@ -65,11 +65,11 @@ const Costumes = () => {
                                         opacity: [0.9, 0.8, 0.7],
                                     } : {
                                         opacity: "0.5",
-                                        filter: "grayscale(100%)"
                                     },
                                 }}
                             >
-                                <div  className={product.visible ? "hidden" : "visible"}><b>This product actual<br/> is not available</b></div>
+                                <div  className={product.visible ? "hidden" : "visible"}>
+                                    <div style={{marginTop:150}}><b>This product actual<br/> is not available</b></div></div>
                                 <img
                                     alt={product.code}
                                     src={

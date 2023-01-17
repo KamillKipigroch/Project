@@ -298,8 +298,10 @@
 .parent:hover .visible{
   text-align: center;
   position: absolute;
-  margin-top: 100pt;
   color: red;
+  height: 280pt;
+  width: 190pt;
+  background-color: rgba(10,10,10,20%);
   display: block;
 }
 .parent:hover .grayBox{

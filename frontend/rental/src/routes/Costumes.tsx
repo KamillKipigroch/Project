@@ -40,10 +40,10 @@ const Costumes = () => {
     }, [productStore]);
 
     return (
-        <div style={{ marginBottom: "72px" }}>
+        <div style={{marginBottom: "72px"}}>
             <Container>
                 {/* filterComponent ( ´･･)ﾉ(._.`) */}
-                <div className="float-left filters" >
+                <div className="float-left filters">
                     <FilterComponent/>
                 </div>
                 <ProductSection>
@@ -52,7 +52,7 @@ const Costumes = () => {
                         {productStore.visibleProducts2.map((product) => (
                             <Box
                                 key={product.id}
-                                onClick={() => product.visible ? productStore.openDetailsPopup(product.id): null}
+                                onClick={() => product.visible ? productStore.openDetailsPopup(product.id) : null}
                                 component="span"
                                 className="parent"
                                 sx={{
@@ -66,10 +66,10 @@ const Costumes = () => {
                                     } : {
                                         opacity: "0.5",
                                     },
-                                }}
-                            >
-                                <div  className={product.visible ? "hidden" : "visible"}>
-                                    <div style={{marginTop:150}}><b>This product actual<br/> is not available</b></div></div>
+                                }}>
+                                <div className={product.visible ? "hidden" : "visible"}>
+                                    <div style={{marginTop: 150}}><b>This product actual<br/> is not available</b></div>
+                                </div>
                                 <img
                                     alt={product.code}
                                     src={

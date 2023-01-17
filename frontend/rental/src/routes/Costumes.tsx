@@ -40,7 +40,7 @@ const Costumes = () => {
     }, [productStore]);
 
     return (
-        <div>
+        <div style={{ marginBottom: "72px" }}>
             <Container>
                 {/* filterComponent ( ´･･)ﾉ(._.`) */}
                 <div className="float-left filters" >

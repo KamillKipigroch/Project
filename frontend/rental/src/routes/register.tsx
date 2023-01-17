@@ -39,6 +39,7 @@ const Register = () => {
         margin="auto"
         marginTop={2}
         padding={3}
+        marginBottom="70px"
       >
         <Typography variant="h3" mb={2}>
           {t("signUp")}

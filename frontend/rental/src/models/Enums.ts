@@ -8,3 +8,20 @@ export enum OrderStatus {
   InRealization = "In realization",
   Completed = "Completed",
 }
+
+export enum Sizes {
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
+  XLL = "XLL",
+  XLLL = "XLLL",
+}
+
+export const getEnumKeys = <T extends Object>(
+  enumToDeconstruct: T
+): Array<keyof typeof enumToDeconstruct> => {
+  return Object.keys(enumToDeconstruct) as Array<
+    keyof typeof enumToDeconstruct
+  >;
+};

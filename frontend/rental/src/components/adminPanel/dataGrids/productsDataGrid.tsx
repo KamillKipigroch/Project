@@ -91,7 +91,6 @@ const ProductsDataGrid = () => {
   //let uniqueSubcategoryNames = ["subcategory1", "subcategory2"];
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90, editable: false },
     { field: "code", headerName: t("name")!, width: 150, editable: true },
     {
       field: "createDate",
@@ -107,6 +106,7 @@ const ProductsDataGrid = () => {
       width: 150,
       editable: true,
     },
+    { field: "size", headerName: t("size")!, width: 90, editable: false },
     {
       field: "price",
       headerName: t("price")!,

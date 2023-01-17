@@ -12,6 +12,7 @@ import AreYouSurePopup from "../../Common/AreYouSurePopup";
 import moment from "moment";
 import { Carousel } from "react-responsive-carousel";
 import { useTranslation } from "react-i18next";
+import { authStore } from "../../stores/auth.store";
 
 const Div = styled.div`
   display: flex;
@@ -104,6 +105,10 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.description}
                 </Typography>
                 <Typography>
+                  <b>{t("size")}:</b>{" "}
+                  {productStore.detailedProduct?.size}
+                </Typography>
+                <Typography>
                   <b>{t("productPrice")}</b>{" "}
                   {productStore.detailedProduct?.price}zł
                 </Typography>
@@ -112,8 +117,8 @@ const CostumesDetailsPopup = () => {
                   {productStore.detailedProduct?.subcategory.code}
                 </Typography>
                 <Typography>
-                  <b>{t("subCategoryDescription")}</b><br/>{" "}
-                  {productStore.detailedProduct?.subcategory.description}
+                  <b>{t("subCategoryDescription")}</b>
+                  <br /> {productStore.detailedProduct?.subcategory.description}
                 </Typography>
               </Element>
             </Div>
@@ -192,9 +197,11 @@ const CostumesDetailsPopup = () => {
         <Button onClick={() => productStore.closeDetailsPopup()}>
           {t("cancel")}
         </Button>
-        <Button onClick={() => productStore.openDetailsAreYouSurePopup()}>
-          {t("makeOrder")}
-        </Button>
+        {authStore.isAuth ? (
+          <Button onClick={() => productStore.openDetailsAreYouSurePopup()}>
+            {t("makeOrder")}
+          </Button>
+        ) : null}
       </DialogActions>
       <AreYouSurePopup
         title={"Do you want to order this item?"}

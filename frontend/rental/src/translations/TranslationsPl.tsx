@@ -140,4 +140,5 @@ export const TranslationsPl = {
   updateOpinionToast: "Pomyślno zaktualizowano opinię!",
   deleteOpinion: "Usuń opinię",
   deleteOpinionToast: "Pomyślnie usunięto opinię!",
+  size: "Rozmiar",
 };

@@ -138,4 +138,5 @@ export const TranslationsEn = {
   updateOpinionToast: "Successfully updated opinion!",
   deleteOpinion: "Delete opinion",
   deleteOpinionToast: "Successfully deleted opinion!",
+  size: "Size",
 };

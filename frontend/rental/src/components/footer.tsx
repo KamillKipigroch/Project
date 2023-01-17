@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 function Footer() {
     const { t } = useTranslation();
     return (
-        <footer className="footer" style={{bottom:0 ,background: "#DD5353", width:"100%"}}>
+        <footer className="footer" style={{ bottom:0 ,background: "#DD5353", width:"100%" }}>
             <Container>
                 <Row className="align-items-center text-white">
                     <Col size={12} sm={6}>

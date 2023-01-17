@@ -10,6 +10,7 @@ export interface IProduct {
   code: string;
   description: string;
   price: number;
+  size?: string;
   hero: string;
   createDate: Date;
   visible: boolean;
@@ -37,6 +38,7 @@ export interface IAddProduct {
   conditionID: number;
   qualityID: number;
   code: string;
+  size?: string;
   description: string;
   price: number;
   hero: string;

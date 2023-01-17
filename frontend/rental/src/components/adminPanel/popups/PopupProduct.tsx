@@ -23,6 +23,7 @@ import { Form } from "react-bootstrap";
 import { IAddProductImage } from "../../../models/ProductImageModel";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import { getEnumKeys, Sizes } from "../../../models/Enums";
 
 const theme = createTheme({
   palette: {
@@ -72,11 +73,12 @@ const Popup = () => {
     defaultValues.description = productStore.detailedProduct?.description;
     defaultValues.price = productStore.detailedProduct?.price;
     defaultValues.hero = productStore.detailedProduct?.hero;
+    defaultValues.size = productStore.detailedProduct?.size;
     defaultValues.productTypeID = productStore.detailedProduct?.productType.id;
     defaultValues.subCategoryID = productStore.detailedProduct?.subcategory.id;
     defaultValues.conditionID = productStore.detailedProduct?.condition.id;
     defaultValues.qualityID = productStore.detailedProduct?.quality.id;
-    reset({...defaultValues});
+    reset({ ...defaultValues });
   }, [productStore.detailedProduct]);
 
   const onSubmit: SubmitHandler<IAddProduct> = async (data) => {
@@ -85,6 +87,7 @@ const Popup = () => {
         productStore.detailedProduct.code = data.code;
         productStore.detailedProduct.description = data.description;
         productStore.detailedProduct.price = data.price;
+        productStore.detailedProduct.size = data.size;
         productStore.detailedProduct.hero = data.hero;
         productStore.detailedProduct.productType.id = data.productTypeID;
         productStore.detailedProduct.subcategory.id = data.subCategoryID;
@@ -115,7 +118,11 @@ const Popup = () => {
       <Dialog open={productStore.isPopupOpen} onClose={productStore.closePopup}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <DialogTitle>
-            {productStore.editMode ? <>{t("editProduct")}</> : <>{t("addProduct")}</>}
+            {productStore.editMode ? (
+              <>{t("editProduct")}</>
+            ) : (
+              <>{t("addProduct")}</>
+            )}
           </DialogTitle>
           <DialogContent>
             <Div>
@@ -176,6 +183,36 @@ const Popup = () => {
                   error={!!errors?.hero}
                   helperText={errors?.hero ? errors.hero.message : null}
                 />
+              </Element>
+              <Element>
+                <FormControl error={!!errors?.size} fullWidth>
+                  <InputLabel id="size">{t("size")}</InputLabel>
+                  <Controller
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        labelId="size"
+                        id="sizeSelect"
+                        label={t("size")}
+                      >
+                        {getEnumKeys(Sizes).map((key, index) => (
+                          <MenuItem key={index} value={Sizes[key]}>
+                            <ListItemText primary={key} />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                    defaultValue={Sizes.M}
+                    name="size"
+                    control={control}
+                    rules={{ required: "Field required" }}
+                  />
+                  <FormHelperText error={!!errors?.size}>
+                    {errors?.size
+                      ? errors.size.message
+                      : null}
+                  </FormHelperText>
+                </FormControl>
               </Element>
               {/* PRODUCT TYPE - SELECT */}
               <Element>
@@ -304,7 +341,9 @@ const Popup = () => {
             </Div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => productStore.closePopup()}>{t("cancel")}</Button>
+            <Button onClick={() => productStore.closePopup()}>
+              {t("cancel")}
+            </Button>
             <Button type="submit">Ok</Button>
           </DialogActions>
         </form>

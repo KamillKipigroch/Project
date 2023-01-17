@@ -18,11 +18,15 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public List<Product> findAllProduct() {
-        return productRepository.findAll();
+        var products = productRepository.findAll();
+        products.forEach(product -> product.setImages(product.getImages().stream().sorted((i1, i2) -> i1.getId().compareTo(i2.getId())).toList()));
+        return products;
     }
 
     public Product findProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new FindException(PRODUCT_ID_NO_FOUND + id));
+        var product = productRepository.findById(id).orElseThrow(() -> new FindException(PRODUCT_ID_NO_FOUND + id));
+        product.setImages(product.getImages().stream().sorted((i1, i2) -> i1.getId().compareTo(i2.getId())).toList());
+        return product;
     }
 
     public void addImageToProduct(ProductImage productImage, Long id) {

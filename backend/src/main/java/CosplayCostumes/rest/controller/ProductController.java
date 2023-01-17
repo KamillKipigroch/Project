@@ -43,7 +43,7 @@ public class ProductController {
                 ));
 
         var notAvailable = orderService.findAllOrder().stream().filter(order -> order.getOrderStatus().getId() == 2).map(Order::getProduct).collect(Collectors.toSet());
-        var response = allProduct.removeIf(notAvailable::contains);
+        allProduct.removeIf(notAvailable::contains);
         return new ResponseEntity<>(allProduct, HttpStatus.OK);
     }
 
